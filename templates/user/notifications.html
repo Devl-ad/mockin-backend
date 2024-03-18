@@ -1,0 +1,118 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} Notifications {% endblock title %}<!---->
+{% block head %} {% endblock head %}<!---->{% block content %}
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-sm-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-sm-0 font-size-18">Notifications</h4>
+
+      <div class="page-title-right">
+        <!-- <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
+                        <li class="breadcrumb-item active">Timeline</li>
+                    </ol> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-5">Notifications</h4>
+        <div class="">
+          <ul class="verti-timeline list-unstyled">
+            {% for obj in notifications %}
+            <li id="759" class="event-list mb-4 border-bottom card pb-3">
+              <div class="event-timeline-dot">
+                <i class="bx bx-right-arrow-circle"></i>
+              </div>
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <div>
+                    <h5>{{obj.title}}</h5>
+                    <p class="text-muted">{{obj.body}}</p>
+                    <span>Date: {{obj.date|timesince}} ago</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+
+<script>
+  const remove = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      confirmButtonClass: "btn btn-success mt-2",
+      cancelButtonClass: "btn btn-danger ms-2 mt-2",
+      buttonsStyling: false,
+    }).then(function (result) {
+      if (result.value) {
+        let form = document.createElement("form");
+        let note_id = document.createElement("input");
+        note_id.setAttribute("value", id);
+        note_id.setAttribute("name", "note_id");
+        form.append(note_id);
+        $.ajax({
+          url: "actions/delete-note.php",
+          type: "POST",
+          data: new FormData(form),
+          contentType: false,
+          cache: false,
+          processData: false,
+          beforeSend: function () {},
+          success: function (data) {
+            if (data == "success") {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Notification deleted.",
+                icon: "success",
+              }).then(function (result) {
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500);
+              });
+            } else {
+              Swal.fire({
+                title: "Cancelled",
+                text: data,
+                icon: "error",
+              });
+            }
+          },
+          error: function (e) {},
+        });
+      } else if (
+        // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire({
+          title: "Cancelled",
+          text: "Notification not deleted",
+          icon: "error",
+        });
+      }
+    });
+  };
+</script>
+
+{% endblock script %}

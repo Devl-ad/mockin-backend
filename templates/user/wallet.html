@@ -1,0 +1,295 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} wallet {% endblock title %}<!---->
+{% block head %}
+<style>
+  #style-12::-webkit-scrollbar-track {
+    border-radius: none;
+    width: 1px;
+    background-color: #212636;
+  }
+
+  #style-12::-webkit-scrollbar {
+    width: 2px !important;
+    background-color: #212636;
+  }
+
+  #style-12::-webkit-scrollbar-thumb {
+    border-radius: none;
+    background-color: #556ee6;
+  }
+</style>
+{% endblock head %}<!---->{% block content %}
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-sm-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-sm-0 font-size-18">Wallet</h4>
+
+      <div class="page-title-right">
+        <!-- <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Crypto</a></li>
+                        <li class="breadcrumb-item active">Wallet</li>
+                    </ol> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+<div class="row">
+  <div class="col-xl-4 p-0">
+    <div class="">
+      <div class="">
+        <div class="d-flex">
+          <div class="me-4">
+            <button
+              type="button"
+              class="btn header-item waves-effect"
+              id="page-header-user-dropdown"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                class="rounded-circle header-profile-user"
+                src="{{user.image_url}}"
+                alt="Header Avatar"
+              />
+            </button>
+          </div>
+
+          <div class="flex-grow-1">
+            <div class="text-muted">
+              <h5>{{user.get_fullname}}</h5>
+              <p class="mb-1">{{user.email}}</p>
+              <p class="mb-0">Support Id: {{user.username}}</p>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div
+              class="form-check form-switch form-switch-lg mb-3"
+              dir="ltr"
+              style="float: right"
+            >
+              <label class="form-check-label" for="mask">Mask</label>
+
+              <input class="form-check-input" type="checkbox" id="mask" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body border-top mt-4">
+        <div class="" style="display: flex; justify-content: space-between">
+          <div class="col-md-6 col-sm-6">
+            <div>
+              <p class="text-muted mb-2">Account Balance</p>
+              <h5
+                class="maskable"
+                data-asset=""
+                data-balance="{{user.deposit_balance}}"
+              >
+                ${{user.deposit_balance}}
+              </h5>
+            </div>
+          </div>
+          <!-- total_profit -->
+          <div class="col-md-6 col-sm-6">
+            <div class="text-sm-end">
+              <p class="text-muted mb-2">Total Profit</p>
+              <h5
+                class="maskable"
+                data-asset=""
+                data-balance="{{user.balance}}"
+              >
+                ${{user.balance}}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <div class="text-center">
+          <div
+            class=""
+            style="display: flex; justify-content: space-between; width: 90%"
+          >
+            <div class="">
+              <div class="m-1">
+                <div class="font-size-24 text-primary mb-2">
+                  <i class="bx bx-dollar-circle"></i>
+                </div>
+
+                <p class="text-muted mb-2">Fund wallet</p>
+
+                <div class="mt-3">
+                  <a href="/deposit-funds" class="btn btn-primary btn-sm w-md"
+                    >Proceed</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="">
+              <div class="m-1">
+                <div class="font-size-24 text-primary mb-2">
+                  <i class="bx bx-wallet"></i>
+                </div>
+
+                <p class="text-muted mb-2">Withdraw</p>
+
+                <div class="mt-3">
+                  <a href="/withdraw-funds" class="btn btn-primary btn-sm w-md"
+                    >Proceed</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-8">
+    <!-- <div
+      class="row"
+      style="display: flex; flex-wrap: nowrap; overflow-x: scroll"
+      id="style-12"
+    >
+      <div class="col-sm-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="me-3 align-self-center">
+                <img
+                  src="/assets/users/images/usd-coin.png"
+                  width="20px"
+                  alt=""
+                />
+              </div>
+              <div class="flex-grow-1">
+                <p class="text-muted mb-2" style="font-size: 14px">
+                  USD Wallet
+                </p>
+                <h5 class="mb-0" style="font-size: 14px">
+                  <span class="maskable" data-asset="" data-balance="$0.00">
+                    $0.00 USD
+                  </span>
+                  <br />
+                  <span
+                    class="font-size-14 text-muted maskable"
+                    data-asset=""
+                    data-balance="$0.00"
+                  >
+                    $0.00
+                  </span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="me-3 align-self-center">
+                <img src="/assets//users/images/btc.png" width="20px" alt="" />
+              </div>
+              <div class="flex-grow-1">
+                <p class="text-muted mb-2" style="font-size: 14px">
+                  Bitcoin Wallet
+                </p>
+                <h5 class="mb-0" style="font-size: 14px">
+                  <span
+                    id="btc_mask"
+                    class="maskable"
+                    data-asset="BTC"
+                    data-balance=""
+                  >
+                    <span id="btc"></span> BTC
+                  </span>
+                  <br />
+                  <span
+                    class="font-size-14 text-muted maskable"
+                    data-asset=""
+                    data-balance="$0.00"
+                  >
+                    $0.00
+                  </span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="me-3 align-self-center">
+                <img src="/assets/users/images/usdt.png" width="20px" alt="" />
+              </div>
+              <div class="flex-grow-1">
+                <p class="text-muted mb-2" style="font-size: 14px">
+                  Tether Wallet
+                </p>
+                <h5 class="mb-0" style="font-size: 14px">
+                  <span
+                    id="usdt_mask"
+                    class="maskable"
+                    data-asset="USDT"
+                    data-balance=""
+                  >
+                    <span id="usdt"></span> USDT
+                  </span>
+                  <br />
+                  <span
+                    class="font-size-14 text-muted maskable"
+                    data-asset=""
+                    data-balance="$0.00"
+                  >
+                    $0.00
+                  </span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- end row -->
+
+    <div class="card m-4 mt-1">
+      <div class="card-body">
+        <h4 class="card-title mb-3">Overview</h4>
+
+        <div>
+          <div id="overview-chart" class="apex-charts" dir="ltr"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+
+{% endblock content %} {% block script %}
+
+<!-- Required datatable js -->
+<script src="/assets/users/js/jquery.dataTables.min.js"></script>
+<script src="/assets/users/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="/assets/users/js/dataTables.responsive.min.js"></script>
+<script src="/assets/users/js/responsive.bootstrap4.min.js"></script>
+<!-- apexcharts -->
+<script src="/assets/users/js/apexcharts.min.js"></script>
+
+<!-- crypto-wallet init -->
+<script src="/assets/users/js/crypto-wallet.init.js"></script>
+
+{% endblock script %}

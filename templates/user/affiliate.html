@@ -1,0 +1,131 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} Affilate {% endblock title %}<!---->
+{% block head %} {% endblock head %}<!---->{% block content %}
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-sm-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-sm-0 font-size-18">Referral</h4>
+
+      <div class="page-title-right">
+        <!-- <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Crypto</a></li>
+                        <li class="breadcrumb-item active">Lending</li>
+                    </ol> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+<div class="row p-0">
+  <div class="col-xl-5">
+    <div class="">
+      <div class="card-body">
+        <div>
+          <div>
+            <img
+              src="/assets/users/images/ref.gif"
+              style="width: 100%"
+              alt=""
+              id="hideOnMobile"
+            />
+            <h5 class="">Hey jim,</h5>
+            <p>
+              Make extra income by reffering your family and friends. We pay you
+              commissions for every signup that comes via your referral link.
+            </p>
+
+            <div>
+              <p style="display: none" id="copySuccess"></p>
+              <div class="input-group">
+                <input
+                  type="text"
+                  value="https://account.tokenoltd.com/sign-up?referer=jim%20ani&user_id=95&refer=true"
+                  id="referralId"
+                  class="form-control"
+                />
+
+                <button
+                  onclick="copyToClipboard(document.querySelector('#referralId'));"
+                  type="button"
+                  class="btn btn-primary"
+                  data-bef="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-copy'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'></rect><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'></path></svg>"
+                  data-aft="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check-square'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path></svg>"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-copy"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <br />
+              <div class="sharethis-inline-share-buttons"></div>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-7">
+    <div class="card">
+      <div class="card-body">
+        <!-- <h4 class="card-title">Referral</h4> -->
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="border p-3 rounded mt-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="text-muted mt-3">
+                    <p>Total Referral</p>
+                    <p class="mb-0">0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="border p-3 rounded mt-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="text-muted mt-3">
+                    <p>Referral Bonus</p>
+                    <p class="mb-0">$0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+
+{% endblock content %} {% block script %} {% endblock script %}

@@ -1,0 +1,745 @@
+{% extends "layouts/users.html" %}<!---->
+{% load crispy_forms_tags %} {% block title %} Settings {% endblock title %}<!---->
+{% block head %} {% endblock head %}<!---->
+
+{% block content %}
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-sm-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-sm-0 font-size-18">Profile</h4>
+
+      <div class="page-title-right">
+        <!-- <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Contacts</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+<div class="row">
+  <div class="col-xl-4">
+    <div class="card overflow-hidden">
+      <div class="bg-primary bg-soft">
+        <div class="row">
+          <div class="col-7">
+            <div class="text-primary p-3">
+              <h5 class="text-white">Welcome {{user.first_name}}</h5>
+              <p>Kindly update your profile settings</p>
+            </div>
+          </div>
+          <div class="col-5 align-self-end">
+            <img
+              src="/assets/users/images/profile.png"
+              alt=""
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="avatar-md profile-user-wid mb-4">
+              <img
+                id="profileImage"
+                src="{{user.image_url}}"
+                alt=""
+                class="img-thumbnail rounded-circle"
+              />
+            </div>
+            <h5 id="displayfirstname" class="font-size-15 text-truncate">
+              {{user.get_fullname}}
+            </h5>
+            <p class="text-muted mb-0 text-truncate">ID: {{user.username}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end card -->
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-4">Personal Information</h4>
+
+        <div class="table-responsive">
+          <table class="table table-nowrap mb-0">
+            <tbody>
+              <tr>
+                <th scope="row">Full Name :</th>
+                <td id="fullname">{{user.get_fullname}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Mobile :</th>
+                <td id="displayphone">{{user.phone}}</td>
+              </tr>
+              <tr>
+                <th scope="row">E-mail :</th>
+                <td id="displayemail">{{user.email}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Location :</th>
+                <td id="displayaddress">{{user.country}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button
+            class="btn btn-danger mt-3"
+            data-bs-toggle="offcanvas"
+            href="#offcanvasExample"
+            role="button"
+            aria-controls="offcanvasExample"
+          >
+            Update profile
+          </button>
+          <button
+            class="btn btn-danger ms-3 mt-3"
+            data-bs-toggle="offcanvas"
+            href="#"
+            role="button"
+            aria-controls="offcanvasExample1"
+            onclick="window.location.assign('/reset-password')"
+          >
+            Change Password
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- end card -->
+  </div>
+
+  <div class="col-xl-8">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <p class="text-muted fw-medium mb-2">Investments</p>
+                <h4 class="mb-0">{{investment_count}}</h4>
+              </div>
+
+              <div
+                class="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary"
+              >
+                <span class="avatar-title">
+                  <i class="bx bx-check-circle font-size-24"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <p class="text-muted fw-medium mb-2">Total Withdrawal</p>
+                <h4 class="mb-0">{{user.total_withdraw}}</h4>
+              </div>
+
+              <div
+                class="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary"
+              >
+                <span class="avatar-title">
+                  <i class="bx bx-check-circle font-size-24"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <p class="text-muted fw-medium mb-2">Total Earnings</p>
+                <h4 class="mb-0 maskable" data-balance="{{user.balance}}">
+                  ${{user.balance}}
+                </h4>
+              </div>
+
+              <div
+                class="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary"
+              >
+                <span class="avatar-title">
+                  <i class="bx bx-check-circle font-size-24"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-4">Profit Overview</h4>
+        <div id="revenue-chart" class="apex-charts" dir="ltr"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+
+<!-- container-fluid -->
+
+{% endblock content %} {% block modal %}
+
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+      Update Profile Settings
+    </h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body" id="defaultScroll">
+    <div id="profileSetting" style="display: block">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <form
+              id="update_profile"
+              class="reg post_with_ajax"
+              enctype="multipart/form-data"
+              method="post"
+            >
+              {% csrf_token %}
+              <div class="col-lg-12">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                  "
+                >
+                  <label for="upload">
+                    <img
+                      id="userPass"
+                      src="{{user.image_url}}"
+                      alt=""
+                      class="rounded avatar-lg"
+                    />
+                    <p class="mt-2 mb-lg-0">
+                      <code>Upload your profile image</code>
+                    </p>
+                    <p class="btn btn-info btn-sm">Upload now</p>
+                    <input
+                      id="upload"
+                      style="display: none"
+                      onchange="getUserPass()"
+                      type="file"
+                      class="form-control"
+                      name="profile_image"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="col-md-12 col-form-label">First Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="first_name"
+                  id="firstname"
+                  value="{{user.first_name}}"
+                  required
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="col-md-12 col-form-label">Last Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="last_name"
+                  id="lastname"
+                  value="{{user.last_name}}"
+                  required
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="col-md-12 col-form-label">Gender</label>
+                <select class="form-control" name="gender" id="gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+
+              <div id="location" class="form-group mb-3">
+                <label
+                  for="example-email-input"
+                  class="col-md-12 col-form-label"
+                  >Country</label
+                >
+                <div class="input-group">
+                  <select
+                    class="form-control countries country"
+                    name="country"
+                    id="country"
+                    required
+                  >
+                    <option value="">Select Country</option>
+                  </select>
+                  <input
+                    type="text"
+                    class="form-control country"
+                    name="country2"
+                    id="country2"
+                    style="display: none"
+                    value=""
+                    placeholder="Enter Country"
+                  />
+                  <button
+                    type="button"
+                    class="btn bg-primary country"
+                    style="border: none"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-edit"
+                    >
+                      <path
+                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                      ></path>
+                      <path
+                        d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label
+                  for="example-email-input"
+                  class="col-md-12 col-form-label"
+                  >Region</label
+                >
+                <div class="input-group">
+                  <select
+                    class="form-control states region"
+                    name="region"
+                    id="region"
+                    required
+                  >
+                    <option value="">Select Region</option>
+                  </select>
+                  <input
+                    type="text"
+                    class="form-control region"
+                    name="region2"
+                    id="region2"
+                    style="display: none"
+                    value=""
+                    placeholder="Enter Region"
+                  />
+                  <button
+                    type="button"
+                    class="btn bg-primary region"
+                    style="border: none"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-edit"
+                    >
+                      <path
+                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                      ></path>
+                      <path
+                        d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label
+                  for="example-email-input"
+                  class="col-md-12 col-form-label"
+                  >City</label
+                >
+                <div class="input-group">
+                  <select
+                    class="form-control cities city"
+                    name="city"
+                    id="city"
+                    required
+                  >
+                    <option value="">Select City</option>
+                  </select>
+                  <input
+                    type="text"
+                    class="form-control city"
+                    name="city2"
+                    id="city2"
+                    style="display: none"
+                    value=""
+                    placeholder="Enter City"
+                  />
+                  <button
+                    type="button"
+                    class="btn bg-primary city"
+                    style="border: none"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-edit"
+                    >
+                      <path
+                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                      ></path>
+                      <path
+                        d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="example-url-input" class="col-md-12 col-form-label"
+                  >Address</label
+                >
+                <textarea
+                  id="textarea"
+                  class="form-control"
+                  maxlength="225"
+                  rows="3"
+                  placeholder="Your Address"
+                  name="address"
+                  required
+                >
+{{user.address}}</textarea
+                >
+              </div>
+
+              <div class="form-group mb-3">
+                <label
+                  for="example-email-input"
+                  class="col-md-12 col-form-label"
+                  >Postal/Zip Code</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="state"
+                  name="zipcode"
+                  value="{{user.zipcode}}"
+                  required
+                />
+              </div>
+
+              <div class="mb-0">
+                <div>
+                  <button type="submit" class="btn btn-info w-100">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="offcanvasExample1"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+      Change Password Settings
+    </h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body" id="defaultScroll">
+    <div id="profileSetting" style="display: block">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <img
+              src="/assets/users/images/password.png"
+              style="width: 100%"
+              alt=""
+            />
+
+            <h4 class="card-title">Change Password</h4>
+
+            <!-- <form
+              id="update_password"
+              class="reg post_with_ajax"
+            
+              method="post"
+            >
+              {% csrf_token %}
+              <div class="mb-3 position-relative"></div>
+
+              <div class="mb-0">
+                <div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                    data-scroll="no"
+                  >
+                    Update
+                  </button>
+                </div>
+              </div>
+            </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock modal %} {% block script %}
+<!-- apexcharts -->
+<script src="/assets/users/js/apexcharts.min.js"></script>
+<script src="/assets/users/js/profile.init.js"></script>
+
+<!-- App js -->
+<script src="/assets/users/js/app.js"></script>
+<script src="/assets/users/js/phone.js"></script>
+
+<!-- Sweet Alerts js -->
+<script src="/assets/users/js/sweetalert2.min.js"></script>
+
+<!-- Sweet alert init js-->
+<script src="/assets/users/js/sweet-alerts.init.js"></script>
+<script>
+  function getUserPass() {
+    document.getElementById("userPass").src = URL.createObjectURL(
+      event.target.files[0]
+    );
+  }
+</script>
+<script>
+  function ajaxCall() {
+    this.send = function (data, url, method, success, type) {
+      type = "json";
+      var successRes = function (data) {
+        success(data);
+      };
+
+      var errorRes = function (xhr, ajaxOptions, thrownError) {
+        console.log(
+          thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText
+        );
+      };
+      jQuery.ajax({
+        url: url,
+        type: method,
+        data: data,
+        success: successRes,
+        error: errorRes,
+        dataType: type,
+        timeout: 60000,
+      });
+    };
+  }
+
+  function locationInfo() {
+    var rootUrl = "https://geodata.phplift.net/api/index.php";
+    var call = new ajaxCall();
+
+    this.getCities = function (id) {
+      jQuery(".cities option:gt(0)").remove();
+      //get additional fields
+
+      var url = rootUrl + "?type=getCities&countryId=" + "&stateId=" + id;
+      var method = "post";
+      var data = {};
+      jQuery(".cities").find("option:eq(0)").html("Please wait..");
+      call.send(data, url, method, function (data) {
+        jQuery(".cities").find("option:eq(0)").html("Select City");
+        var listlen = Object.keys(data["result"]).length;
+
+        if (listlen > 0) {
+          jQuery.each(data["result"], function (key, val) {
+            var option = jQuery("<option />");
+            option.attr("value", val.name).text(val.name);
+            jQuery(".cities").append(option);
+          });
+        }
+
+        jQuery(".cities").prop("disabled", false);
+      });
+    };
+
+    this.getStates = function (id) {
+      jQuery(".states option:gt(0)").remove();
+      jQuery(".cities option:gt(0)").remove();
+      //get additional fields
+      var stateClasses = jQuery("#stateId").attr("class");
+
+      var url = rootUrl + "?type=getStates&countryId=" + id;
+      var method = "post";
+      var data = {};
+      jQuery(".states").find("option:eq(0)").html("Please wait..");
+      call.send(data, url, method, function (data) {
+        jQuery(".states").find("option:eq(0)").html("Select Region");
+
+        jQuery.each(data["result"], function (key, val) {
+          var option = jQuery("<option />");
+          option.attr("value", val.name).text(val.name);
+          option.attr("stateid", val.id);
+          jQuery(".states").append(option);
+        });
+        jQuery(".states").prop("disabled", false);
+      });
+    };
+
+    this.getCountries = function () {
+      var url = rootUrl + "?type=getCountries";
+      var method = "post";
+      var data = {};
+      jQuery(".countries").find("option:eq(0)").html("Please wait..");
+      call.send(data, url, method, function (data) {
+        jQuery(".countries").find("option:eq(0)").html("Select Country");
+
+        jQuery.each(data["result"], function (key, val) {
+          var option = jQuery("<option />");
+
+          option.attr("value", val.name).text(val.name);
+          option.attr("countryid", val.id);
+
+          jQuery(".countries").append(option);
+        });
+        // jQuery(".countries").prop("disabled",false);
+      });
+    };
+  }
+
+  jQuery(function () {
+    var loc = new locationInfo();
+    loc.getCountries();
+    jQuery(".countries").on("change", function (ev) {
+      var countryId = jQuery("option:selected", this).attr("countryid");
+      if (countryId != "") {
+        loc.getStates(countryId);
+      } else {
+        jQuery(".states option:gt(0)").remove();
+      }
+    });
+    jQuery(".states").on("change", function (ev) {
+      var stateId = jQuery("option:selected", this).attr("stateid");
+      if (stateId != "") {
+        loc.getCities(stateId);
+      } else {
+        jQuery(".cities option:gt(0)").remove();
+      }
+    });
+  });
+</script>
+<script>
+  _("#update_profile").insertBefore(_("#phonenumberdiv"), _("#location"));
+
+  let countryinput = false;
+  let regioninput = false;
+  let cityinput = false;
+
+  _("button.country").addEventListener("click", () => {
+    if (countryinput == false) {
+      _("input.country").value = _("select.country").value;
+      _("select.country").value = "";
+      _("select.country").style.display = "none";
+      _("input.country").style.display = "block";
+      countryinput = true;
+    } else {
+      _("select.country").value = _("input.country").value;
+      _("input.country").value = "";
+      _("input.country").style.display = "none";
+      _("select.country").style.display = "block";
+      countryinput = false;
+    }
+  });
+
+  _("button.region").addEventListener("click", () => {
+    if (regioninput == false) {
+      _("input.region").value = _("select.region").value;
+      _("select.region").value = "";
+      _("select.region").style.display = "none";
+      _("input.region").style.display = "block";
+      regioninput = true;
+    } else {
+      _("select.region").value = _("input.region").value;
+      _("input.region").value = "";
+      _("input.region").style.display = "none";
+      _("select.region").style.display = "block";
+      regioninput = false;
+    }
+  });
+
+  _("button.city").addEventListener("click", () => {
+    if (cityinput == false) {
+      _("input.city").value = _("select.city").value;
+      _("select.city").value = "";
+      _("select.city").style.display = "none";
+      _("input.city").style.display = "block";
+      cityinput = true;
+    } else {
+      _("select.city").value = _("input.city").value;
+      _("input.city").value = "";
+      _("input.city").style.display = "none";
+      _("select.city").style.display = "block";
+      cityinput = false;
+    }
+  });
+</script>
+{% endblock script %}

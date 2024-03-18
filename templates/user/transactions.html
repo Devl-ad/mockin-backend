@@ -1,0 +1,106 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} Transaction logs {% endblock title %}<!---->
+{% block head %}
+<link
+  href="/assets/users/vendor/datatables/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .table-responsive::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .table-responsive {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+</style>
+
+{% endblock head %}<!---->
+
+{% block content %}
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-sm-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-sm-0 font-size-18">Transactions</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <!-- <li class="breadcrumb-item active">Deposit</li> -->
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" id="deposit-container">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="table-responsive">
+            <table class="table table-hover" id="#dataTable">
+              <thead>
+                <tr>
+                  <th scope="col">REF</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Method</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for obj in transactions %}
+                <tr>
+                  <th scope="row">{{obj.unique_u}}</th>
+                  <td>{{obj.trans_type}}</td>
+                  <td>${{obj.amount}}</td>
+                  <td>{{obj.method}}</td>
+                  <td>{{obj.date}}</td>
+                  <td>
+                    {% if obj.status == "pending" %}
+                    <span class="badge bg-warning">Pending</span>
+                    {% elif obj.status == "declined" %}
+                    <span class="badge bg-danger">Declined</span>
+                    {% else %}
+
+                    <span class="badge bg-success">Success</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% if transactions %}{% else %}
+          <span class="text-center">No Transaction</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end of pay with crypto content -->
+
+<!-- end row -->
+
+<!-- end row -->
+
+{% endblock content %} {% block script %}
+
+<script src="/assets/users/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/users/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#dataTable").DataTable(); // ID From dataTable
+  });
+</script>
+{% endblock script %}

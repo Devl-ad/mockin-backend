@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %} {% endblock title %} || {{domain}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Get your hands on our customized Investment Platform with the comfort of easy-to-go investment on the move, to experience truly liberating sessions and investment returns."
+    />
+    <meta
+      name="keywords"
+      content="tokeno, {{domain}}, forex company, tokeno forex company, {{domain}} forex company, trading company, tokeno trading company, {{domain}} trading company, trading firm, tokeno trading firm, {{domain}} trading firm, investment brokerage, tokeno investment brokerage, {{domain}} investment brokerage, {{domain}}, cryptocurrency investment, blockchain system, investment platform, cryptocurrency,   swap coins forex investment, invest in cryptocurrency"
+    />
+    <meta name="author" content="{{domain}}" />
+    <meta property="og:url" content="{{domain}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{domain}}" />
+    <meta
+      property="og:description"
+      content="Get your hands on our customized Investment Platform with the comfort of easy-to-go investment on the move, to experience truly liberating sessions and investment returns."
+    />
+    <meta property="og:image" content="/assets/img/favicon.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta name="twitter:card" content="About {{domain}}" />
+    <meta name="twitter:site" content="{{domain}}" />
+    <meta name="twitter:title" content="{{domain}}" />
+    <meta
+      name="twitter:description"
+      content="Get your hands on our customized Investment Platform with the comfort of easy-to-go investment on the move, to experience truly liberating sessions and investment returns."
+    />
+    <meta name="twitter:image" content="/assets/img/favicon.png" />
+    <meta name="twitter:image:alt" content="{{domain}} Logo" />
+    <meta name="theme-color" content="#3e8c8c" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/assets/img/favicon.png" />
+
+    <link
+      href="/assets/users/css/select2.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/assets/users/css/bootstrap-datepicker.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/assets/users/css/spectrum.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/assets/users/css/bootstrap-timepicker.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/assets/users/css/jquery.bootstrap-touchspin.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/assets/users/css/datepicker.min.css" />
+    <link
+      href="/assets/users/css/magnific-popup.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Bootstrap Css -->
+    <link
+      href="/assets/users//css/bootstrap-dark.min.css"
+      id="bootstrap-style"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Icons Css -->
+    <link
+      href="/assets/users/css/icons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- App Css-->
+    <link
+      href="/assets/users/css/app-dark.min.css"
+      id="app-style"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/assets/users/css/sweetalert2.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <style>
+      @media (min-width: 600px) {
+        #hideOnMobile {
+          display: none;
+        }
+
+        #hide-me-desktop {
+          display: none !important;
+          visibility: hidden !important;
+        }
+      }
+
+      @media (max-width: 600px) {
+        #hide-me-mobile {
+          display: none !important;
+          visibility: hidden !important;
+        }
+      }
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #f5f5f5;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #f5f5f5;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #fff;
+        background-image: -webkit-linear-gradient(
+          top,
+          #e4f5fc 0%,
+          #bfe8f9 50%,
+          #9fd8ef 51%,
+          #2ab0ed 100%
+        );
+      }
+
+      img {
+        -drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
+
+      .message {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    </style>
+    <style>
+      input[type="range"] {
+        background-color: transparent !important;
+      }
+
+      div.mfp-counter {
+        display: none !important;
+      }
+
+      .iti.iti--allow-dropdown {
+        width: 100%;
+      }
+
+      .dropzone .dz-message {
+        margin-top: 3rem;
+      }
+    </style>
+
+    <script>
+      const _ = (_) => {
+        return document.querySelector(_);
+      };
+      const __ = (_) => {
+        return document.querySelectorAll(_);
+      };
+    </script>
+    <style>
+      .market-display {
+        height: 500px;
+      }
+
+      @media (max-width: 600px) {
+        .market-display {
+          height: 300px;
+        }
+      }
+    </style>
+    {% block head %} {% endblock head %}
+  </head>
+
+  <body
+    data-topbar="colored"
+    data-sidebar="dark"
+    data-sidebar="dark"
+    data-sidebar-size="small"
+  >
+    {% if messages %} {% for msg in messages %}
+    <div style="display: none" class="messages" data-msg="{{ msg }}"></div>
+    {% endfor %} {% endif %}
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+      <header id="page-topbar">
+        <div class="navbar-header">
+          <div class="d-flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+              <a href="/dashboard" class="logo logo-dark">
+                <span class="logo-sm">
+                  <img src="/assets/img/simplex.png" alt="" height="30" />
+                </span>
+                <span class="logo-lg">
+                  <img
+                    src="/assets/users/images/logo-dark.png"
+                    alt=""
+                    height="30"
+                  />
+                </span>
+              </a>
+
+              <a href="/dashboard" class="logo logo-light">
+                <span class="logo-sm">
+                  <img
+                    src="/assets/users/images/favicon.png"
+                    alt=""
+                    height="30"
+                  />
+                </span>
+                <span class="logo-lg">
+                  <img src="/assets/img/simplex.png" alt="" height="30" />
+                </span>
+              </a>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-sm px-3 font-size-16 header-item waves-effect"
+              id="vertical-menu-btn"
+            >
+              <i class="fa fa-fw fa-bars"></i>
+            </button>
+          </div>
+
+          <div class="d-flex">
+            <div class="dropdown d-lg-inline-block ms-1">
+              <button
+                type="button"
+                class="btn header-item noti-icon waves-effect"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="bx bx-wallet"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                <div
+                  class="px-lg-2"
+                  style="max-height: 400px; overflow-y: scroll"
+                >
+                  <div class="row g-0">
+                    <div class="col">
+                      <a class="dropdown-icon-item" href="#">
+                        <img src="/assets/users/images/btc.png" alt="Github" />
+                        <span
+                          id="btc_wallet_mask"
+                          class="maskable"
+                          data-asset="BTC"
+                          data-balance=""
+                          ><span id="btc_wallet"></span> BTC</span
+                        >
+                      </a>
+                    </div>
+                    <div class="col">
+                      <a class="dropdown-icon-item" href="#">
+                        <img
+                          src="/assets/users/images/usdt.png"
+                          alt="dribbble"
+                        />
+                        <span
+                          id="usdt_wallet_mask"
+                          class="maskable"
+                          data-asset="USDT"
+                          data-balance=""
+                          ><span id="usdt_wallet"></span> USDT</span
+                        >
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="row g-0"></div>
+
+                  <div class="row g-0"></div>
+
+                  <div class="row g-0"></div>
+                  <div class="row g-0"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="dropdown d-none d-lg-inline-block ms-1">
+                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                    <i class="bx bx-fullscreen"></i>
+                </button>
+            </div> -->
+
+            <div class="dropdown d-inline-block">
+              <button
+                type="button"
+                class="btn header-item noti-icon waves-effect"
+                id="page-header-notifications-dropdown"
+                onclick="window.location.assign('/notifications')"
+              >
+                <i class="bx bx-bell bx-tada"></i>
+                <span
+                  class="badge bg-danger rounded-pill"
+                  id="all-read-no"
+                ></span>
+              </button>
+            </div>
+
+            <div class="dropdown d-inline-block">
+              <button
+                type="button"
+                class="btn header-item waves-effect"
+                id="page-header-user-dropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  id="profileImage"
+                  class="rounded-circle header-profile-user"
+                  src="{{user.image_url}}"
+                  alt="Profile Image"
+                />
+                <span
+                  id="headerfirstname"
+                  class="d-none d-xl-inline-block ms-1"
+                  key="t-henry"
+                  >jim</span
+                >
+                <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end">
+                <!-- item-->
+                <a class="dropdown-item" href="/settings"
+                  ><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                  <span key="t-profile">Profile</span></a
+                >
+                <a class="dropdown-item" href="/wallet"
+                  ><i
+                    class="bx bx-wallet-alt font-size-16 align-middle me-1"
+                  ></i>
+                  <span key="t-my-wallet">My Wallet</span></a
+                >
+                <a class="dropdown-item" href="/kyc"
+                  ><i class="bx bx-user-pin font-size-16 align-middle me-1"></i>
+                  <span key="t-lock-key">KYC Verification</span></a
+                >
+                <a class="dropdown-item" href="/update-wallet-address/"
+                  ><i
+                    class="bx bxs-dollar-circle font-size-16 align-middle me-1"
+                  ></i>
+                  <span key="t-lock-screen">Your wallet address</span></a
+                >
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="/sign-out"
+                  ><i
+                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"
+                  ></i>
+                  <span key="t-logout">Sign out</span></a
+                >
+              </div>
+            </div>
+
+            <div class="dropdown d-inline-block">
+              <button
+                type="button"
+                class="btn header-item noti-icon right-bar-toggle waves-effect"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-more-vertical"
+                >
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="12" cy="5" r="1" />
+                  <circle cx="12" cy="19" r="1" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="vertical-menu" style="z-index: 10">
+        <div data-simplebar class="h-100">
+          <div id="sidebar-menu">
+            <ul class="metismenu list-unstyled" id="side-menu">
+              <li class="menu-title" key="t-menu">Menu</li>
+
+              <li>
+                <a href="/dashboard" class="waves-effect">
+                  <i class="bx bx-home-circle"></i>
+                  <span key="t-dashboards">Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                  <i class="bx bx-dollar-circle"></i>
+                  <span key="t-ecommerce">My Finance</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                  <li>
+                    <a href="/deposit-funds" class="dropdown-item" key="t-saas"
+                      >Deposit</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="{% url 'withdrawal' %}"
+                      class="dropdown-item"
+                      key="t-crypto"
+                      >Withdrawal</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <a href="/investments" class="waves-effect">
+                  <i class="bx bx-chart"></i>
+                  <span
+                    class="badge rounded-pill bg-success float-end"
+                    key="t-new"
+                    >New</span
+                  >
+                  <span key="t-dashboards">Investment</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/wallet" class="waves-effect">
+                  <i class="bx bx-wallet-alt"></i>
+                  <span key="t-dashboards">Wallets</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/transactions-log" class="waves-effect">
+                  <i class="bx bx-transfer-alt"></i>
+                  <span key="t-dashboards">Transactions</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="/affiliate" class="waves-effect">
+                  <i class="bx bxs-user-voice"></i>
+                  <span key="t-dashboards">Affiliate</span>
+                </a>
+              </li> -->
+
+              <li>
+                <a href="/kyc" class="waves-effect" id="topnav-dashboard">
+                  <i class="bx bxs-user-check"></i>
+                  <span
+                    class="badge rounded-pill bg-success float-end"
+                    key="t-new"
+                    >New</span
+                  >
+                  <span key="t-file-manager">KYC Verification</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/notifications" class="waves-effect">
+                  <i class="bx bx-bell"></i>
+                  <span key="t-dashboards">Notifications</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'settings' %}" class="waves-effect">
+                  <i class="bx bx-cog"></i>
+                  <span key="t-dashboards">settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- Start right Content here -->
+      <!-- ============================================================== -->
+      <div class="main-content">
+        <div class="page-content">
+          <div class="container-fluid">
+            {% block content %} {% endblock content %}
+          </div>
+          <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <!-- end modal -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                © {{domain}}
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <!-- end main content-->
+    </div>
+    {% block modal %} {% endblock modal %}
+    <!-- END layout-wrapper -->
+
+    <!-- Right Sidebar -->
+    <div class="right-bar">
+      <div data-simplebar class="h-100">
+        <div class="rightbar-title d-flex align-items-center px-3 py-4">
+          <h6 class="text-center mt-2">
+            Account ID: <span class="text-info"> {{user.username}} </span>
+          </h6>
+
+          <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+            <i class="mdi mdi-close notificon"></i>
+          </a>
+        </div>
+
+        <!-- Settings -->
+        <hr class="mt-0" />
+        <div class="container sidebar-profile-icon">
+          <img
+            class="rounded-circle"
+            style="border: 3px solid white; width: 90px; height: 90px"
+            src="{{user.image_url}}"
+            alt="Profile Image"
+          />
+          <h6 class="text-center mt-2" style="font-size: 17px">
+            {{user.get_fullname}}
+          </h6>
+          <!-- <p>ID: </p> -->
+          {% if user.is_verified %}
+          <div class="container" id="un-verified">
+            <p class="badge rounded-pill bg-success">Verified</p>
+          </div>
+          {% else %}
+
+          <div class="container" id="un-verified">
+            <p class="badge rounded-pill bg-warning">Not verified</p>
+            <a href="/kyc" class="btn btn-outline-info"
+              >Start Tier two Verification</a
+            >
+          </div>
+
+          {% endif %}
+
+          <br />
+          <div class="container">
+            <div class="check-active">
+              <a
+                href="/investments"
+                class="list-group-item list-group-item-action bg-light py-3 lh-sm rounded position-relative mb-3"
+                aria-current="true"
+              >
+                <span class=""></span>
+                <h6 class="text-info">Active Investment</h6>
+
+                <div class="col-10 mb-1 small mt-2">
+                  <button class="btn btn-sm btn-primary">Invest Now</button>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="p-4"></div>
+      </div>
+      <!-- end slimscroll-menu-->
+    </div>
+    <!-- /Right-bar -->
+
+    <!-- </div> -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+    <!-- JAVASCRIPT -->
+    <script
+      src="//code.tidio.co/raj7ugagceaphvly9cxuxstqg3h0h1fb.js"
+      async
+    ></script>
+    <script src="/assets/users/js/jquery.min.js"></script>
+    <script src="/assets/users/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/users/js/metisMenu.min.js"></script>
+    <script src="/assets/users/js/simplebar.min.js"></script>
+    <script src="/assets/users/js/waves.min.js"></script>
+
+    <!-- App js -->
+    <script src="/assets/users/js/app.js"></script>
+    <script src="/assets/js/toastr.min.js"></script>
+    {% if messages %}
+    <script src="/assets/js/toastr-init.js"></script>
+    {% endif %}
+    <script src="/assets/js/circle-progress.min.js"></script>
+    <script src="/assets/js/circle-progress-init.js"></script>
+    <!-- Sweet Alerts js -->
+    <script src="/assets/users/js/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="/assets/users/js/sweet-alerts.init.js"></script>
+    <script>
+      $(document).ready(function (e) {
+        $("#all-read").on("click", function (e) {
+          e.preventDefault();
+
+          let form = document.createElement("form");
+          let user_id = document.createElement("input");
+          user_id.setAttribute("value", 95);
+          user_id.setAttribute("name", "user_id");
+          form.append(user_id);
+          $.ajax({
+            url: "actions/all-read.php",
+            type: "POST",
+            data: new FormData(form),
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function () {},
+            success: function (data) {
+              $("#all-read-no").fadeOut();
+              $("#all-read").fadeOut();
+            },
+            error: function (e) {},
+          });
+        });
+      });
+    </script>
+
+    <script>
+      const pathname = window.location.pathname;
+      $(`[href="${pathname}"] `).addClass("active");
+    </script>
+    <script>
+      function copyToClipboard(e, al = "#copySuccess") {
+        let copyText = e;
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        _(al).style.display = "block";
+        _(al).innerText = "Successfully copied";
+        setTimeout(() => {
+          $(al).fadeOut();
+        }, 2000);
+      }
+    </script>
+    <script type="text/javascript">
+      const maskable = document.querySelectorAll(".maskable");
+      maskable.forEach((el) => {
+        const bal = parseInt(el.getAttribute("data-balance"));
+        el.innerHTML = `$${bal.toLocaleString()}`;
+      });
+
+      function commafy(n) {
+        var parts = n.toString().split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        return (
+          numberPart.replace(thousands, ",") +
+          (decimalPart ? "." + decimalPart : "")
+        );
+      }
+    </script>
+    {% block script %} {% endblock script %}
+  </body>
+</html>

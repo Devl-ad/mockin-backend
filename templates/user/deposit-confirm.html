@@ -1,0 +1,394 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} Confirm deposit {% endblock title %}<!---->
+{% block head %}
+<style>
+  #display {
+    position: fixed;
+    top: 120px;
+    right: 10px;
+    z-index: 200;
+    /* width: 50%; */
+  }
+
+  #manual-display {
+    display: none;
+  }
+
+  #info-display {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    #deposit-container {
+      display: flex !important;
+      flex-direction: column-reverse;
+    }
+
+    .payWithCardImg {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 600px) {
+    #deposit-history {
+      margin-left: 30px;
+    }
+
+    .payWithCardImg {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+      margin-top: -30px;
+    }
+  }
+
+  #displayCoinValue,
+  #displayAmount {
+    font-size: 15px;
+    font-weight: bolder;
+    color: white;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  #payDesc {
+    display: none;
+  }
+</style>
+<style>
+  .exchange {
+    background-color: white;
+    padding: 10px 30px;
+    border-radius: 4px;
+  }
+
+  .exchange {
+    background-color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+
+<style>
+  /***********************/
+
+  .file-upload-content {
+    display: none;
+    text-align: center;
+  }
+
+  .file-upload-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .image-upload-wrap {
+    margin-top: 20px;
+    border: 4px dashed #a6b0cf;
+    position: relative;
+  }
+
+  .image-dropping,
+  .image-upload-wrap:hover {
+    background-color: #a6b0cf;
+    border: 4px dashed #ffffff;
+  }
+
+  .image-title-wrap {
+    padding: 0 15px 15px 15px;
+    color: #222;
+  }
+
+  .drag-text {
+    text-align: center;
+  }
+
+  .drag-text h3 {
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #15824b;
+    padding: 60px 0;
+    font-size: 18px;
+  }
+
+  .file-upload-image {
+    max-height: 200px;
+    max-width: 200px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .remove-image {
+    width: 200px;
+    margin: 0;
+    color: #fff;
+    background: #cd4535;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #b02818;
+    transition: all 0.2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .remove-image:hover {
+    background: #c13b2a;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .remove-image:active {
+    border: 0;
+    transition: all 0.2s ease;
+  }
+</style>
+{% endblock head %}<!---->
+
+{% block content %}
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-sm-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-sm-0 font-size-18">Deposit</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <!-- <li class="breadcrumb-item active">Deposit</li> -->
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" id="deposit-container">
+    <div class="col-md-8 card">
+      <div class="card">
+        <div class="card-body">
+          <div class="alert alert-light" role="alert">
+            Transfer the amount to provided wallet address, kindly upload your
+            proof of payment below.<br /><br /><b
+              ><span id="asset">{{mode}}</span> Wallet Address:
+            </b>
+            <p style="display: none" id="copySuccess"></p>
+            <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    value="{{address}}"
+                    readonly="readonly"
+                    id="walletaddress"
+                    class="form-control"
+                  /><span class="input-group-btn">
+                    <button
+                      type="button"
+                      onclick="copyToClipboard(_('#walletaddress'));"
+                      class="btn btn-primary"
+                    >
+                      Copy
+                    </button></span
+                  >
+                </div>
+                <div class="row mt-3">
+                  <div class="col-6">
+                    <b>Amount in USD</b>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        value="{{amount}}"
+                        readonly="readonly"
+                        id="amountvalue"
+                        name="amount"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <input type="hidden" name="method" value="{{mode}}" />
+                  <input type="hidden" name="trans_type" value="deposit" />
+
+                  <div class="col-6">
+                    <b>Pay in <span id="asset">{{mode}}</span></b>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        value=""
+                        id="coinvalue"
+                        name="worth"
+                        readonly="readonly"
+                        class="form-control"
+                      /><button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="copyToClipboard(_('#coinvalue'));"
+                        data-bef="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-copy'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'></rect><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'></path></svg>"
+                        data-aft="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check-square'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path></svg>"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-copy"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mt-2">
+                <div class="image-upload-wrap front">
+                  <input
+                    class="file-upload-input front"
+                    name="prove_img"
+                    type="file"
+                    onchange="readURL(this,'front');"
+                    accept="image/*"
+                    required
+                  />
+                  <div class="drag-text">
+                    <h3>Click to upload file</h3>
+                  </div>
+                </div>
+                <div class="file-upload-content front">
+                  <img
+                    class="file-upload-image front"
+                    src="#"
+                    alt="your image"
+                  />
+                  <div class="image-title-wrap">
+                    <button
+                      type="button"
+                      onclick="removeUpload('front')"
+                      class="remove-image"
+                    >
+                      Remove
+                      <span class="image-title front">Uploaded Image</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-4">
+                <button
+                  id="send"
+                  type="submit"
+                  class="btn btn-primary waves-effect waves-light"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end of pay with crypto content -->
+
+<!-- end row -->
+
+<!-- end row -->
+
+{% endblock content %} {% block script %}
+
+<script type="text/javascript">
+  function readURL(input, pos) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $(`.image-upload-wrap.${pos}`).hide();
+
+        $(`.file-upload-image.${pos}`).attr("src", e.target.result);
+        $(`.file-upload-content.${pos}`).show();
+
+        $(`.image-title.${pos}`).html(input.files[0].name);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      removeUpload();
+    }
+  }
+
+  function removeUpload(positions) {
+    $(`.file-upload-input.${positions}`).replaceWith(
+      $(`.file-upload-input.${positions}`).clone()
+    );
+    $(`.file-upload-content.${positions}`).hide();
+    $(`.image-upload-wrap.${positions}`).show();
+  }
+  $(".image-upload-wrap").bind("dragover", function () {
+    $(".image-upload-wrap").addClass("image-dropping");
+  });
+  $(".image-upload-wrap").bind("dragleave", function () {
+    $(".image-upload-wrap").removeClass("image-dropping");
+  });
+</script>
+<script>
+  function getPrice() {
+    const fromCurrency = "USD";
+    const tocurrency = "{{mode}}";
+    const amount = parseInt("{{amount}}");
+
+    console.log(fromCurrency, tocurrency, amount);
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=${fromCurrency}&tsyms=${tocurrency}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const tocurrencyAmount = data[tocurrency];
+        document.getElementById("coinvalue").value = `${
+          amount * tocurrencyAmount
+        }`;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  getPrice();
+</script>
+
+{% endblock script %}

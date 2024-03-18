@@ -1,0 +1,544 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} Dashboard {% endblock title %}<!---->
+{% block head %} {% endblock head %}<!---->
+
+{% block content %}
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-sm-flex align-items-center justify-content-between"
+    >
+      <!--<h4 class="mb-sm-0 font-size-18">Home</h4>-->
+      <script
+        defer
+        src="https://www.livecoinwatch.com/static/lcw-widget.js"
+      ></script>
+      <div
+        class="livecoinwatch-widget-5"
+        lcw-base="USD"
+        lcw-color-tx="#999999"
+        lcw-marquee-1="coins"
+        lcw-marquee-2="movers"
+        lcw-marquee-items="10"
+      ></div>
+
+      <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+          <!-- <li class="breadcrumb-item active active-bread-crumb ">Dashboards</li> -->
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="col-12">
+  <div class="alert alert-modern alert-info text-black">
+    <span class="fs-6 badge-pill">
+      <span id="greetings"></span> 🥳 <b> {{user.first_name}}</b>
+    </span>
+    <script>
+      var time = new Date().getHours();
+      var value;
+      if (time < 12) {
+        value = "Good morning";
+      } else if (time >= 12 && time < 16) {
+        value = "Good afternoon";
+      } else {
+        value = "Good evening";
+      }
+      document.getElementById("greetings").innerHTML = value;
+    </script>
+    <span class="alert-content"
+      >we are super excited to have you here with us, our ultimate concern is to
+      see a smile on your face.
+      <a class="btn btn-info" href="{% url 'deposit_page' %}">Get Started</a>
+    </span>
+  </div>
+</div> -->
+<!-- end page title -->
+<div class="row">
+  <div class="col-xl-4">
+    <div class="card overflow-hidden">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-sm-12 mb-3">
+            <p class="text-muted">Account balance</p>
+            <h3
+              class="maskable"
+              data-asset=""
+              data-balance="{{user.deposit_balance}}"
+            >
+              ${{user.deposit_balance}}
+            </h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="text-muted">Total earnings</p>
+              <h3
+                class="maskable"
+                data-asset=""
+                data-balance="{{user.balance}}"
+              >
+                ${{user.balance}}
+              </h3>
+              <div class="">
+                <a
+                  href="/wallet"
+                  class="btn btn-primary waves-effect waves-light btn-md"
+                  >Visit Wallet <i class="mdi mdi-arrow-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+
+            <style>
+              @media (max-width: 600px) {
+                #chat_review {
+                  position: absolute;
+                  right: -91px;
+                  top: 76px;
+                }
+                #mask_container {
+                  position: absolute;
+                  right: 7rem;
+                  margin-top: -3rem;
+                }
+              }
+
+              @media (min-width: 601px) {
+                #chat_review {
+                  position: absolute;
+                  right: -15px;
+                  top: 76px;
+                }
+                #mask_container {
+                  position: absolute;
+                  right: 2rem;
+                  margin-top: -3rem;
+                }
+              }
+            </style>
+            <div class="col-sm-6" id="chat_review">
+              <div
+                class="form-check form-switch form-switch-lg mb-3"
+                dir="ltr"
+                id="mask_container"
+              >
+                <label class="form-check-label" for="mask">Mask</label>
+
+                <input class="form-check-input" type="checkbox" id="mask" />
+              </div>
+              <div class="mt-sm-0">
+                <div id="chart" class="apex-charts"></div>
+              </div>
+            </div>
+          </div>
+          <!-- <p class="text-muted mb-0">We craft digital, graphic and dimensional thinking.</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-8">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <p class="text-muted fw-medium">Total Deposit</p>
+                <h4 class="mb-0 maskable" data-asset="" data-balance="0.00">
+                  $0.00
+                </h4>
+              </div>
+
+              <div class="flex-shrink-0 align-self-center">
+                <div
+                  class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon"
+                >
+                  <span class="avatar-title rounded-circle bg-primary">
+                    <img src="/assets/users/images/2.png" alt="" width="100%" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <p class="text-muted fw-medium">Total Withdrawal</p>
+                <h4
+                  class="mb-0 maskable"
+                  data-asset=""
+                  data-balance="{{user.total_withdraw}}"
+                >
+                  $0.00
+                </h4>
+              </div>
+
+              <div class="flex-shrink-0 align-self-center">
+                <div
+                  class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon"
+                >
+                  <span class="avatar-title rounded-circle bg-primary">
+                    <img src="/assets/users/images/3.png" alt="" width="100%" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mini-stats-wid">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <p class="text-muted fw-medium">Total Investmet</p>
+                <h4 class="mb-0 maskablen" data-asset="">
+                  {{investment_count}}
+                </h4>
+              </div>
+
+              <div class="flex-shrink-0 align-self-center">
+                <div
+                  class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon"
+                >
+                  <span class="avatar-title rounded-circle bg-primary">
+                    <img src="/assets/users/images/5.png" alt="" width="100%" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- end row -->
+  </div>
+
+  <div class="card col-md-12">
+    <div class="card-body">
+      <div class="d-sm-flex flex-wrap">
+        <h4 class="card-title mb-4">Personal Trading Chart</h4>
+      </div>
+      <div class="col-12 rounded market-display" id="tradingview_f933e"></div>
+    </div>
+
+    <div class="card col-md-12">
+      <div class="card-body mt-2 mb-4" style="height: 500px">
+        <div class="d-sm-flex flex-wrap">
+          <h4 class="card-title mb-4">Forex Market Fundamental Data</h4>
+        </div>
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js"
+            async
+          >
+            {
+                "width": "100%",
+                "height": "100%",
+                "currencies": [
+                    "EUR",
+                    "USD",
+                    "JPY",
+                    "GBP",
+                    "CHF",
+                    "AUD",
+                    "CAD",
+                    "NZD",
+                    "CNY"
+                ],
+                "isTransparent": true,
+                "colorTheme": "dark",
+                "locale": "en"
+            }
+          </script>
+        </div>
+        <!-- TradingView Widget END -->
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+
+  <!-- end row -->
+</div>
+
+{% endblock content %} {% block script %}
+<!-- apexcharts -->
+<script src="/assets/users/js/apexcharts.min.js"></script>
+
+<!-- dashboard init -->
+<script src="/assets/users/js/dashboard.init.js"></script>
+
+<script>
+  const prevent = (event) => {
+    event.preventDefault();
+  };
+
+  let coins = {
+    btc: "Bitcoin",
+    eth: "Ethereum",
+    usdt: "Tether US",
+    ltc: "Litecoin",
+    bnb: "Binance Coin",
+    ada: "Cardano",
+    aave: "Aave",
+    bch: "Bitcoin Cash",
+    xlm: "Stellar Lumens",
+    xmr: "Monero",
+    doge: "Dogecoin",
+    xrp: "Ripple",
+    zec: "Zcash",
+    rvn: "Ravencoin",
+    dash: "Dash",
+    bank: "Bank",
+  };
+
+  let assets = {
+    bal: "Dollar (USD)",
+    btc: "Bitcoin (BTC)",
+    eth: "Ethereum (ETH)",
+    usdt: "Tether US (USDT)",
+    ltc: "Litecoin (LTC)",
+    bnb: "Binance Coin (BNB)",
+    ada: "Cardano (ADA)",
+    aave: "Aave (AAVE)",
+    bch: "Bitcoin Cash (BCH)",
+    xlm: "Stellar Lumens (XLM)",
+    xmr: "Monero (XMR)",
+    doge: "Dogecoin (DOGE)",
+    xrp: "Ripple (XRP)",
+    zec: "Zcash (ZEC)",
+    rvn: "Ravencoin (RVN)",
+    dash: "Dash (DASH)",
+    coinbase: "Coinbase",
+    usd: "United States Dollar",
+    zar: "South Africa Rands",
+    nad: "Namibia Dollar",
+    bwp: "Botswana Pula",
+    zmw: "Zambia Kwacha",
+    bank: "Bank",
+    trust: "Trust Wallet",
+    meta: "Meta Mask",
+    crypto: "Crypto.com",
+    authereum: "Authereum",
+    rainbow: "Rainbow",
+    token: "Token Pocket",
+  };
+
+  const getAsset = (cry, amt, e, a) => {
+    let liveprice = {
+      async: true,
+      scroosDomain: true,
+      url: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Ctether%2Clitecoin%2Cbinancecoin%2Ccardano%2Caave%2Cbitcoin-cash%2Cstellar%2Cmonero%2Cdogecoin%2Cripple%2Czcash%2Cravencoin%2Cdash&vs_currencies=usd",
+      method: "GET",
+      headers: {},
+    };
+    let coins = {
+      aave: "aave",
+      ada: "cardano",
+      bnb: "binancecoin",
+      btc: "bitcoin",
+      bch: "bitcoin-cash",
+      dash: "dash",
+      doge: "dogecoin",
+      eth: "ethereum",
+      ltc: "litecoin",
+      rvn: "ravencoin",
+      xlm: "stellar",
+      xmr: "monero",
+      xrp: "ripple",
+      usdt: "tether",
+      zec: "zcash",
+    };
+    let asset = coins[cry];
+    $.ajax(liveprice).done(function (data) {
+      let price = data[asset].usd;
+      let currentprice = (amt / price).toFixed(8);
+      console.log(data);
+      console.log(asset);
+      console.log(price);
+      console.log(currentprice);
+      if (a == "h") {
+        $(e).html(currentprice);
+      } else if (a == "d") {
+        _(e).dataset.balance = currentprice;
+      } else {
+        $(e).val(currentprice);
+      }
+    });
+  };
+
+  const toUSD = (cry, amt, e, a) => {
+    let liveprice = {
+      async: true,
+      scroosDomain: true,
+      url: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Ctether%2Clitecoin%2Cbinancecoin%2Ccardano%2Caave%2Cbitcoin-cash%2Cstellar%2Cmonero%2Cdogecoin%2Cripple%2Czcash%2Cravencoin%2Cdash&vs_currencies=usd",
+      method: "GET",
+      headers: {},
+    };
+    let coins = {
+      aave: "aave",
+      ada: "cardano",
+      bnb: "binancecoin",
+      btc: "bitcoin",
+      bch: "bitcoin-cash",
+      dash: "dash",
+      doge: "dogecoin",
+      eth: "ethereum",
+      ltc: "litecoin",
+      rvn: "ravencoin",
+      xlm: "stellar",
+      xmr: "monero",
+      xrp: "ripple",
+      usdt: "tether",
+      zec: "zcash",
+    };
+    let asset = coins[cry];
+    $.ajax(liveprice).done(function (data) {
+      let price = data[asset].usd;
+      let currentprice = (amt * price).toFixed(2);
+      console.log(data);
+      console.log(asset);
+      console.log(price);
+      console.log(currentprice);
+      if (a == "h") {
+        $(e).html(currentprice);
+      } else {
+        $(e).val(currentprice);
+      }
+    });
+  };
+  getAsset("btc", 0, "#btc_wallet", "h");
+
+  getAsset("usdt", 0, "#usdt_wallet", "h");
+
+  //     Mask Data
+
+  getAsset("btc", 0, "#btc_wallet_mask", "d");
+
+  getAsset("usdt", 0, "#usdt_wallet_mask", "d");
+
+  let masked = false;
+
+  _("#mask").addEventListener("change", () => {
+    __(".maskable").forEach((m) => {
+      if (masked == false) {
+        m.innerHTML = "***";
+      } else {
+        m.innerHTML = m.dataset.balance + " " + m.dataset.asset;
+      }
+    });
+    if (masked == false) {
+      masked = true;
+    } else {
+      masked = false;
+    }
+  });
+</script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script>
+  function Market(market) {
+    new TradingView.widget({
+      autosize: true,
+      symbol: market,
+      interval: "1",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: "9",
+      locale: "en",
+      toolbar_bg: "#f1f3f6",
+      enable_publishing: false,
+      hide_side_toolbar: false,
+      allow_symbol_change: true,
+      calendar: false,
+      container_id: "tradingview_f933e",
+    });
+  }
+  //load chart
+  Market("BINANCE:BTCUSD");
+</script>
+<script>
+  function chart(no) {
+    // Radial chart
+
+    var options = {
+      chart: {
+        height: 200,
+        type: "radialBar",
+        offsetY: -10,
+      },
+      plotOptions: {
+        radialBar: {
+          startAngle: -135,
+          endAngle: 135,
+          dataLabels: {
+            name: {
+              fontSize: "13px",
+              color: undefined,
+              offsetY: 60,
+            },
+            value: {
+              offsetY: 22,
+              fontSize: "16px",
+              color: undefined,
+              formatter: function (val) {
+                return val + "%";
+              },
+            },
+          },
+        },
+      },
+      colors: ["#556ee6"],
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          shadeIntensity: 0.15,
+          inverseColors: false,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [0, 50, 65, 91],
+        },
+      },
+      stroke: {
+        dashArray: 4,
+      },
+      series: [no],
+      labels: ["Rating"],
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    chart.render();
+  }
+
+  let percent = 0;
+  let email = 0;
+  let id = 0;
+  let investment = 0;
+  let contract = 0;
+  let hashrate = 0;
+  let forex = 0;
+
+  email = 5;
+  id = 25;
+  investment = 25;
+  contract = 20;
+  hashrate = 5;
+  forex = 20;
+
+  percent += email;
+
+  chart(percent);
+</script>
+
+{% endblock script %}

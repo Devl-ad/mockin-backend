@@ -1,0 +1,122 @@
+{% extends "layouts/users.html" %}<!---->
+{% block title %} Investments {% endblock title %}<!---->
+{% block head %}
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .table-responsive::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .table-responsive {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+</style>
+
+{% endblock head %}<!---->
+
+{% block content %}
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-sm-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-sm-0 font-size-18">Investments</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <!-- <li class="breadcrumb-item active">Deposit</li> -->
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" id="deposit-container">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="table-responsive" data-pattern="priority-columns">
+            <table class="table table-hover" id="#dataTable">
+              <thead>
+                <tr>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">
+                    {% if obj.status == "active" %} Unrealized Profit {% else %}
+                    Profit {% endif %}
+                  </th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for obj in investments %}
+                <tr>
+                  <th scope="row">{{obj.package.name}}</th>
+                  <td>${{obj.amount_invested}}</td>
+                  <td>${{obj.amount_earn}}</td>
+                  <td>{{obj.date|date:"m/d"}}</td>
+                  <td>{{obj.end_date|date:"m/d"}}</td>
+                  <td>
+                    {% if obj.status == "active" %}
+                    <span class="badge bg-primary">active</span>
+                    {% elif obj.status == "inactive" %}
+                    <span class="badge bg-danger">Ended</span>
+                    {% else %}
+
+                    <span class="badge bg-success">Completed</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            {% if investments %}
+
+            <br />
+            <button
+              class="btn btn-info mt-2"
+              onclick="window.location.assign('/create-investments/')"
+            >
+              Add investment
+            </button>
+            {% else %}
+            <h4>No Active investment.</h4>
+            <span>
+              No active investment was found in your account, kindly click the
+              button below to get started
+            </span>
+            <br />
+            <button
+              class="btn btn-info mt-2"
+              onclick="window.location.assign('/create-investments/')"
+            >
+              Start investment
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end of pay with crypto content -->
+
+<!-- end row -->
+
+<!-- end row -->
+
+{% endblock content %} {% block script %}
+<script src="/assets/users/js/rwd-table/rwd-table.min.js"></script>
+<!-- Init js -->
+<script src="/assets/users/js/table-responsive.init.js"></script>
+{% endblock script %}
