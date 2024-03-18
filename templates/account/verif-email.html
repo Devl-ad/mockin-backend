@@ -30,13 +30,27 @@
       type="text/css"
     />
     <link rel="stylesheet" href="/assets/css/toastr.min.css" />
+
+    <style>
+      .loader-box {
+        display: grid;
+        height: 100vh;
+        width: 100%;
+        place-items: center;
+      }
+    </style>
   </head>
   <body>
     {% if messages %} {% for msg in messages %}
     <div style="display: none" class="messages" data-msg="{{ msg }}"></div>
     {% endfor %} {% endif %}
 
-    <h2>Hello</h2>
+    <div class="loader-box">
+      <div class="text-center">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <h2 id="title">Please Wait..</h2>
+      </div>
+    </div>
 
     <script src="/assets/users/js/jquery.min.js"></script>
     <script src="/assets/users/js/bootstrap.bundle.min.js"></script>
@@ -52,5 +66,15 @@
 
     <!-- Sweet alert init js-->
     <script src="/assets/users/js/sweet-alerts.init.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        title = document.getElementById("title");
+        setTimeout(() => {
+          title.innerText = "Redirecting..";
+          window.location.href = "http://localhost:5173/register/";
+        }, 3000);
+      });
+    </script>
   </body>
 </html>

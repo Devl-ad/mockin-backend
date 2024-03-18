@@ -33,7 +33,7 @@ def empty_page(request):
 def account_activate_view(request):
     token = request.GET.get("token")
     if not token:
-        messages.info(request, "SOMETHING WENT WRONG")
+        messages.info(request, "The confirmation link is invalid")
         return redirect("empty_page")
     else:
         email = force_str(urlsafe_base64_decode(token))
@@ -42,10 +42,11 @@ def account_activate_view(request):
             cache.delete(user["email"])
             account = Account(
                 email=user["email"],
-                first_name=user["first_name"],
-                last_name=user["last_name"],
+                fullname=user["fullname"],
+                username=user["username"],
+                phone=user["phone"],
             )
-            account.set_password(user["password1"])
+            account.set_password(user["password"])
             account.save()
             login(request, account)
             messages.info(request, "Account created SuccessFully")
