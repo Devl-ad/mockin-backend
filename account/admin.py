@@ -20,8 +20,7 @@ class UserAdmin(BaseUserAdmin):
             ("Personal info"),
             {
                 "fields": (
-                    "first_name",
-                    "last_name",
+                    "fullname",
                     "country",
                     "gender",
                     "zipcode",
@@ -29,7 +28,7 @@ class UserAdmin(BaseUserAdmin):
                     "address",
                     "date_of_birth",
                     "phone",
-                    "unique_id",
+                    "username",
                 )
             },
         ),
