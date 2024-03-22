@@ -20,6 +20,10 @@ from baseapp import utils
 from django.http import HttpResponseRedirect
 
 
+def home(request):
+    return HttpResponseRedirect("https://app.wealthlines.org")
+
+
 def sign_out(request):
     logout(request)
     return redirect("sign-in")
