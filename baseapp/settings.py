@@ -34,7 +34,7 @@ DEBUG = env.bool("DEBUG")
 
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
-CORS_ALLOWED_ORIGINS = ["app.wealthlines.org"]
+CORS_ALLOWED_ORIGINS = ["https://app.wealthlines.org"]
 
 
 # Application definition
