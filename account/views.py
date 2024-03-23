@@ -34,6 +34,41 @@ def empty_page(request):
     return render(request, "account/verif-email.html")
 
 
+def loginUser(request):
+    token = request.GET.get("token")
+    if token:
+        ke_y = force_str(urlsafe_base64_decode(token))
+        data = cache.get(ke_y)
+        if data:
+            print(data)
+            try:
+                account = authenticate(
+                    request, email=data["email"], password=data["password"]
+                )
+                login(request, account)
+                cache.delete(ke_y)
+                messages.info(request, "Logged In")
+                return redirect("dashboard")
+            except:
+                messages.info(
+                    request,
+                    "Something went wrong try again !",
+                )
+                return redirect("empty_page")
+        else:
+            messages.info(
+                request,
+                "Something went wrong ",
+            )
+            return redirect("empty_page")
+    else:
+        messages.info(
+            request,
+            "Something went wrong try again",
+        )
+        return redirect("empty_page")
+
+
 def account_activate_view(request):
     token = request.GET.get("token")
     if not token:

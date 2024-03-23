@@ -83,5 +83,26 @@ class SignUpView(APIView):
             return Response(serializer.errors)
 
 
-# next is making it so when user click the link in the email it would
-# redirect them to a page that will process the user data and save it
+class LoginApiView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        context = {}
+
+        email = request.data.get("email")
+        password = request.data.get("password")
+
+        account = authenticate(request, email=email, password=password)
+        if account:
+            ke_y = f"login-{account.email}"
+            item = cache.get(ke_y)
+            if item:
+                cache.delete(ke_y)
+            cache.set(ke_y, {"email": account.email, "password": password}, timeout=800)
+
+            context["token"] = urlsafe_base64_encode(force_bytes(ke_y))
+
+        else:
+            context["error"] = "Invalid username or password"
+
+        return Response(context)
