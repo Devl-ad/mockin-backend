@@ -24,9 +24,17 @@ from django.http import HttpResponseRedirect
 #     return HttpResponseRedirect("https://app.wealthlines.org")
 
 
+def login_re(request):
+    return HttpResponseRedirect("http://localhost:5173/login/")
+
+
+def register_re(request):
+    return HttpResponseRedirect("http://localhost:5173/register/")
+
+
 def sign_out(request):
     logout(request)
-    return redirect("sign-in")
+    return HttpResponseRedirect("http://localhost:5173/login/")
 
 
 def empty_page(request):

@@ -1,0 +1,309 @@
+{% extends "layouts/useri.html" %} {% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+      <div class="nk-block-head-sub"><span>Welcome!</span></div>
+      <div class="nk-block-between-md g-4">
+        <div class="nk-block-head-content">
+          <h2 class="nk-block-title fw-normal">vandy leng</h2>
+          <div class="nk-block-des">
+            <p>Here&#039;s a summary of your account. Have fun!</p>
+          </div>
+        </div>
+        <div class="nk-block-head-content d-none d-md-inline-flex">
+          <ul class="nk-block-tools gx-3">
+            <li>
+              <a
+                href="https://fintcapitallimited.com/user/public/invest"
+                class="btn btn-secondary"
+                ><span>Invest &amp; Earn</span>
+                <em
+                  class="icon ni ni-arrow-long-right d-none d-sm-inline-block"
+                ></em
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://fintcapitallimited.com/user/public/deposit"
+                class="btn btn-primary"
+                ><span>Deposit</span>
+                <em class="icon ni ni-arrow-long-right"></em
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="nk-block">
+      <div class="alert alert-warning alert-thick alert-plain">
+        <div class="alert-cta flex-wrap flex-md-nowrap g-2">
+          <div class="alert-text has-icon">
+            <em class="icon ni ni-alert-fill text-warning"></em>
+            <p>
+              Add an account that you’d like to receive payment or withdraw
+              fund.
+            </p>
+          </div>
+          <div class="alert-actions my-1 my-md-0">
+            <a
+              href="https://fintcapitallimited.com/user/public/profile/accounts"
+              class="btn btn-sm btn-warning"
+              >Add Account</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-primary alert-thick alert-plain">
+        <div class="alert-cta flex-wrap flex-md-nowrap g-2">
+          <div class="alert-text has-icon">
+            <em class="icon ni ni-info-fill text-primary"></em>
+            <p>
+              Update your account information from your profile to complete
+              account setup.
+            </p>
+          </div>
+          <div class="alert-actions my-1 my-md-0">
+            <a
+              href="https://fintcapitallimited.com/user/public/profile"
+              class="link link-primary"
+              >Update Profile</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nk-block">
+      <div class="row g-gs">
+        <div class="col-md-4">
+          <div
+            class="card card-full card-bordered card-wg on-bottom is-primary"
+          >
+            <div class="card-inner">
+              <div class="card-title-group">
+                <div class="card-title">
+                  <h5 class="nk-wgacc-title">Available Balance</h5>
+                </div>
+                <div class="card-tools">
+                  <em
+                    class="icon ni ni-info fs-13px text-soft nk-tooltip"
+                    title="Main account balance without locked or under progress."
+                  ></em>
+                </div>
+              </div>
+              <div class="card-amount mt-2 mb-1">
+                <span class="amount">0 <span class="currency">USD</span></span>
+              </div>
+              <div class="card-stats">
+                <div class="card-stats-group g-2">
+                  <div class="card-stats-data">
+                    <div class="title fw-bold">
+                      Investment Account
+                      <em
+                        class="icon ni ni-info-fill fs-12px text-soft nk-tooltip"
+                        title="Additional balance in your Investment account."
+                      ></em>
+                    </div>
+                    <div class="amount fw-bold">
+                      0 <span class="currency fw-normal">USD</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-stats-ck sm"></div>
+              </div>
+              <div class="card-action d-md-none">
+                <ul class="nk-block-tools gx-4">
+                  <li>
+                    <a
+                      href="https://fintcapitallimited.com/user/public/deposit"
+                      class="btn btn-primary"
+                      ><span>Deposit</span>
+                      <em class="icon ni ni-arrow-long-right"></em
+                    ></a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://fintcapitallimited.com/user/public/invest"
+                      class="btn btn-secondary"
+                      ><span>Invest &amp; Earn</span>
+                      <em
+                        class="icon ni ni-arrow-long-right d-none d-sm-inline-block"
+                      ></em
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-full card-bordered card-wg on-bottom is-base">
+            <div class="card-inner">
+              <div class="card-title-group">
+                <div class="card-title">
+                  <h5 class="nk-wgacc-title">Total Deposit</h5>
+                </div>
+                <div class="card-tools">
+                  <em
+                    class="icon ni ni-info fs-13px text-soft nk-tooltip"
+                    title="The total deposit amount without under progress."
+                  ></em>
+                </div>
+              </div>
+              <div class="card-amount mt-2 mb-1">
+                <span class="amount">0 <span class="currency">USD</span></span>
+              </div>
+              <div class="card-stats">
+                <div class="card-stats-group g-2">
+                  <div class="card-stats-data">
+                    <div class="title fw-bold">This Month</div>
+                    <div class="amount fw-bold">
+                      0 <span class="currency fw-normal">USD</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-stats-ck sm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div
+            class="card card-full card-bordered card-wg on-bottom is-warning"
+          >
+            <div class="card-inner">
+              <div class="card-title-group">
+                <div class="card-title">
+                  <h5 class="nk-wgacc-title">Total Withdraw</h5>
+                </div>
+                <div class="card-tools">
+                  <em
+                    class="icon ni ni-info fs-13px text-soft nk-tooltip"
+                    title="The total withdraw amount without under progress."
+                  ></em>
+                </div>
+              </div>
+              <div class="card-amount mt-2 mb-1">
+                <span class="amount">0 <span class="currency">USD</span></span>
+              </div>
+              <div class="card-stats">
+                <div class="card-stats-group g-2">
+                  <div class="card-stats-data">
+                    <div class="title fw-bold">This Month</div>
+                    <div class="amount fw-bold">
+                      0 <span class="currency fw-normal">USD</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-stats-ck sm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nk-block nk-block-lg">
+      <div class="nk-block-head-sm">
+        <div class="nk-block-between-md g-4">
+          <div class="nk-block-head-content">
+            <h5 class="nk-block-title title">Recent Activity</h5>
+          </div>
+          <div class="nk-block-head-content">
+            <a href="https://fintcapitallimited.com/user/public/transactions"
+              >See History</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="nk-odr-list card card-bordered">
+        <div class="nk-odr-item">
+          <div class="nk-odr-col">
+            <div class="nk-odr-info">
+              <div class="nk-odr-badge">
+                <span
+                  class="nk-odr-icon bg-success-dim text-success icon ni ni-arrow-down-left"
+                ></span
+                ><span
+                  class="nk-odr-icon text-secondary icon ni ni-wallet-fill"
+                ></span>
+              </div>
+              <div class="nk-odr-data">
+                <div class="nk-odr-label ellipsis">Deposit via ABA BANK</div>
+                <div class="nk-odr-meta">
+                  <span class="date">16 Apr, 2024</span>
+                  <span class="status dot-join"> Processing </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nk-odr-col nk-odr-col-amount">
+            <div class="nk-odr-amount">
+              <div class="number-md text-s text-success">
+                + 500.00
+                <span class="currency">USD</span>
+              </div>
+              <div class="number-sm">
+                500.00 <span class="currency">USD</span>
+              </div>
+            </div>
+          </div>
+          <div class="nk-odr-col nk-odr-col-action">
+            <div class="nk-odr-action">
+              <a
+                class="tnx-details"
+                href="javascript:void(0)"
+                data-tnx="N1U1TEgvdVoxV01TeXJxclFQNkZwdz09"
+                ><em class="icon ni ni-forward-ios"></em
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nk-block">
+      <div class="card card-bordered">
+        <div class="card-inner">
+          <div class="nk-refwg-invite">
+            <div class="nk-refwg-head g-3">
+              <div class="nk-refwg-title">
+                <h5 class="title">Refer Us &amp; Earn</h5>
+                <div class="title-sub">
+                  Use the below link to invite your friends.
+                </div>
+              </div>
+            </div>
+            <div class="nk-refwg-url">
+              <div class="form-control-wrap">
+                <div
+                  class="form-clip clipboard-init"
+                  data-clipboard-target="#ref-url"
+                  data-success="Copied"
+                  data-text="Copy Link"
+                >
+                  <em class="clipboard-icon icon ni ni-copy"></em>
+                  <span class="clipboard-text">Copy Link</span>
+                </div>
+                <div class="form-icon">
+                  <em class="icon ni ni-link-alt"></em>
+                </div>
+                <input
+                  type="text"
+                  class="form-control copy-text"
+                  id="ref-url"
+                  value="https://fintcapitallimited.com/user/public/invite?ref=7d105133"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -77,6 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "baseapp.context_processor.site_processor",
             ],
         },
     },
@@ -157,6 +158,11 @@ STATIC_ROOT = "/home/wealqcts/public_html/assets"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LOGIN_REDIRECT = "dashboard"
+LOGIN_URL = "login_re"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

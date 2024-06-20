@@ -15,7 +15,7 @@ def index(request):
     context = {
         "investment_count": Investments.objects.filter(user=user).count(),
     }
-    return render(request, "user/profileii.html", context)
+    return render(request, "useri/index.html", context)
 
 
 @login_required()
@@ -24,7 +24,7 @@ def deposit_page(request):
         amount = int(request.POST.get("amount"))
         method = request.POST.get("mode")
         return redirect("deposit_confrim", amount=amount, mode=method)
-    return render(request, "user/deposit.html")
+    return render(request, "useri/deposit.html")
 
 
 @login_required()

@@ -1,0 +1,122 @@
+{% extends "layouts/useri.html" %}<!---->
+{% block title %} Deposit funds {% endblock title %}<!---->
+{% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="page-dw wide-xs m-auto" id="pm-step-container">
+      <div class="nk-pps-apps">
+        <div class="nk-pps-steps">
+          <span class="step active"></span>
+
+          <span class="step"></span>
+        </div>
+        <div class="nk-pps-title text-center">
+          <h3 class="title">Deposit Funds</h3>
+
+          <p class="sub-text-sm">Send your payment direct to our wallet.</p>
+        </div>
+        <form class="nk-pps-form" action="#" id="deposit-amount-form">
+          <div class="nk-pps-field form-group">
+            <div class="form-label-group">
+              <label class="form-label" for="deposit-amount"
+                >Choose a payment method</label
+              >
+            </div>
+            <div class="paymethod">
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_perfect_money"
+                  required=""
+                  value="ETH"
+                /><label for="mode_perfect_money"
+                  ><img src="/assets/useri/img/ethi.png" width="30px" />
+                  Eth</label
+                >
+              </div>
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_btc"
+                  required=""
+                  value="BTC"
+                /><label for="mode_btc"
+                  ><img
+                    src="/assets/useri/img/bitcoin.ee55e6b2.svg"
+                    width="25px"
+                  />
+                  BTC</label
+                >
+              </div>
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_usdt"
+                  required=""
+                  value="USDT"
+                /><label for="mode_usdt"
+                  ><img src="/assets/useri/img/usdt.png" width="20px" />
+                  USDT</label
+                >
+              </div>
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_bnb"
+                  required=""
+                  value="BNB"
+                /><label for="mode_bnb"
+                  ><img src="/assets/useri/img/bnb.svg" width="20px" />
+                  BNB</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="nk-pps-field form-group">
+            <div class="form-label-group">
+              <label class="form-label" for="deposit-amount"
+                >Amount to Deposit</label
+              >
+            </div>
+            <div class="form-control-group">
+              <input
+                type="text"
+                class="form-control form-control-lg form-control-number"
+                id="deposit-amount"
+                name="deposit_amount"
+                placeholder="0.00"
+              />
+              <input
+                type="hidden"
+                id="deposit-currency"
+                name="deposit_currency"
+                value="USD"
+              />
+            </div>
+
+            <div class="form-note-group">
+              <span class="nk-pps-min form-note-alt"
+                >Minimum <span id="deposit-min">50.00 USD</span></span
+              >
+              <span id="deposit-rate" class="nk-pps-rate form-note-alt hide">
+                1 USD = <span class="fxrate">1.00 USD</span>
+              </span>
+            </div>
+          </div>
+          <div class="nk-pps-field form-action text-center">
+            <div class="nk-pps-action">
+              <button class="btn btn-lg btn-block btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
