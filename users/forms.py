@@ -22,12 +22,11 @@ class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = [
-            "profile_image",
-            "last_name",
-            "first_name",
+            "phone",
             "gender",
+            "date_of_birth",
             "country",
-            "region",
+            "state",
             "city",
             "address",
             "zipcode",

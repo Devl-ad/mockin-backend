@@ -17,7 +17,7 @@ urlpatterns = [
     path("investments/", views.investment_page, name="investment"),
     path("create-investments/", views.create_investment_page, name="create-investment"),
     path("affiliate/", views.affiliate_page, name="affiliate"),
-    path("settings/", views.settings_page, name="settings"),
+    path("settings/profile/", views.settings_page, name="settings"),
     path("set-password/", views.settings_password_page, name="settings_password_page"),
     path("update-wallet-address/", views.update_wallet_page, name="update_wallet_page"),
 ]

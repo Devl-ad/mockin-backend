@@ -102,9 +102,9 @@ def deposit_confrim(request, amount, mode):
 @login_required()
 def withdrawal(request):
     user = request.user
-    if user.is_verified != True:
-        messages.error(request, "Verify Your Account")
-        return redirect("kyc")
+    # if user.is_verified != True:
+    #     messages.error(request, "Verify Your Account")
+    #     return redirect("kyc")
 
     if request.POST:
         amount = int(request.POST.get("amount"))
@@ -240,21 +240,16 @@ def settings_page(request):
         "form_password": PasswordChangeForm(user),
     }
     if request.POST:
-        form = UpdateUserForm(request.POST, request.FILES, instance=user)
+        form = UpdateUserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            utils.create_notification(
-                model=Notification,
-                user=user,
-                title="Account updated",
-                body=f"You just updated your account",
-            )
+
             messages.error(request, "Account updated")
             return redirect("settings")
         else:
             messages.error(request, "Error in form field")
             return redirect("settings")
-    return render(request, "user/profilei.html", context)
+    return render(request, "useri/profile.html", context)
 
 
 @login_required()

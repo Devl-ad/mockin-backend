@@ -4,37 +4,30 @@ from baseapp import utils
 
 
 class Account(AbstractUser):
+    # Persona info
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    zipcode = models.CharField(max_length=30, blank=True, null=True)
-    country = models.CharField(max_length=100, blank=True, null=True)
-    region = models.CharField(max_length=100, blank=True, null=True)
-
     fullname = models.CharField(max_length=100, blank=True, null=True)
-
-    address = models.CharField(max_length=100, blank=True, null=True)
     gender = models.CharField(max_length=100, blank=True, null=True)
-
-    city = models.CharField(max_length=100, blank=True, null=True)
-
     date_of_birth = models.CharField(max_length=100, blank=True, null=True)
 
+    # Address
+    address = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
     phone = models.CharField(max_length=30, blank=True, null=True)
+    zipcode = models.CharField(max_length=30, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    profile_image = models.ImageField(upload_to="profile/", blank=True, null=True)
+
+    # Stats
     balance = models.IntegerField(default=0, blank=True, null=True)
     deposit_balance = models.IntegerField(default=0, blank=True, null=True)
-
     total_withdraw = models.IntegerField(default=0, blank=True, null=True)
     is_updated = models.BooleanField(default=False)
     referral_bonus = models.IntegerField(default=0, blank=True, null=True)
     referral = models.IntegerField(default=0, blank=True, null=True)
-
     unique_id = models.CharField(max_length=30, blank=True, null=True, unique=True)
     is_verified = models.BooleanField(default=False)
-
-    profile_image = models.ImageField(upload_to="profile/", blank=True, null=True)
-
-    btc_address = models.CharField(max_length=100, blank=True, null=True)
-    eth_address = models.CharField(max_length=100, blank=True, null=True)
-    usdt_address = models.CharField(max_length=100, blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
