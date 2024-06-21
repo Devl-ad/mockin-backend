@@ -1,0 +1,141 @@
+{% extends "layouts/useri.html" %} {% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="page-dw wide-xs m-auto" id="pm-step-container">
+      <div class="nk-pps-apps">
+        <div class="nk-pps-steps">
+          <span class="step active"></span>
+
+          <span class="step"></span>
+        </div>
+        <div class="nk-pps-title text-center">
+          <h3 class="title">Request Withdrawal</h3>
+
+          <p class="sub-text-sm">
+            Make sure to add your address on the settings page.
+          </p>
+        </div>
+        <form class="nk-pps-form" action="" method="post" id="withdrawal-form">
+          {% csrf_token %}
+          <div class="nk-pps-field form-group">
+            <div class="form-label-group">
+              <label class="form-label" for="deposit-amount"
+                >Choose a payment method</label
+              >
+            </div>
+            <div class="paymethod">
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_perfect_money"
+                  required=""
+                  value="ETH"
+                /><label for="mode_perfect_money"
+                  ><img src="/assets/useri/img/ethi.png" width="30px" />
+                  Eth</label
+                >
+              </div>
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_btc"
+                  required=""
+                  value="BTC"
+                /><label for="mode_btc"
+                  ><img
+                    src="/assets/useri/img/bitcoin.ee55e6b2.svg"
+                    width="25px"
+                  />
+                  BTC</label
+                >
+              </div>
+              <div class="radio-toolbar">
+                <input
+                  type="radio"
+                  name="mode"
+                  id="mode_usdt"
+                  required=""
+                  value="USDT"
+                /><label for="mode_usdt"
+                  ><img src="/assets/useri/img/usdt.png" width="20px" />
+                  USDT</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="nk-pps-field form-group">
+            <div class="form-label-group">
+              <label class="form-label" for="deposit-amount"
+                >Amount to Withraw</label
+              >
+            </div>
+            <div class="form-control-group">
+              <input
+                type="numbers"
+                class="form-control form-control-lg form-control-number"
+                id="deposit-amount"
+                name="amount"
+                min="50"
+                max="100000"
+                placeholder="0.00"
+                required
+              />
+              <input
+                type="hidden"
+                id="deposit-currency"
+                name="deposit_currency"
+                value="USD"
+              />
+            </div>
+
+            <div class="form-note-group">
+              <ul>
+                <li class="alert-note is-plain text-danger">
+                  <em class="icon ni ni-alert-circle"></em>
+                  <p>Minimum <span id="deposit-min">50.00 USD</span></p>
+                </li>
+                <li class="alert-note is-plain text-danger">
+                  <em class="icon ni ni-alert-circle"></em>
+                  <p>
+                    withdrawal will be approved within a period of 6-12 Hours
+                  </p>
+                </li>
+                <li class="alert-note is-plain">
+                  <em class="icon ni ni-info"></em>
+                  <p>Your current account balance is ${{user.balance}}.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="nk-pps-field form-action text-center">
+            <div class="nk-pps-action">
+              <button type="submit" class="btn btn-lg btn-block btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+
+<script>
+  document
+    .getElementById("withdrawal-form")
+    .addEventListener("submit", function (e) {
+      const amountInput = document.getElementById("deposit-amount");
+      const amount = parseFloat(amountInput.value);
+
+      if (amount < 50) {
+        alert("The amount must be at least $50.");
+        e.preventDefault();
+      }
+    });
+</script>
+{% endblock script %}

@@ -108,28 +108,28 @@ def withdrawal(request):
 
     if request.POST:
         amount = int(request.POST.get("amount"))
-        amount_in_coin = request.POST.get("amount_in_coin")
         mode = request.POST.get("mode")
-        addr = utils.check_user_address(user)
-        if addr:
+        # addr = utils.check_user_address(user)
+        try:
+            paydetail = PaymenyDetails.objects.get(user=user)
+        except PaymenyDetails.DoesNotExist:
+            paydetail = None
+        if paydetail:
             if user.balance >= amount:
                 transaction = Transactions(
                     user=user,
                     amount=amount,
-                    amount_in_coin=amount_in_coin,
                     method=mode,
                     trans_type=utils.W,
                 )
                 user.balance -= amount
                 user.save()
                 transaction.save()
-                utils.create_notification(
-                    model=Notification,
-                    user=user,
-                    title="withdrawal successfull",
-                    body=f"You just place a withdrawal of ${amount}",
+
+                messages.error(
+                    request,
+                    "Withdraw request created successfully it's now under review",
                 )
-                messages.error(request, "Transaction succesful")
                 return redirect("withdrawal")
             else:
                 messages.error(request, "Insuficient Funds")
@@ -137,7 +137,7 @@ def withdrawal(request):
         else:
             messages.error(request, "Please Update your withdrawal addresses")
             return redirect("withdrawal")
-    return render(request, "user/withdrawal.html")
+    return render(request, "useri/withdrawal.html")
 
 
 @login_required()
