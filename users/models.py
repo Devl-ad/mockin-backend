@@ -38,14 +38,6 @@ class Transactions(models.Model):
     def __str__(self):
         return f"{self.user.username} :  {self.trans_type}"
 
-    def save(self, *args, **kwargs):
-        # Perform custom logic before saving
-        if self.unique_u is None or self.unique_u == "":
-            self.unique_u = utils.reg_code()
-
-        # Call parent save method
-        super().save(*args, **kwargs)
-
 
 STATUS = (
     ("active", "active"),

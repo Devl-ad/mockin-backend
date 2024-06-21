@@ -1,0 +1,288 @@
+{% extends "layouts/useri.html" %}<!---->
+{% block title %} Confirm Deposit {% endblock title %}<!---->
+{% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="page-dw wide-xs m-auto" id="pm-step-container">
+      <div class="nk-pps-apps">
+        <div class="nk-pps-steps">
+          <span class="step"></span>
+
+          <span class="step active"></span>
+        </div>
+        <div class="nk-pps-title text-center">
+          <h3 class="title">Make Your Payment</h3>
+
+          <p class="caption-text">
+            Your order <strong class="text-dark">{{txid}}</strong> has been
+            placed successfully. To complete, please send the exact amount of
+            <strong class="text-dark">
+              <span class="amount_in_coin"> <code>0.03</code> </span>{{mode}}
+              <small>(${{amount}})</small>
+            </strong>
+            to the address below.
+          </p>
+        </div>
+        <div class="nk-pps-card card card-bordered popup-inside">
+          <div class="card-inner-group">
+            <div class="card-inner card-inner-sm">
+              <div class="card-head mb-0">
+                <h6 class="title mb-0">Pay {{mode}}</h6>
+                <div class="card-opt">
+                  <span
+                    class="counter"
+                    data-countdown-second="1799"
+                    data-countdown-text="Expire in"
+                    >-</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="card-inner">
+              <div class="qr-media mx-auto mb-3 w-max-100px">
+                <!--?xml version="1.0" encoding="UTF-8"?-->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  width="100"
+                  height="100"
+                  viewBox="0 0 100 100"
+                >
+                  <rect
+                    x="0"
+                    y="0"
+                    width="100"
+                    height="100"
+                    fill="#ffffff"
+                  ></rect>
+                  <g transform="scale(3.03)">
+                    <g transform="translate(0,0)">
+                      <path
+                        fill-rule="evenodd"
+                        d="M9 0L9 1L8 1L8 3L9 3L9 4L8 4L8 8L6 8L6 9L7 9L7 10L6 10L6 11L5 11L5 10L4 10L4 8L3 8L3 10L2 10L2 8L0 8L0 11L1 11L1 12L2 12L2 13L1 13L1 14L0 14L0 17L1 17L1 18L0 18L0 20L1 20L1 21L2 21L2 22L0 22L0 23L1 23L1 24L0 24L0 25L1 25L1 24L2 24L2 25L4 25L4 24L5 24L5 25L8 25L8 27L10 27L10 28L9 28L9 29L8 29L8 30L9 30L9 31L8 31L8 33L9 33L9 32L10 32L10 33L11 33L11 32L10 32L10 31L12 31L12 32L13 32L13 30L14 30L14 32L18 32L18 33L19 33L19 32L18 32L18 31L19 31L19 29L21 29L21 31L20 31L20 32L24 32L24 33L27 33L27 32L30 32L30 31L29 31L29 29L30 29L30 30L31 30L31 28L29 28L29 24L30 24L30 25L31 25L31 26L30 26L30 27L32 27L32 29L33 29L33 27L32 27L32 26L33 26L33 21L32 21L32 19L33 19L33 18L31 18L31 17L30 17L30 11L31 11L31 12L33 12L33 9L32 9L32 8L30 8L30 9L31 9L31 10L26 10L26 9L29 9L29 8L26 8L26 9L25 9L25 10L24 10L24 13L23 13L23 12L22 12L22 11L23 11L23 9L24 9L24 8L25 8L25 5L24 5L24 4L23 4L23 2L25 2L25 1L23 1L23 0L21 0L21 1L20 1L20 0L16 0L16 1L14 1L14 0L12 0L12 1L11 1L11 2L9 2L9 1L10 1L10 0ZM16 1L16 2L14 2L14 3L16 3L16 4L15 4L15 8L14 8L14 6L13 6L13 3L12 3L12 4L9 4L9 5L10 5L10 6L9 6L9 7L10 7L10 8L8 8L8 11L9 11L9 12L8 12L8 13L6 13L6 12L7 12L7 11L6 11L6 12L5 12L5 11L2 11L2 12L3 12L3 15L2 15L2 14L1 14L1 16L2 16L2 19L4 19L4 20L3 20L3 22L2 22L2 24L3 24L3 22L4 22L4 23L5 23L5 24L8 24L8 25L9 25L9 26L11 26L11 25L10 25L10 23L11 23L11 22L10 22L10 21L11 21L11 19L12 19L12 20L13 20L13 21L14 21L14 22L15 22L15 23L14 23L14 24L12 24L12 28L11 28L11 30L12 30L12 28L14 28L14 29L15 29L15 31L16 31L16 30L17 30L17 31L18 31L18 29L17 29L17 28L16 28L16 25L17 25L17 24L18 24L18 23L19 23L19 25L21 25L21 23L19 23L19 22L18 22L18 20L19 20L19 21L21 21L21 20L19 20L19 19L22 19L22 22L23 22L23 23L22 23L22 24L24 24L24 22L23 22L23 20L24 20L24 18L23 18L23 19L22 19L22 18L21 18L21 15L22 15L22 14L23 14L23 13L22 13L22 14L21 14L21 15L20 15L20 14L19 14L19 13L21 13L21 12L20 12L20 11L22 11L22 10L21 10L21 9L23 9L23 8L24 8L24 5L22 5L22 2L23 2L23 1L21 1L21 2L20 2L20 1L19 1L19 2L18 2L18 3L16 3L16 2L17 2L17 1ZM18 3L18 4L16 4L16 5L17 5L17 6L16 6L16 7L17 7L17 8L19 8L19 9L17 9L17 10L16 10L16 8L15 8L15 9L14 9L14 10L16 10L16 11L14 11L14 12L16 12L16 13L15 13L15 15L13 15L13 12L12 12L12 13L9 13L9 15L8 15L8 16L6 16L6 15L7 15L7 14L5 14L5 16L4 16L4 15L3 15L3 16L4 16L4 17L5 17L5 16L6 16L6 17L9 17L9 15L11 15L11 14L12 14L12 16L11 16L11 17L10 17L10 18L9 18L9 19L8 19L8 18L5 18L5 20L6 20L6 21L5 21L5 22L6 22L6 23L8 23L8 24L9 24L9 23L8 23L8 21L9 21L9 19L11 19L11 17L12 17L12 16L13 16L13 17L15 17L15 18L16 18L16 19L15 19L15 20L14 20L14 18L13 18L13 20L14 20L14 21L15 21L15 20L18 20L18 19L17 19L17 18L16 18L16 16L17 16L17 17L18 17L18 18L20 18L20 16L19 16L19 17L18 17L18 15L17 15L17 14L16 14L16 13L18 13L18 12L19 12L19 11L20 11L20 10L19 10L19 9L21 9L21 8L22 8L22 7L23 7L23 6L22 6L22 5L21 5L21 6L20 6L20 5L19 5L19 4L20 4L20 3ZM11 5L11 6L10 6L10 7L11 7L11 6L12 6L12 8L13 8L13 6L12 6L12 5ZM17 6L17 7L18 7L18 6ZM19 6L19 7L20 7L20 6ZM21 6L21 7L22 7L22 6ZM10 8L10 10L9 10L9 11L11 11L11 10L12 10L12 9L11 9L11 8ZM17 10L17 11L16 11L16 12L18 12L18 11L19 11L19 10ZM25 10L25 12L26 12L26 10ZM31 10L31 11L32 11L32 10ZM4 12L4 13L5 13L5 12ZM27 12L27 14L25 14L25 15L26 15L26 16L23 16L23 17L25 17L25 20L26 20L26 21L25 21L25 22L26 22L26 21L27 21L27 20L28 20L28 22L29 22L29 23L30 23L30 24L31 24L31 23L32 23L32 22L31 22L31 21L30 21L30 20L31 20L31 18L30 18L30 17L28 17L28 16L29 16L29 14L28 14L28 13L29 13L29 12ZM32 13L32 14L31 14L31 16L32 16L32 17L33 17L33 16L32 16L32 14L33 14L33 13ZM15 15L15 16L16 16L16 15ZM27 15L27 16L26 16L26 19L28 19L28 20L29 20L29 19L28 19L28 18L27 18L27 16L28 16L28 15ZM6 19L6 20L7 20L7 21L6 21L6 22L7 22L7 21L8 21L8 20L7 20L7 19ZM30 22L30 23L31 23L31 22ZM15 23L15 24L14 24L14 25L13 25L13 27L15 27L15 24L16 24L16 23ZM25 23L25 24L26 24L26 23ZM22 25L22 28L21 28L21 29L22 29L22 31L23 31L23 29L24 29L24 30L25 30L25 31L27 31L27 30L26 30L26 29L24 29L24 27L23 27L23 25ZM25 25L25 28L28 28L28 25ZM19 26L19 28L20 28L20 27L21 27L21 26ZM26 26L26 27L27 27L27 26ZM15 28L15 29L16 29L16 28ZM22 28L22 29L23 29L23 28ZM9 29L9 30L10 30L10 29ZM32 30L32 31L33 31L33 30ZM31 32L31 33L32 33L32 32ZM0 0L0 7L7 7L7 0ZM1 1L1 6L6 6L6 1ZM2 2L2 5L5 5L5 2ZM26 0L26 7L33 7L33 0ZM27 1L27 6L32 6L32 1ZM28 2L28 5L31 5L31 2ZM0 26L0 33L7 33L7 26ZM1 27L1 32L6 32L6 27ZM2 28L2 31L5 31L5 28Z"
+                        fill="#000000"
+                      ></path>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div class="pay-info text-center">
+                <h5
+                  class="title text-dark mb-0 clipboard-init"
+                  data-clipboard-text="100.00"
+                  id="amic"
+                >
+                  <span class="amount_in_coin"></span> {{mode}}
+                  <em
+                    class="click-to-copy icon ni ni-copy-fill nk-tooltip"
+                    title=""
+                    data-original-title="Click to Copy"
+                  ></em>
+                </h5>
+                <!-- <p class="text-soft">0.00 USD</p> -->
+              </div>
+
+              <div class="form-group">
+                <div class="form-label overline-title-alt lg text-center">
+                  {{mode}} Address
+                </div>
+                <div class="form-control-wrap">
+                  <div
+                    class="form-clip clipboard-init nk-tooltip"
+                    data-clipboard-target="#wallet-address"
+                    title=""
+                    data-original-title="Copy"
+                  >
+                    <em class="click-to-copy icon ni ni-copy"></em>
+                  </div>
+                  <div class="form-icon">
+                    <em class="icon ni ni-sign-btc-alt"></em>
+                  </div>
+                  <input
+                    readonly=""
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="wallet-address"
+                    value="{{address}}"
+                  />
+                </div>
+              </div>
+
+              <div class="nk-pps-action">
+                <a
+                  href="#crypto-paid"
+                  class="btn btn-block btn-primary popup-open"
+                  ><span>Paid</span></a
+                >
+              </div>
+
+              <div id="crypto-paid" class="popup">
+                <div class="popup-content">
+                  <h6 class="mb-2">Confirm your payment</h6>
+                  <p>
+                    If you already paid, please provide us your payment prove
+                  </p>
+                  <form
+                    class="form"
+                    action=""
+                    method="POST"
+                    id="crypto-pay-reference"
+                  >
+                    <div class="form-group mt-2">
+                      <div class="image-upload-wrap front">
+                        <input
+                          class="file-upload-input front"
+                          name="prove_img"
+                          type="file"
+                          onchange="readURL(this,'front');"
+                          accept="image/*"
+                          required=""
+                        />
+                        <div class="drag-text">
+                          <h3>Click to upload file</h3>
+                        </div>
+                      </div>
+                      <div class="file-upload-content front">
+                        <img
+                          class="file-upload-image front"
+                          src="#"
+                          alt="your image"
+                        />
+                        <div class="image-title-wrap">
+                          <button
+                            type="button"
+                            onclick="removeUpload('front')"
+                            class="remove-image"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <ul class="btn-group justify-between align-center gx-4">
+                      <li>
+                        <button type="submit" class="btn btn-primary btn-block">
+                          Confirm Payment
+                        </button>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          class="link link-btn link-secondary popup-close"
+                          >Close</a
+                        >
+                      </li>
+                    </ul>
+                    <input type="hidden" name="amount" value="{{amount}}" />
+                    <input type="hidden" name="unique_u" value="{{txid}}" />
+                    <input type="hidden" name="method" value="{{mode}}" />
+                    <input type="hidden" name="trans_type" value="deposit" />
+                    {% csrf_token %}
+                  </form>
+                  <div class="alert-note is-plain mt-4">
+                    <em class="icon ni ni-alert-circle"></em>
+                    <p>
+                      Account will credited once we confirm that payment has
+                      been received.
+                    </p>
+                  </div>
+                </div>
+                <div class="popup-overlay"></div>
+              </div>
+            </div>
+            <div class="card-inner bg-lighter">
+              <ul>
+                <li class="alert-note is-plain text-danger">
+                  <em class="icon ni ni-alert-circle"></em>
+                  <p>
+                    make sure you don't send any crypto execpt from {{mode}} to
+                    the address to avoid loss of funds
+                  </p>
+                </li>
+                <li class="alert-note is-plain text-danger">
+                  <em class="icon ni ni-alert-circle"></em>
+                  <p>make sure the details are correct</p>
+                </li>
+                <li class="alert-note is-plain">
+                  <em class="icon ni ni-info"></em>
+                  <p>Account will credited once we received your payment.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+
+<script type="text/javascript">
+  function readURL(input, pos) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $(`.image-upload-wrap.${pos}`).hide();
+
+        $(`.file-upload-image.${pos}`).attr("src", e.target.result);
+        $(`.file-upload-content.${pos}`).show();
+
+        $(`.image-title.${pos}`).html(input.files[0].name);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      removeUpload();
+    }
+  }
+
+  function removeUpload(positions) {
+    $(`.file-upload-input.${positions}`).replaceWith(
+      $(`.file-upload-input.${positions}`).clone()
+    );
+    $(`.file-upload-content.${positions}`).hide();
+    $(`.image-upload-wrap.${positions}`).show();
+  }
+  $(".image-upload-wrap").bind("dragover", function () {
+    $(".image-upload-wrap").addClass("image-dropping");
+  });
+  $(".image-upload-wrap").bind("dragleave", function () {
+    $(".image-upload-wrap").removeClass("image-dropping");
+  });
+</script>
+<script>
+  function getPrice() {
+    const fromCurrency = "USD";
+    const tocurrency = "{{mode}}";
+    const amount = parseInt("{{amount}}");
+    var amount_in_coin = Array.from(
+      document.getElementsByClassName("amount_in_coin")
+    );
+    var amic = document.getElementById("amic");
+    console.log(fromCurrency, tocurrency, amount);
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=${fromCurrency}&tsyms=${tocurrency}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        const tocurrencyAmount = data[tocurrency];
+        const total = (amount * tocurrencyAmount).toFixed(4);
+        amic.setAttribute("data-clipboard-text", total);
+        amount_in_coin.forEach(function (el) {
+          el.innerHTML = `<code>${total}</code>`;
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        window.location.href = "/dashboard";
+      });
+  }
+  getPrice();
+</script>
+
+{% endblock script %}

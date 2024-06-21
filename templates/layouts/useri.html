@@ -7,18 +7,24 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta
-      name="csrf-token"
-      content="jO9TjdqMfzEQTDJMA786TySJvo7S0gll4iSoFWLF"
-    />
-    <title>| {{domain_name}} | {% block title %} {% endblock title %}</title>
+
+    <title>{{domain_name}} | {% block title %} {% endblock title %}</title>
     <link rel="shortcut icon" href="/assets/useri/img/favicon.ico" />
     <link rel="stylesheet" href="/assets/useri/css/apps.css?ver=1.0.0" />
     <link rel="stylesheet" href="/assets/useri/css/custom.css" />
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" />
+    <link
+      href="/assets/users/css/sweetalert2.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <!-- System Build v20210628110 @iO -->
     {% block style %} {% endblock style %}
   </head>
   <body class="nk-body npc-cryptlite has-sidebar has-sidebar-fat">
+    {% if messages %} {% for msg in messages %}
+    <div style="display: none" class="messages" data-msg="{{ msg }}"></div>
+    {% endfor %} {% endif %}
     <div class="nk-app-root">
       <div class="nk-main">
         <div
@@ -58,31 +64,35 @@
                     <div class="user-account-main">
                       <h6 class="overline-title-alt">Main Account Balance</h6>
                       <div class="user-balance">
-                        0.00 <small class="currency">USD</small>
+                        {{user.balance}}<small class="currency">USD</small>
                       </div>
                       <div class="user-balance-alt">
-                        0.00 <span class="currency">GBP</span>
+                        <!-- 0.00 <span class="currency">GBP</span> -->
                       </div>
                     </div>
                   </div>
                   <ul class="user-account-data gy-1">
                     <li>
                       <div class="user-account-label">
-                        <span class="sub-text">Profits (7d)</span>
+                        <span class="sub-text">withdrawal</span>
                       </div>
                       <div class="user-account-value">
                         <span class="lead-text">
-                          0.00 <span class="currency">USD</span></span
+                          {{user.total_withdraw}}
+                          <span class="currency">USD</span></span
                         >
                       </div>
                     </li>
                     <li>
                       <div class="user-account-label">
-                        <span class="sub-text">Deposit in orders</span>
+                        <span class="sub-text"
+                          >Referral({{user.referral}})</span
+                        >
                       </div>
                       <div class="user-account-value">
                         <span class="sub-text"
-                          >500 <span class="currency">USD</span></span
+                          >{{user.referral}}
+                          <span class="currency">USD</span></span
                         >
                       </div>
                     </li>
@@ -90,16 +100,12 @@
                   <div class="user-account-actions">
                     <ul class="g-3">
                       <li>
-                        <a
-                          href="https://fintcapitallimited.com/user/public/deposit"
-                          class="btn btn-primary"
+                        <a href="/deposit-funds/" class="btn btn-primary"
                           ><span>Deposit</span></a
                         >
                       </li>
                       <li>
-                        <a
-                          href="https://fintcapitallimited.com/user/public/withdraw"
-                          class="btn btn-warning"
+                        <a href="/withdraw-funds/" class="btn btn-warning"
                           ><span>Withdraw</span></a
                         >
                       </li>
@@ -125,8 +131,8 @@
                           >
                         </div>
                         <div class="user-info">
-                          <span class="lead-text">vandy leng</span>
-                          <span class="sub-text">vandyleng815@gmail.com</span>
+                          <span class="lead-text">{{user.fullname}}</span>
+                          <span class="sub-text">{{user.email}}</span>
                         </div>
                         <div class="user-action">
                           <em class="icon ni ni-chevron-down"></em>
@@ -142,48 +148,50 @@
                       <div class="user-account-main">
                         <h6 class="overline-title-alt">Main Account Balance</h6>
                         <div class="user-balance">
-                          0.00 <small class="currency">USD</small>
+                          {{user.balance}} <small class="currency">USD</small>
                         </div>
                         <div class="user-balance-alt">
-                          0.00 <span class="currency">GBP</span>
+                          <!-- 0.00 <span class="currency">GBP</span> -->
                         </div>
                       </div>
                     </div>
                     <ul class="user-account-data">
                       <li>
                         <div class="user-account-label">
-                          <span class="sub-text">Profits (7d)</span>
+                          <span class="sub-text">withdrawal</span>
                         </div>
                         <div class="user-account-value">
                           <div class="user-account-value">
                             <span class="lead-text">
-                              0.00 <span class="currency">USD</span></span
+                              {{user.total_withdraw}}
+                              <span class="currency">USD</span></span
                             >
                           </div>
                         </div>
                       </li>
                       <li>
                         <div class="user-account-label">
-                          <span class="sub-text">Deposit in orders</span>
+                          <span class="sub-text"
+                            >Referral({{user.referral}})</span
+                          >
                         </div>
                         <div class="user-account-value">
                           <span class="sub-text text-base"
-                            >500 <span class="currency">USD</span></span
+                            >{{user.referral_bonus}}
+                            <span class="currency">USD</span></span
                           >
                         </div>
                       </li>
                     </ul>
                     <ul class="user-account-links">
                       <li>
-                        <a
-                          href="https://fintcapitallimited.com/user/public/withdraw"
-                          class="link"
+                        <a href="/withdraw-funds/" class="link"
                           ><span>Withdraw Funds</span>
                           <em class="icon ni ni-wallet-out"></em
                         ></a>
                       </li>
                       <li>
-                        <a href="#" class="link"
+                        <a href="/deposit-funds/" class="link"
                           ><span>Deposit Funds</span>
                           <em class="icon ni ni-wallet-in"></em
                         ></a>
@@ -214,9 +222,7 @@
                     </ul>
                     <ul class="link-list">
                       <li>
-                        <a
-                          href="https://fintcapitallimited.com/user/public/logout"
-                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        <a href="/sign-out/"
                           ><em class="icon ni ni-signout"></em
                           ><span>Sign out</span></a
                         >
@@ -231,10 +237,7 @@
                       <h6 class="overline-title">Menu</h6>
                     </li>
                     <li class="nk-menu-item active">
-                      <a
-                        href="https://fintcapitallimited.com/user/public/dashboard"
-                        class="nk-menu-link"
-                      >
+                      <a href="/dashboard/" class="nk-menu-link">
                         <span class="nk-menu-icon"
                           ><em class="icon ni ni-dashboard"></em
                         ></span>
@@ -242,10 +245,7 @@
                       </a>
                     </li>
                     <li class="nk-menu-item">
-                      <a
-                        href="https://fintcapitallimited.com/user/public/transactions"
-                        class="nk-menu-link"
-                      >
+                      <a href="/transaction-logs/" class="nk-menu-link">
                         <span class="nk-menu-icon"
                           ><em class="icon ni ni-tranx"></em
                         ></span>
@@ -285,17 +285,7 @@
                         <span class="nk-menu-text">My Profile</span>
                       </a>
                     </li>
-                    <li class="nk-menu-item">
-                      <a
-                        href="https://fintcapitallimited.com/user/public/referrals"
-                        class="nk-menu-link"
-                      >
-                        <span class="nk-menu-icon"
-                          ><em class="icon ni ni-share"></em
-                        ></span>
-                        <span class="nk-menu-text">Referrals</span>
-                      </a>
-                    </li>
+
                     <li class="nk-menu-item">
                       <a
                         href="https://fintcapitallimited.com/user/public"
@@ -329,10 +319,7 @@
                 </div>
 
                 <div class="nk-header-brand d-xl-none">
-                  <a
-                    class="logo-link"
-                    href="https://fintcapitallimited.com/user/public/dashboard"
-                  >
+                  <a class="logo-link" href="/dashboard/">
                     <img
                       class="logo-img logo-light"
                       src="/assets/useri/img/logo-light.jpeg"
@@ -361,7 +348,7 @@
                               Verified
                             </div>
                             <div class="user-name dropdown-indicator">
-                              vandy leng
+                              {{user.fullname}}
                             </div>
                           </div>
                         </div>
@@ -376,39 +363,33 @@
                             <div class="user-avatar">
                               <span
                                 ><div class="user-avatar bg-danger">
-                                  <span>VA</span>
+                                  <span>{{user.get_icon}}</span>
                                 </div></span
                               >
                             </div>
                             <div class="user-info">
-                              <span class="lead-text">vandy leng</span>
-                              <span class="sub-text"
-                                >vandyleng815@gmail.com</span
-                              >
+                              <span class="lead-text">{{user.fullname}}</span>
+                              <span class="sub-text">{{user.email}}</span>
                             </div>
                           </div>
                         </div>
                         <div class="dropdown-inner user-account-info">
                           <h6 class="overline-title-alt">Account Balance</h6>
                           <div class="user-balance">
-                            0.00 <small class="currency">USD</small>
+                            {{user.balance}} <small class="currency">USD</small>
                           </div>
                           <div class="user-balance-alt">
-                            0.00 <span class="currency">GBP</span>
+                            <!-- 0.00 <span class="currency">GBP</span> -->
                           </div>
                           <ul class="user-account-links">
                             <li>
-                              <a
-                                href="https://fintcapitallimited.com/user/public/deposit"
-                                class="link"
+                              <a href="/deposit-funds/" class="link"
                                 ><span>Deposit Funds</span>
                                 <em class="icon ni ni-wallet-in"></em
                               ></a>
                             </li>
                             <li>
-                              <a
-                                href="https://fintcapitallimited.com/user/public/withdraw"
-                                class="link"
+                              <a href="/withdraw-funds/" class="link"
                                 ><span>Withdraw Funds</span>
                                 <em class="icon ni ni-wallet-out"></em
                               ></a>
@@ -443,27 +424,12 @@
                         <div class="dropdown-inner">
                           <ul class="link-list">
                             <li>
-                              <a
-                                href="https://fintcapitallimited.com/user/public/logout"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                              >
+                              <a href="/sign-out/">
                                 <em class="icon ni ni-signout"></em
                                 ><spean>Sign out</spean></a
                               >
                             </li>
                           </ul>
-                          <form
-                            id="logout-form"
-                            action="https://fintcapitallimited.com/user/public/logout"
-                            method="POST"
-                            style="display: none"
-                          >
-                            <input
-                              type="hidden"
-                              name="_token"
-                              value="jO9TjdqMfzEQTDJMA786TySJvo7S0gll4iSoFWLF"
-                            />
-                          </form>
                         </div>
                       </div>
                     </li>
@@ -480,7 +446,7 @@
             <div class="container-fluid">
               <div class="nk-footer-wrap">
                 <div class="nk-footer-copyright">
-                  FINTCAPITAL LIMITED &copy;2022. All Rights Reserved.
+                  {{domain_name}} &copy;2022. All Rights Reserved.
                 </div>
               </div>
             </div>
@@ -493,6 +459,17 @@
     <script src="https://fintcapitallimited.com/user/public/assets/js/bundle.js"></script>
     <script src="https://fintcapitallimited.com/user/public/assets/js/app.js"></script>
     <script src="https://fintcapitallimited.com/user/public/assets/js/charts.js"></script>
+    <script src="/assets/js/toastr.min.js"></script>
+    {% if messages %}
+    <script src="/assets/js/toastr-init.js"></script>
+    {% endif %}
+    <script src="/assets/js/circle-progress.min.js"></script>
+    <script src="/assets/js/circle-progress-init.js"></script>
+    <!-- Sweet Alerts js -->
+    <script src="/assets/users/js/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="/assets/users/js/sweet-alerts.init.js"></script>
     {% block script %} {% endblock script %}
     <script type="text/javascript">
       const updateSetting =

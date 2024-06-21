@@ -6,7 +6,7 @@
       <div class="nk-block-head-sub"><span>Welcome!</span></div>
       <div class="nk-block-between-md g-4">
         <div class="nk-block-head-content">
-          <h2 class="nk-block-title fw-normal">vandy leng</h2>
+          <h2 class="nk-block-title fw-normal">{{user.fullname}}</h2>
           <div class="nk-block-des">
             <p>Here&#039;s a summary of your account. Have fun!</p>
           </div>
@@ -24,9 +24,7 @@
               ></a>
             </li>
             <li>
-              <a
-                href="https://fintcapitallimited.com/user/public/deposit"
-                class="btn btn-primary"
+              <a href="/deposit-funds" class="btn btn-primary"
                 ><span>Deposit</span>
                 <em class="icon ni ni-arrow-long-right"></em
               ></a>
@@ -37,6 +35,7 @@
     </div>
 
     <div class="nk-block">
+      {% if paydetail %} {% else %}
       <div class="alert alert-warning alert-thick alert-plain">
         <div class="alert-cta flex-wrap flex-md-nowrap g-2">
           <div class="alert-text has-icon">
@@ -48,14 +47,14 @@
           </div>
           <div class="alert-actions my-1 my-md-0">
             <a
-              href="https://fintcapitallimited.com/user/public/profile/accounts"
+              href="h ttps://fintcapitallimited.com/user/public/profile/accounts"
               class="btn btn-sm btn-warning"
               >Add Account</a
             >
           </div>
         </div>
       </div>
-
+      {% endif %} {% if user.is_updated %} {% else %}
       <div class="alert alert-primary alert-thick alert-plain">
         <div class="alert-cta flex-wrap flex-md-nowrap g-2">
           <div class="alert-text has-icon">
@@ -74,6 +73,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
     </div>
 
     <div class="nk-block">
@@ -95,7 +95,9 @@
                 </div>
               </div>
               <div class="card-amount mt-2 mb-1">
-                <span class="amount">0 <span class="currency">USD</span></span>
+                <span class="amount"
+                  >{{user.balance}} <span class="currency">USD</span></span
+                >
               </div>
               <div class="card-stats">
                 <div class="card-stats-group g-2">
@@ -113,28 +115,6 @@
                   </div>
                 </div>
                 <div class="card-stats-ck sm"></div>
-              </div>
-              <div class="card-action d-md-none">
-                <ul class="nk-block-tools gx-4">
-                  <li>
-                    <a
-                      href="https://fintcapitallimited.com/user/public/deposit"
-                      class="btn btn-primary"
-                      ><span>Deposit</span>
-                      <em class="icon ni ni-arrow-long-right"></em
-                    ></a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://fintcapitallimited.com/user/public/invest"
-                      class="btn btn-secondary"
-                      ><span>Invest &amp; Earn</span>
-                      <em
-                        class="icon ni ni-arrow-long-right d-none d-sm-inline-block"
-                      ></em
-                    ></a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -154,14 +134,18 @@
                 </div>
               </div>
               <div class="card-amount mt-2 mb-1">
-                <span class="amount">0 <span class="currency">USD</span></span>
+                <span class="amount"
+                  >{{total_deposit}} <span class="currency">USD</span></span
+                >
               </div>
               <div class="card-stats">
                 <div class="card-stats-group g-2">
                   <div class="card-stats-data">
                     <div class="title fw-bold">This Month</div>
                     <div class="amount fw-bold">
-                      0 <span class="currency fw-normal">USD</span>
+                      {{total_deposit_month}}<span class="currency fw-normal"
+                        >USD</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -187,14 +171,18 @@
                 </div>
               </div>
               <div class="card-amount mt-2 mb-1">
-                <span class="amount">0 <span class="currency">USD</span></span>
+                <span class="amount"
+                  >{{user.total_withdraw}}
+                  <span class="currency">USD</span></span
+                >
               </div>
               <div class="card-stats">
                 <div class="card-stats-group g-2">
                   <div class="card-stats-data">
                     <div class="title fw-bold">This Month</div>
                     <div class="amount fw-bold">
-                      0 <span class="currency fw-normal">USD</span>
+                      {{total_with_month}}
+                      <span class="currency fw-normal">USD</span>
                     </div>
                   </div>
                 </div>
@@ -213,9 +201,7 @@
             <h5 class="nk-block-title title">Recent Activity</h5>
           </div>
           <div class="nk-block-head-content">
-            <a href="https://fintcapitallimited.com/user/public/transactions"
-              >See History</a
-            >
+            <a href="/transactions-log/">See History</a>
           </div>
         </div>
       </div>
@@ -232,10 +218,16 @@
                 ></span>
               </div>
               <div class="nk-odr-data">
-                <div class="nk-odr-label ellipsis">Deposit via ABA BANK</div>
+                <div class="nk-odr-label ellipsis">
+                  Deposit via {{recent_trasaction.method}}
+                </div>
                 <div class="nk-odr-meta">
-                  <span class="date">16 Apr, 2024</span>
-                  <span class="status dot-join"> Processing </span>
+                  <span class="date">
+                    {{recent_trasaction.date|date:"d M, Y"}}</span
+                  >
+                  <span class="status dot-join">
+                    {{recent_trasaction.status}}
+                  </span>
                 </div>
               </div>
             </div>
@@ -243,12 +235,12 @@
           <div class="nk-odr-col nk-odr-col-amount">
             <div class="nk-odr-amount">
               <div class="number-md text-s text-success">
-                + 500.00
+                {{recent_trasaction.amount}}
                 <span class="currency">USD</span>
               </div>
-              <div class="number-sm">
+              <!-- <div class="number-sm">
                 500.00 <span class="currency">USD</span>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="nk-odr-col nk-odr-col-action">
@@ -273,7 +265,7 @@
               <div class="nk-refwg-title">
                 <h5 class="title">Refer Us &amp; Earn</h5>
                 <div class="title-sub">
-                  Use the below link to invite your friends.
+                  Use the below code to invite your friends.
                 </div>
               </div>
             </div>
@@ -295,7 +287,7 @@
                   type="text"
                   class="form-control copy-text"
                   id="ref-url"
-                  value="https://fintcapitallimited.com/user/public/invite?ref=7d105133"
+                  value="{{user.username}}"
                 />
               </div>
             </div>

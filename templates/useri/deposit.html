@@ -16,7 +16,8 @@
 
           <p class="sub-text-sm">Send your payment direct to our wallet.</p>
         </div>
-        <form class="nk-pps-form" action="#" id="deposit-amount-form">
+        <form class="nk-pps-form" action="" method="post" id="deposit-form">
+          {% csrf_token %}
           <div class="nk-pps-field form-group">
             <div class="form-label-group">
               <label class="form-label" for="deposit-amount"
@@ -85,11 +86,14 @@
             </div>
             <div class="form-control-group">
               <input
-                type="text"
+                type="numbers"
                 class="form-control form-control-lg form-control-number"
                 id="deposit-amount"
-                name="deposit_amount"
+                name="amount"
+                min="50"
+                max="100000"
                 placeholder="0.00"
+                required
               />
               <input
                 type="hidden"
@@ -110,7 +114,9 @@
           </div>
           <div class="nk-pps-field form-action text-center">
             <div class="nk-pps-action">
-              <button class="btn btn-lg btn-block btn-primary">Submit</button>
+              <button type="submit" class="btn btn-lg btn-block btn-primary">
+                Submit
+              </button>
             </div>
           </div>
         </form>
@@ -119,4 +125,19 @@
   </div>
 </div>
 
-{% endblock content %}
+{% endblock content %} {% block script %}
+
+<script>
+  document
+    .getElementById("deposit-form")
+    .addEventListener("submit", function (e) {
+      const amountInput = document.getElementById("deposit-amount");
+      const amount = parseFloat(amountInput.value);
+
+      if (amount < 50) {
+        alert("The amount must be at least $50.");
+        e.preventDefault();
+      }
+    });
+</script>
+{% endblock script %}

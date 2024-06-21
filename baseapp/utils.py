@@ -23,3 +23,8 @@ wallets = ["BTC", "ETH", "USDT"]
 
 def gen_random_number():
     return str(random.randint(100000, 999999))
+
+
+def rand_code():
+    code = str(uuid4()).replace(" ", "-").upper()[:6]
+    return code

@@ -2,18 +2,58 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from account.models import Kyc
-
+from django.db.models import Sum
 from baseapp import utils
 from users.models import Notification, Transactions, Packages, Investments
 from .forms import DepositForm, KycForm, UpdateUserForm
 from django.contrib.auth.forms import PasswordChangeForm
+from account.models import PaymenyDetails
+import datetime
 
 
 @login_required()
 def index(request):
     user = request.user
+    current_date = datetime.datetime.now()
+    month = current_date.month
+    year = current_date.year
+
+    try:
+        paydetail = PaymenyDetails.objects.get(user=user)
+    except PaymenyDetails.DoesNotExist:
+        paydetail = None
+
+    recent_trasaction = Transactions.objects.filter(user=user)[0]
+
+    total_deposit = Transactions.objects.filter(
+        user=user, trans_type=utils.D, status="approved"
+    ).aggregate(total_deposi=Sum("amount"))
+    total_deposit_result = total_deposit["total_deposi"] or 0
+
+    # Calculate the total amount received by the user for the current month
+    total_deposit_month = Transactions.objects.filter(
+        user=user,
+        trans_type=utils.D,
+        status="approved",
+        date__year=year,
+        date__month=month,
+    ).aggregate(total_amount_received=Sum("amount"))
+
+    total_with_month = Transactions.objects.filter(
+        user=user,
+        status="approved",
+        trans_type=utils.W,
+        date__year=year,
+        date__month=month,
+    ).aggregate(total_amount_received=Sum("amount"))
+
     context = {
         "investment_count": Investments.objects.filter(user=user).count(),
+        "total_deposit": total_deposit_result,
+        "total_deposit_month": total_deposit_month["total_amount_received"] or 0,
+        "total_with_month": total_with_month["total_amount_received"] or 0,
+        "recent_trasaction": recent_trasaction,
+        "paydetail": paydetail,
     }
     return render(request, "useri/index.html", context)
 
@@ -30,20 +70,19 @@ def deposit_page(request):
 @login_required()
 def deposit_confrim(request, amount, mode):
     user = request.user
-    if mode in utils.wallets and amount >= 700:
+    if mode in utils.wallets and amount >= 50:
         if request.POST:
             form = DepositForm(request.POST, request.FILES)
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.user = user
+
                 form.save()
-                utils.create_notification(
-                    model=Notification,
-                    user=user,
-                    title="Deposit successfull",
-                    body=f"You just made a deposit of ${amount}",
+
+                messages.error(
+                    request,
+                    f"a deposit of ${amount} has been created it now under review",
                 )
-                messages.error(request, "Deposit created")
 
                 return redirect("deposit_page")
         else:
@@ -51,8 +90,9 @@ def deposit_confrim(request, amount, mode):
                 "amount": amount,
                 "mode": mode,
                 "address": utils.ADMIN_ADDRESS[mode],
+                "txid": f"TX{utils.rand_code()}",
             }
-            return render(request, "user/deposit-confirm.html", context)
+            return render(request, "useri/deposit-confirm.html", context)
 
     else:
         messages.error(request, "Invalid Link")

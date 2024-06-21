@@ -56,10 +56,13 @@ class Account(AbstractUser):
     def __str__(self):
         return self.email
 
+    def get_icon(self):
+        return self.fullname[:2]
+
     def save(self, *args, **kwargs):
         # Perform custom logic before saving
         if self.username is None or self.username == "":
-            self.username = utils.reg_code()
+            self.username = utils.rand_code()
 
         # Call parent save method
         super().save(*args, **kwargs)
@@ -77,3 +80,16 @@ class Kyc(models.Model):
     document_back = models.ImageField(blank=True, null=True, upload_to="document")
     is_approved = models.BooleanField(default=False)
     status = models.CharField(default="proccessing", max_length=50)
+
+
+class PaymenyDetails(models.Model):
+    user = models.OneToOneField(
+        Account,
+        on_delete=models.CASCADE,
+    )
+    usdt = models.CharField(max_length=200)
+    btc = models.CharField(max_length=200)
+    eth = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.user.first_name} "
