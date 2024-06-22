@@ -1,0 +1,132 @@
+{% extends "layouts/useri.html" %}
+<!---->
+{% block title %} Payment Accounts {% endblock title %}<!---->
+{% block content %}
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head">
+      <div class="nk-block-head-content">
+        <h2 class="nk-block-title fw-normal">Payment Accounts</h2>
+        <div class="nk-block-des">
+          <p>You have full control to manage your own account setting.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="/settings/profile/">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/setting/accounts/">Accounts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/settings/security/">Security</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/setting/activity/">Activity</a>
+      </li>
+    </ul>
+    <div class="nk-block">
+      <div class="nk-block-head">
+        <div class="nk-block-between-md g-3">
+          <div class="nk-block-head-content">
+            <h5 class="nk-block-title">Your Accounts</h5>
+            <div class="nk-block-des">
+              <p>Below accounts that you’d like to withdraw funds.</p>
+            </div>
+          </div>
+          <div class="nk-block-head-tools"></div>
+        </div>
+      </div>
+      <div class="nk-pps-card card">
+        <div class="card-inner">
+          <form class="nk-pps-form" action="" method="post">
+            {% csrf_token %}
+
+            <div class="nk-pps-field form-group">
+              <div class="form-group">
+                <div class="form-label-group">
+                  <label class="form-label" for="btc">BTC Address</label>
+                </div>
+
+                <div class="form-control-wrap">
+                  <input
+                    type="text"
+                    name="btc_address"
+                    value="{{paydetail.btc}}"
+                    class="form-control form-control-lg"
+                    id="btc"
+                    placeholder="Your btc address"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-label-group">
+                  <label class="form-label" for="eth">ETH Address</label>
+                </div>
+
+                <div class="form-control-wrap">
+                  <input
+                    type="text"
+                    name="eth_address"
+                    value="{{paydetail.eth}}"
+                    class="form-control form-control-lg"
+                    id="eth"
+                    placeholder="Your ethereum address"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-label-group">
+                  <label class="form-label" for="usdt"
+                    >USDT(ERC20) Address</label
+                  >
+                </div>
+
+                <div class="form-control-wrap">
+                  <input
+                    type="text"
+                    name="usdt_address"
+                    value="{{paydetail.usdt}}"
+                    class="form-control form-control-lg"
+                    id="usdt"
+                    placeholder="Your usdt address"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="nk-pps-field form-action text-center">
+              <div class="nk-pps-action">
+                <button type="submit" class="btn btn-lg btn-block btn-primary">
+                  Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="notes mt-4">
+        <ul>
+          <li class="alert-note is-plain text-danger">
+            <em class="icon ni ni-alert-circle"></em>
+            <p>
+              Caution: Your updated information only effect on new withdraw
+              request.
+            </p>
+          </li>
+          <li class="alert-note is-plain">
+            <em class="icon ni ni-info"></em>
+            <p>
+              You should enter your correct information for receiving payment.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -9,6 +9,8 @@ from .forms import DepositForm, KycForm, UpdateUserForm
 from django.contrib.auth.forms import PasswordChangeForm
 from account.models import PaymenyDetails
 import datetime
+from django.http import JsonResponse
+from .serializer import TnxSerializer
 
 
 @login_required()
@@ -23,7 +25,7 @@ def index(request):
     except PaymenyDetails.DoesNotExist:
         paydetail = None
 
-    recent_trasaction = Transactions.objects.filter(user=user)[0]
+    recent_trasaction = Transactions.objects.filter(user=user).order_by("-date")[:1]
 
     total_deposit = Transactions.objects.filter(
         user=user, trans_type=utils.D, status="approved"
@@ -121,6 +123,7 @@ def withdrawal(request):
                     amount=amount,
                     method=mode,
                     trans_type=utils.W,
+                    unique_u=f"TX{utils.rand_code()}",
                 )
                 user.balance -= amount
                 user.save()
@@ -142,8 +145,17 @@ def withdrawal(request):
 
 @login_required()
 def transactions_page(request):
-    transactions = Transactions.objects.filter(user=request.user)
-    return render(request, "user/transactions.html", {"transactions": transactions})
+    transactions = Transactions.objects.filter(user=request.user).order_by("-date")
+    return render(request, "useri/transactions.html", {"transactions": transactions})
+
+
+@login_required()
+def transaction_detail(request):
+    txid = request.GET.get("id")
+    transaction = get_object_or_404(Transactions, unique_u=txid)
+    txserializer = TnxSerializer(transaction)
+    return JsonResponse({"transaction": txserializer.data})
+    # return render(request, "useri/transactions.html", {"transaction": transaction})
 
 
 @login_required()
@@ -243,7 +255,8 @@ def settings_page(request):
         form = UpdateUserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-
+            user.is_updated = True
+            user.save()
             messages.error(request, "Account updated")
             return redirect("settings")
         else:
@@ -269,17 +282,35 @@ def settings_password_page(request):
 @login_required()
 def update_wallet_page(request):
     user = request.user
+    try:
+        paydetail = PaymenyDetails.objects.get(user=user)
+    except PaymenyDetails.DoesNotExist:
+        paydetail = None
     if request.POST:
         btc_address = request.POST.get("btc_address")
         usdt_address = request.POST.get("usdt_address")
         eth_address = request.POST.get("eth_address")
+        if paydetail:
+            paydetail.btc = btc_address
+            paydetail.eth = eth_address
+            paydetail.usdt = usdt_address
 
-        user.eth_address = eth_address
-        user.usdt_address = usdt_address
-        user.btc_address = btc_address
+            paydetail.save()
+        else:
+            detaills = PaymenyDetails.objects.create(
+                user=user,
+                btc=btc_address,
+                eth=eth_address,
+                usdt=usdt_address,
+            )
+            detaills.save()
 
-        user.save()
-        messages.error(request, "Wallet Updated succesfully")
+        messages.info(request, "Payments  details Updated succesfully")
         return redirect("update_wallet_page")
 
-    return render(request, "user/update_wallet.html")
+    return render(request, "useri/update_wallet.html", {"paydetail": paydetail})
+
+
+@login_required()
+def packages_view(request):
+    return render(request, "useri/packages.html")

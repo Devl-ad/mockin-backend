@@ -19,5 +19,9 @@ urlpatterns = [
     path("affiliate/", views.affiliate_page, name="affiliate"),
     path("settings/profile/", views.settings_page, name="settings"),
     path("set-password/", views.settings_password_page, name="settings_password_page"),
-    path("update-wallet-address/", views.update_wallet_page, name="update_wallet_page"),
+    path("setting/accounts/", views.update_wallet_page, name="update_wallet_page"),
+    path(
+        "transactions-log/detail/", views.transaction_detail, name="transactions-detail"
+    ),
+    path("packages/", views.packages_view, name="packages"),
 ]

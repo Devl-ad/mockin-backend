@@ -242,7 +242,7 @@
                       </a>
                     </li>
                     <li class="nk-menu-item">
-                      <a href="/transaction-logs/" class="nk-menu-link">
+                      <a href="/transactions-log/" class="nk-menu-link">
                         <span class="nk-menu-icon"
                           ><em class="icon ni ni-tranx"></em
                         ></span>
@@ -261,10 +261,7 @@
                       </a>
                     </li>
                     <li class="nk-menu-item">
-                      <a
-                        href="https://fintcapitallimited.com/user/public/investment/plans"
-                        class="nk-menu-link"
-                      >
+                      <a href="/packages/" class="nk-menu-link">
                         <span class="nk-menu-icon"
                           ><em class="icon ni ni-invest"></em
                         ></span>
@@ -444,9 +441,9 @@
     </div>
     {% block modal %} {% endblock modal %}
     <div class="modal fade" tabindex="-1" role="dialog" id="ajax-modal"></div>
-    <script src="https://fintcapitallimited.com/user/public/assets/js/bundle.js"></script>
-    <script src="https://fintcapitallimited.com/user/public/assets/js/app.js"></script>
-    <script src="https://fintcapitallimited.com/user/public/assets/js/charts.js"></script>
+    <script src="/assets/useri/js/bundle.js"></script>
+    <script src="/assets/useri/js/app.js"></script>
+    <script src="/assets/useri/js/charts.js"></script>
     <script src="/assets/js/toastr.min.js"></script>
     {% if messages %}
     <script src="/assets/js/toastr-init.js"></script>
@@ -462,8 +459,7 @@
     <script type="text/javascript">
       const updateSetting =
           "https://fintcapitallimited.com/user/public/update/setting",
-        getTnxDetails =
-          "https://fintcapitallimited.com/user/public/transactions/details";
+        getTnxDetails = "http://{{domain}}/transactions-log/detail/";
     </script>
   </body>
 </html>

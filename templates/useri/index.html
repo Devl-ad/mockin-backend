@@ -206,6 +206,7 @@
         </div>
       </div>
       <div class="nk-odr-list card card-bordered">
+        {% for obj in recent_trasaction %}
         <div class="nk-odr-item">
           <div class="nk-odr-col">
             <div class="nk-odr-info">
@@ -219,15 +220,11 @@
               </div>
               <div class="nk-odr-data">
                 <div class="nk-odr-label ellipsis">
-                  Deposit via {{recent_trasaction.method}}
+                  Deposit via {{obj.method}}
                 </div>
                 <div class="nk-odr-meta">
-                  <span class="date">
-                    {{recent_trasaction.date|date:"d M, Y"}}</span
-                  >
-                  <span class="status dot-join">
-                    {{recent_trasaction.status}}
-                  </span>
+                  <span class="date"> {{obj.date|date:"d M, Y"}}</span>
+                  <span class="status dot-join"> {{obj.status}} </span>
                 </div>
               </div>
             </div>
@@ -235,7 +232,7 @@
           <div class="nk-odr-col nk-odr-col-amount">
             <div class="nk-odr-amount">
               <div class="number-md text-s text-success">
-                {{recent_trasaction.amount}}
+                {{obj.amount}}
                 <span class="currency">USD</span>
               </div>
               <!-- <div class="number-sm">
@@ -245,15 +242,13 @@
           </div>
           <div class="nk-odr-col nk-odr-col-action">
             <div class="nk-odr-action">
-              <a
-                class="tnx-details"
-                href="javascript:void(0)"
-                data-tnx="N1U1TEgvdVoxV01TeXJxclFQNkZwdz09"
+              <a class="tnx-detailtt" href="#"
                 ><em class="icon ni ni-forward-ios"></em
               ></a>
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
 

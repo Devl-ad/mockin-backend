@@ -1,0 +1,432 @@
+{% extends "layouts/useri.html" %}<!---->
+{% block title %} Transactions {% endblock title %}<!---->
+{% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head">
+      <div class="nk-block-head-sub"><span>History</span></div>
+      <div class="nk-block-between-sm g-4">
+        <div class="nk-block-head-content">
+          <h2 class="nk-block-title fw-normal">Transactions</h2>
+          <div class="nk-block-des">
+            <p>List of transactions in your account.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nk-block nk-block-xs">
+      <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between">
+          <div class="nk-block-head-content">
+            <h6 class="nk-block-title">All Transaction</h6>
+          </div>
+          <ul class="nk-block-tools gx-2">
+            <li>
+              <a
+                href="#"
+                class="search-toggle toggle-search btn btn-icon btn-trigger"
+                data-target="search"
+                ><em class="icon ni ni-search"></em
+              ></a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <a
+                  href="#"
+                  class="btn btn-trigger btn-icon dropdown-toggle"
+                  data-toggle="dropdown"
+                >
+                  <div class="dot dot-primary"></div>
+                  <em class="icon ni ni-filter-alt"></em>
+                </a>
+
+                <div
+                  class="filter-wg dropdown-menu dropdown-menu-lg dropdown-menu-right"
+                >
+                  <div class="dropdown-head">
+                    <span class="sub-title dropdown-title"
+                      >Filter Transaction</span
+                    >
+                  </div>
+                  <form action="#" method="GET">
+                    <input type="hidden" name="filter" value="true" />
+                    <div class="dropdown-body dropdown-body-rg">
+                      <div class="row gx-6 gy-3">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="overline-title overline-title-alt"
+                              >Type</label
+                            >
+                            <select
+                              name="type"
+                              class="form-select form-select-sm"
+                            >
+                              <option value="any">Any Type</option>
+                              <option value="bonus">Bonus</option>
+                              <option value="charge">Charge</option>
+                              <option value="deposit">Deposit</option>
+                              <option value="withdraw">Withdraw</option>
+                              <option value="investment">Investment</option>
+                              <option value="referral">Referral</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="overline-title overline-title-alt"
+                              >Status</label
+                            >
+                            <select
+                              name="status"
+                              class="form-select form-select-sm"
+                            >
+                              <option value="any">Any Status</option>
+                              <option value="cancelled">Cancelled</option>
+                              <option value="failed">Failed</option>
+                              <option value="completed">Completed</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="overline-title overline-title-alt"
+                              >From</label
+                            >
+                            <input
+                              class="form-control date-picker"
+                              name="date[from]"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="overline-title overline-title-alt"
+                              >To</label
+                            >
+                            <input
+                              class="form-control date-picker"
+                              name="date[to]"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dropdown-foot between">
+                      <button type="submit" class="btn btn-secondary">
+                        Filter
+                      </button>
+                      <a href="#" class="clickable">Reset Filter</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle btn btn-icon btn-trigger mr-n1"
+                  data-toggle="dropdown"
+                  data-offset="-8,0"
+                  ><em class="icon ni ni-setting"></em
+                ></a>
+                <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
+                  <ul class="link-check">
+                    <li><span>Show</span></li>
+                    <li class="update-meta">
+                      <a
+                        href="#"
+                        data-value="10"
+                        data-meta="perpage"
+                        data-type="tnx"
+                        >10</a
+                      >
+                    </li>
+                    <li class="update-meta active">
+                      <a
+                        href="#"
+                        data-value="20"
+                        data-meta="perpage"
+                        data-type="tnx"
+                        >20</a
+                      >
+                    </li>
+                    <li class="update-meta">
+                      <a
+                        href="#"
+                        data-value="50"
+                        data-meta="perpage"
+                        data-type="tnx"
+                        >50</a
+                      >
+                    </li>
+                  </ul>
+                  <ul class="link-check">
+                    <li><span>Density</span></li>
+                    <li class="update-meta active">
+                      <a
+                        href="#"
+                        data-value="regular"
+                        data-meta="display"
+                        data-type="tnx"
+                        >Regular</a
+                      >
+                    </li>
+                    <li class="update-meta">
+                      <a
+                        href="#"
+                        data-value="compact"
+                        data-meta="display"
+                        data-type="tnx"
+                        >Compact</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <form action="#" method="GET">
+          <div
+            class="search-wrap search-wrap-extend bg-lighter"
+            data-search="search"
+          >
+            <div class="search-content">
+              <a
+                href="#"
+                class="search-back btn btn-icon toggle-search"
+                data-target="search"
+                ><em class="icon ni ni-arrow-left"></em
+              ></a>
+              <input
+                type="text"
+                name="query"
+                class="form-control border-transparent form-focus-none"
+                placeholder="Search by transaction id"
+              />
+              <button class="search-submit btn btn-icon mr-1">
+                <em class="icon ni ni-search"></em>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% for obj in transactions %}
+      <div
+        class="nk-odr-list is-stretch card card-bordered"
+        style="margin-top: 5px !important"
+      >
+        <div class="nk-odr-item">
+          <div class="nk-odr-col">
+            <div class="nk-odr-info">
+              <div class="nk-odr-badge">
+                <span
+                  class="nk-odr-icon bg-success-dim text-success icon ni {% if obj.trans_type == 'withdraw' %} ni-arrow-up-right {% else %} ni-arrow-down-left {% endif %}"
+                ></span
+                ><span
+                  class="nk-odr-icon text-secondary icon ni ni-wallet-fill"
+                ></span>
+              </div>
+              <div class="nk-odr-data">
+                <div class="nk-odr-label ellipsis">
+                  {{obj.trans_type.capitalize}} via {{obj.method}}
+                </div>
+                <div class="nk-odr-meta">
+                  <span class="date">{{obj.date|date:"d M, Y"}}</span>
+                  <span class="status dot-join"> {{obj.status}} </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nk-odr-col nk-odr-col-amount">
+            <div class="nk-odr-amount">
+              <div class="number-md text-s text-success">
+                {{obj.amount}}
+                <span class="currency">USD</span>
+              </div>
+            </div>
+          </div>
+          <div class="nk-odr-col nk-odr-col-action">
+            <div class="nk-odr-action">
+              <a class="tnx-detail" onclick="getTxn('{{obj.unique_u}}')"
+                ><em class="icon ni ni-forward-ios"></em
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="mt-4"></div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block modal %}
+<button
+  data-toggle="modal"
+  data-target="#txnModal"
+  style="display: none"
+  id="mdTrigger"
+></button>
+<div
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  id="txnModal"
+  aria-modal="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <a href="#" class="close" data-dismiss="modal"
+        ><em class="icon ni ni-cross-sm"></em
+      ></a>
+      <div class="modal-body modal-body-md">
+        <div class="nk-modal-head mb-2 mb-sm-4">
+          <h4 class="nk-modal-title title">
+            Order ID #<small class="text-primary"
+              ><span id="txid"></span
+            ></small>
+          </h4>
+        </div>
+        <div class="nk-block">
+          <div class="nk-block-between flex-wrap g-3">
+            <div class="nk-tnx">
+              <span
+                id="txicons"
+                class="nk-tnx-icon bg-success-dim text-success icon ni"
+              ></span
+              ><span
+                class="nk-tnx-icon text-secondary icon ni ni-wallet-fill"
+              ></span>
+              <div class="nk-tnx-text">
+                <h5 class="title"><span id="txamount"></span> USD</h5>
+                <span class="sub-text mt-n1"><span id="txdate"></span></span>
+              </div>
+            </div>
+            <ul class="align-center flex-wrap gx-3">
+              <li>
+                <span id="txstatus" class="badge badge-sm"> </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="divider md stretched"></div>
+          <h5 class="overline-title">Details</h5>
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <span class="sub-text">Payment Amount</span>
+              <span class="caption-text"> <span id="txam"></span> USD</span>
+            </div>
+
+            <div class="col-lg-6">
+              <span class="sub-text">Exchage Rate</span>
+              <span class="caption-text"> 1 USD = 1.00 USD </span>
+            </div>
+            <div class="col-lg-6">
+              <span class="sub-text">Details</span>
+              <span id="txmethod" class="caption-text"></span>
+            </div>
+          </div>
+
+          <div class="divider md stretched"></div>
+          <h5 class="overline-title">Additional</h5>
+          <div class="row gy-3">
+            <div class="col-lg-6">
+              <span class="sub-text"> Payment Method </span>
+              <span class="caption-text">Crypto Wallet</span>
+            </div>
+
+            <div class="col-lg-6">
+              <span class="sub-text">Reference</span>
+              <span class="caption-text text-break">......</span>
+            </div>
+          </div>
+          <div class="divider md stretched"></div>
+          <div class="notes">
+            <ul>
+              <li class="alert-note is-plain text-primary">
+                <em class="icon ni ni-info"></em>
+                <p id="txnote">
+                  The transaction is currently under review. We will send you an
+                  email once our review is complete.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock modal %} {% block script %}
+
+<script>
+  let txid = document.getElementById("txid"),
+    txamount = document.getElementById("txamount"),
+    txdate = document.getElementById("txdate"),
+    txstatus = document.getElementById("txstatus"),
+    txam = document.getElementById("txam"),
+    txicon = document.getElementById("txicons"),
+    txnote = document.getElementById("txnote"),
+    txmethod = document.getElementById("txmethod");
+
+  async function fetchData(txid) {
+    try {
+      let response = await fetch(`/transactions-log/detail/?id=${txid}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      let data = await response.json(); // Parse the JSON data from the response
+      return data;
+    } catch (error) {
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
+    }
+  }
+
+  const getTxn = async (id) => {
+    try {
+      const { transaction } = await fetchData(id);
+
+      txid.innerText = transaction.unique_u;
+      txam.innerText = transaction.amount;
+      txdate.innerText = transaction.date;
+      txamount.innerText = transaction.amount;
+      txmethod.innerText = `${transaction.trans_type} via ${transaction.method}`;
+
+      if (transaction.trans_type == "deposit") {
+        txicon.classList.add("ni-arrow-down-left");
+      } else {
+        txicon.classList.add("ni-arrow-up-right");
+      }
+
+      if (transaction.status == "pending") {
+        txstatus.classList.add("badge-info");
+      } else if (transaction.status == "approved") {
+        txnote.innerText = " This transaction has been completed";
+        txstatus.classList.add("badge-success");
+      } else {
+        txnote.innerText =
+          " This transaction is has been reviewed. and it has been declined you can contact  support for more info";
+        txstatus.classList.add("badge-danger");
+      }
+      txstatus.innerText = transaction.status;
+
+      console.log(transaction);
+      document.getElementById("mdTrigger").click();
+    } catch (error) {
+      console.error("Error in getTxn:", error);
+    }
+  };
+</script>
+{% endblock script %}
