@@ -14,7 +14,7 @@ import pyotp
 from .forms import RegisterForm, LoginForm, SetPasswordForm
 from django.contrib.auth.forms import SetPasswordForm
 from baseapp import utils
-from .models import Account
+from .models import Account, LoginHistory
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -84,6 +84,10 @@ def loginUser(request):
                     request, email=data["email"], password=data["password"]
                 )
                 login(request, account)
+                LoginHistory.objects.create(
+                    user=account,
+                    log_ip=utils.get_client_ip(request),
+                )
                 cache.delete(ke_y)
                 messages.info(request, "Logged In")
                 return redirect("dashboard")

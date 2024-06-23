@@ -1,0 +1,87 @@
+{% extends "layouts/useri.html" %}<!---->
+{% block title %} Log activities {% endblock title %}<!---->
+{% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head">
+      <div class="nk-block-head-content">
+        <h2 class="nk-block-title fw-normal">Login Activity</h2>
+        <div class="nk-block-des">
+          <p>You have full control to manage your own account setting.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="/settings/profile/">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/setting/accounts/">Accounts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/settings/security/">Security</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/settings/activity/">Activity</a>
+      </li>
+    </ul>
+    <div class="nk-block">
+      <div class="nk-block-head">
+        <div class="nk-block-between-md g-3">
+          <div class="nk-block-head-content">
+            <h5 class="nk-block-title">Activity on your account</h5>
+            <div class="nk-block-des">
+              <p>
+                Here is your last 10 login activities log.
+                <span class="text-soft"
+                  ><em
+                    class="icon ni ni-info tipinfo"
+                    title=""
+                    data-original-title="Stored activities whenever you login into account."
+                  ></em
+                ></span>
+              </p>
+            </div>
+          </div>
+          <div class="nk-block-head-content">
+            <!-- <a
+              href="https://fintcapitallimited.com/user/public/profile/activity/clear"
+              class="link link-danger clear-profile-log"
+              >Clear log</a
+            > -->
+          </div>
+        </div>
+      </div>
+      <div class="card card-bordered">
+        <table class="table table-ulogs">
+          <thead class="thead-light">
+            <tr>
+              <th class="tb-col-ip"><span class="overline-title">IP</span></th>
+              <th class="tb-col-time">
+                <span class="overline-title">Time</span>
+              </th>
+              <th class="tb-col-action">
+                <span class="overline-title">&nbsp;</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in logs %}
+            <tr>
+              <td class="tb-col-ip">
+                <span class="sub-text">{{obj.log_ip}}</span>
+              </td>
+              <td class="tb-col-time">
+                <span class="sub-text">{{obj.date}} </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

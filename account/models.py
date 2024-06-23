@@ -89,3 +89,12 @@ class PaymenyDetails(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} "
+
+
+class LoginHistory(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="log_user")
+    log_ip = models.CharField(max_length=30, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.log_ip}"

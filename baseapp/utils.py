@@ -57,3 +57,12 @@ def generate_qr_code(secret, user):
     encoded_img = b64encode(buffer.read()).decode()
     qr_code = f"data:image/png;base64,{encoded_img}"
     return qr_code
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[-1].strip()
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+    return ip

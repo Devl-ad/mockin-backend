@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import pyotp
-from account.models import Kyc
+from account.models import Kyc, LoginHistory
 from django.db.models import Sum
 from baseapp import utils
 from users.models import Notification, Transactions, Packages, Investments
@@ -201,7 +201,7 @@ def notifications_page(request):
 @login_required()
 def investment_page(request):
     investments = Investments.objects.filter(user=request.user)
-    return render(request, "user/investments.html", {"investments": investments})
+    return render(request, "useri/investment.html", {"investments": investments})
 
 
 @login_required()
@@ -391,3 +391,9 @@ def disable_2fa(request):
             return redirect("enable_2fa")
     messages.info(request, "SOMETHING WENT WRONG")
     return redirect("enable_2fa")
+
+
+@login_required()
+def login_activities_view(request):
+    logs = LoginHistory.objects.filter(user=request.user).order_by("-date")[:10]
+    return render(request, "useri/login_activities.html", {"logs": logs})
