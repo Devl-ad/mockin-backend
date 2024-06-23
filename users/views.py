@@ -313,7 +313,8 @@ def update_wallet_page(request):
 
 @login_required()
 def packages_view(request):
-    return render(request, "useri/packages.html")
+    packages = Packages.objects.all()
+    return render(request, "useri/packages.html", {"packages": packages})
 
 
 @login_required()

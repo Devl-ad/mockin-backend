@@ -21,6 +21,7 @@ class Account(AbstractUser):
 
     # Stats
     balance = models.IntegerField(default=0, blank=True, null=True)
+    total_earnings = models.IntegerField(default=0, blank=True, null=True)
     deposit_balance = models.IntegerField(default=0, blank=True, null=True)
     total_withdraw = models.IntegerField(default=0, blank=True, null=True)
     is_updated = models.BooleanField(default=False)

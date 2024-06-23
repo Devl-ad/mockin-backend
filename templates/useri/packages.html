@@ -1,5 +1,5 @@
 {% extends "layouts/useri.html" %}<!---->
-{% block title %} Investmant plans {% endblock title %}<!---->
+{% load humanize %} {% block title %} Investmant plans {% endblock title %}<!---->
 {% block content %}
 <div class="container-xl wide-lg">
   <div class="nk-content-body">
@@ -17,12 +17,13 @@
     </div>
     <div class="nk-ivp-apps">
       <div class="nk-ivp-plans row g-gs scheme-container justify-center">
+        {% for obj in packages %}
         <div class="col-md-6 col-lg-4">
           <div class="nk-ivp-card card card-bordered card-full">
             <div class="card-inner-group">
               <div class="card-inner">
                 <div class="nk-ivp-title card-title">
-                  <h4 class="title">GOLD PLAN</h4>
+                  <h4 class="title">{{obj.name}} PLAN</h4>
                 </div>
                 <div class="nk-ivp-summary card-text">
                   <div class="row">
@@ -34,9 +35,11 @@
                     </div>
                     <div class="col-6">
                       <span class="lead-text"
-                        ><span class="small text-dark">1</span></span
+                        ><span class="small text-dark"
+                          >{{obj.duration}}</span
+                        ></span
                       >
-                      <span class="sub-text">Term Days</span>
+                      <span class="sub-text">Term Hours</span>
                     </div>
                   </div>
                 </div>
@@ -46,11 +49,13 @@
                   <ul class="nk-ivp-data">
                     <li>
                       <span class="label">Min Deposit</span> -
-                      <span class="data fw-medium text-dark">50.00 USD</span>
+                      <span class="data fw-medium text-dark"
+                        >{{obj.min_amount|intcomma}} USD</span
+                      >
                     </li>
                     <li>
                       <span class="label">Max Deposit</span> -
-                      <span class="data">599.00 USD</span>
+                      <span class="data">{{obj.max_amount|intcomma}} USD</span>
                     </li>
 
                     <li>
@@ -66,13 +71,15 @@
                     </li>
                     <li>
                       <span class="label">Total Return</span> -
-                      <span class="data">120%</span>
+                      <span class="data">{{obj.roi}}%</span>
                     </li>
                   </ul>
                   <div class="nk-ivp-action">
                     <a
                       class="btn btn-primary"
-                      href="https://fintcapitallimited.com/user/public/invest/IV001SGP"
+                      href="javascript:void(0)"
+                      data-toggle="modal"
+                      data-target="#invest-modal"
                       ><span>Invest Now</span></a
                     >
                   </div>
@@ -81,201 +88,76 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="nk-ivp-card card card-bordered card-full">
-            <div class="card-inner-group">
-              <div class="card-inner">
-                <div class="nk-ivp-title card-title">
-                  <h4 class="title">EMERALD PLAN</h4>
-                </div>
-                <div class="nk-ivp-summary card-text">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="lead-text"
-                        ><span class="small text-dark">25%</span></span
-                      >
-                      <span class="sub-text">Daily Interest</span>
-                    </div>
-                    <div class="col-6">
-                      <span class="lead-text"
-                        ><span class="small text-dark">1</span></span
-                      >
-                      <span class="sub-text">Term Days</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-inner">
-                <div class="card-text">
-                  <ul class="nk-ivp-data">
-                    <li>
-                      <span class="label">Min Deposit</span> -
-                      <span class="data fw-medium text-dark">600.00 USD</span>
-                    </li>
-                    <li>
-                      <span class="label">Max Deposit</span> -
-                      <span class="data">1,499.00 USD</span>
-                    </li>
-
-                    <li>
-                      <span class="label"
-                        >Capital Return
-                        <em
-                          class="icon ni ni-info text-soft nk-tooltip small"
-                          title=""
-                          data-original-title="The invested amount will be return at the end of term."
-                        ></em
-                      ></span>
-                      - <span class="data"> End of Term </span>
-                    </li>
-                    <li>
-                      <span class="label">Total Return</span> -
-                      <span class="data">125%</span>
-                    </li>
-                  </ul>
-                  <div class="nk-ivp-action">
-                    <a
-                      class="btn btn-primary"
-                      href="https://fintcapitallimited.com/user/public/invest/IV002SEP"
-                      ><span>Invest Now</span></a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="nk-ivp-card card card-bordered card-full">
-            <div class="card-inner-group">
-              <div class="card-inner">
-                <div class="nk-ivp-title card-title">
-                  <h4 class="title">RUBY PLAN</h4>
-                </div>
-                <div class="nk-ivp-summary card-text">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="lead-text"
-                        ><span class="small text-dark">12.5%</span></span
-                      >
-                      <span class="sub-text">Daily Interest</span>
-                    </div>
-                    <div class="col-6">
-                      <span class="lead-text"
-                        ><span class="small text-dark">2</span></span
-                      >
-                      <span class="sub-text">Term Days</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-inner">
-                <div class="card-text">
-                  <ul class="nk-ivp-data">
-                    <li>
-                      <span class="label">Min Deposit</span> -
-                      <span class="data fw-medium text-dark">1,500.00 USD</span>
-                    </li>
-                    <li>
-                      <span class="label">Max Deposit</span> -
-                      <span class="data">4,999.00 USD</span>
-                    </li>
-
-                    <li>
-                      <span class="label"
-                        >Capital Return
-                        <em
-                          class="icon ni ni-info text-soft nk-tooltip small"
-                          title=""
-                          data-original-title="The invested amount will be return at the end of term."
-                        ></em
-                      ></span>
-                      - <span class="data"> End of Term </span>
-                    </li>
-                    <li>
-                      <span class="label">Total Return</span> -
-                      <span class="data">125.0%</span>
-                    </li>
-                  </ul>
-                  <div class="nk-ivp-action">
-                    <a
-                      class="btn btn-primary"
-                      href="https://fintcapitallimited.com/user/public/invest/IV003SRP"
-                      ><span>Invest Now</span></a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="nk-ivp-card card card-bordered card-full">
-            <div class="card-inner-group">
-              <div class="card-inner">
-                <div class="nk-ivp-title card-title">
-                  <h4 class="title">DIAMOND PLAN</h4>
-                </div>
-                <div class="nk-ivp-summary card-text">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="lead-text"
-                        ><span class="small text-dark">4.2%</span></span
-                      >
-                      <span class="sub-text">Daily Interest</span>
-                    </div>
-                    <div class="col-6">
-                      <span class="lead-text"
-                        ><span class="small text-dark">7</span></span
-                      >
-                      <span class="sub-text">Term Days</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-inner">
-                <div class="card-text">
-                  <ul class="nk-ivp-data">
-                    <li>
-                      <span class="label">Min Deposit</span> -
-                      <span class="data fw-medium text-dark">5,000.00 USD</span>
-                    </li>
-                    <li>
-                      <span class="label">Max Deposit</span> -
-                      <span class="data">1,000,000.00 USD</span>
-                    </li>
-
-                    <li>
-                      <span class="label"
-                        >Capital Return
-                        <em
-                          class="icon ni ni-info text-soft nk-tooltip small"
-                          title=""
-                          data-original-title="The invested amount will be return at the end of term."
-                        ></em
-                      ></span>
-                      - <span class="data"> End of Term </span>
-                    </li>
-                    <li>
-                      <span class="label">Total Return</span> -
-                      <span class="data">129.4%</span>
-                    </li>
-                  </ul>
-                  <div class="nk-ivp-action">
-                    <a
-                      class="btn btn-primary"
-                      href="https://fintcapitallimited.com/user/public/invest/IV004SDP"
-                      ><span>Invest Now</span></a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
 </div>
 <!--  -->
-{% endblock content %}
+{% endblock content %} {% block modal %}
+<div class="modal fade" tabindex="-1" role="dialog" id="invest-modal">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <a href="#" class="close" data-dismiss="modal"
+        ><em class="icon ni ni-cross-sm"></em
+      ></a>
+      <div class="modal-body modal-body-md">
+        <h5 class="title">Invest</h5>
+        <form
+          action="https://fintcapitallimited.com/user/public/profile/settings/password"
+          method="POST"
+          class="form-validate is-alter mt-4 form-authentic"
+          id="change-password-form"
+        >
+          {% csrf_token %}
+          <input type="hidden" name="plan_id" id="plan_id" />
+          <div class="modal-body">
+            <div class="form-group">
+              <h6 class="text-center investAmountRange"></h6>
+              <p class="text-center mt-1 interestDetails"></p>
+              <p class="text-center interestValidity"></p>
+            </div>
+            <div class="form-group">
+              <label>Invest Amount</label>
+              <div class="input-group">
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  name="amount"
+                  required
+                />
+                <div class="input-group-text bg--base">USD</div>
+              </div>
+              <code class="gateway-info d-none"
+                >Charge: <span class="charge"></span> USD. Total amount:
+                <span class="total"></span> USD</code
+              >
+            </div>
+          </div>
+
+          <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+            <li>
+              <button
+                type="button"
+                id="update-password"
+                class="btn btn-primary"
+              >
+                Update Password
+              </button>
+            </li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                data-dismiss="modal"
+                class="link link-light"
+                >Cancel</a
+              >
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock modal %}
