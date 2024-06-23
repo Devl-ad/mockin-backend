@@ -29,6 +29,9 @@ class Account(AbstractUser):
     unique_id = models.CharField(max_length=30, blank=True, null=True, unique=True)
     is_verified = models.BooleanField(default=False)
 
+    otp_secret_key = models.CharField(max_length=64, blank=True, null=True)
+    otp_enabled = models.BooleanField(default=False)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 

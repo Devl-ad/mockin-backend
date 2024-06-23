@@ -1,0 +1,187 @@
+{% extends "layouts/useri.html" %} {% block title %} Two factor authentication
+{% endblock title %}<!---->
+{% block content %}
+
+<!--  -->
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head">
+      <div class="nk-block-head-content">
+        <h2 class="nk-block-title fw-normal">Two factor authentication</h2>
+        <div class="nk-block-des">
+          <p>You have full control to manage your own account setting.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="/settings/profile/">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/setting/accounts/">Accounts</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/settings/security/">Security</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/setting/activity/">Activity</a>
+      </li>
+    </ul>
+    <div class="nk-block">
+      <div class="nk-pps-card card">
+        <div class="card-inner">
+          {% if user.otp_enabled %}
+
+          <h5 class="modal-title">Disable 2FA Authentication</h5>
+          <form
+            action="{% url 'disable_2fa' %}"
+            method="POST"
+            class="form-validate is-alter mt-3"
+            novalidate="novalidate"
+          >
+            <p>
+              If you want to disable 2FA authentication from your account then
+              enter your the current code.
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="google2fa-code"
+                >Enter Authenticator Code</label
+              >
+              <div class="form-control-wrap">
+                <input
+                  type="text"
+                  name="code"
+                  class="form-control"
+                  id="google2fa-code"
+                  placeholder="Enter the code to verify"
+                  required=""
+                />
+              </div>
+            </div>
+            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+              <li>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                  Disable 2FA
+                </button>
+              </li>
+              <li>
+                <a
+                  href="javascript:void(0)"
+                  data-dismiss="modal"
+                  class="link link-light"
+                  >Cancel</a
+                >
+              </li>
+            </ul>
+            <div class="divider stretched md"></div>
+            <p class="text-danger">
+              <strong>Attention:</strong> If you disable the 2FA authentication
+              then it won't ask you again the code when you login.
+            </p>
+          </form>
+
+          {% else %}
+          <form
+            action=""
+            method="POST"
+            class="form-validate is-alter mt-3"
+            autocomplete="off"
+            novalidate="novalidate"
+          >
+            {% csrf_token %}
+            <p>
+              Step 1: Install the Google Authenticator app from
+              <a
+                target="_blank"
+                href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                >Google Play</a
+              >
+              or
+              <a
+                target="_blank"
+                href="https://apps.apple.com/us/app/google-authenticator/id388497605"
+                >App Store</a
+              >.
+            </p>
+            <p>
+              Step 2: Scan below QR code by your Google Authenticator app, or
+              you can add account manually into the app.
+            </p>
+
+            <div class="divider stretched sm"></div>
+
+            <div class="row align-center">
+              <div class="col-sm-8">
+                <p class="mb-1">
+                  <strong class="text-dark">Manually add account:</strong>
+                </p>
+                <p class="mb-1">
+                  Account Name:<br /><strong class="text-dark"
+                    >WEALTHLINE</strong
+                  >
+                </p>
+                <p class="mb-1">
+                  Your Key:<br /><strong class="text-dark"
+                    >{{otp_secret_key}}</strong
+                  >
+                </p>
+              </div>
+              <div class="col-sm-4">
+                <div class="qr-media my-1 ml-sm-auto w-max-120px">
+                  <!--?xml version="1.0" encoding="UTF-8"?-->
+                  <img
+                    class="mx-auto"
+                    src="{{ qr_code|safe }}"
+                    alt="QR Code"
+                    width="200px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="divider stretched sm"></div>
+
+            <label class="form-label" for="google2fa-code"
+              >Enter Authenticator Code</label
+            >
+            <div class="row g-2 align-center">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <div class="form-control-wrap">
+                    <input
+                      id="google2fa-code"
+                      type="text"
+                      class="form-control"
+                      name="code"
+                      placeholder="Enter the code to verify"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <input type="hidden" name="key" value="{{otp_secret_key}}" />
+
+                  <button type="submit" class="btn btn-primary btn-block">
+                    Confirm &amp; Enable
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider stretched md"></div>
+            <p class="text-danger">
+              <strong>Attention:</strong> You will lose access of your account,
+              if you lost your phone or uninstall the Google Authenticator app.
+            </p>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+      <div class="notes mt-4"></div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

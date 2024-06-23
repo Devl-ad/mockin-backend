@@ -1,0 +1,174 @@
+{% extends "layouts/useri.html" %}
+
+<!---->
+{% block title %} Security Settings {% endblock title %}<!---->
+{% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head">
+      <div class="nk-block-head-content">
+        <h2 class="nk-block-title fw-normal">Security Settings</h2>
+        <div class="nk-block-des">
+          <p>You have full control to manage your own account setting.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="/settings/profile/">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/setting/accounts/">Accounts</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/settings/security/">Security</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/setting/activity/">Activity</a>
+      </li>
+    </ul>
+    <div class="nk-block">
+      <div class="nk-block-head">
+        <div class="nk-block-head-content">
+          <h5 class="nk-block-title">Settings</h5>
+          <div class="nk-block-des">
+            <p>These settings are helps you keep your account secure.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card card-bordered">
+        <div class="card-inner-group">
+          <div class="card-inner">
+            <div class="between-center flex-wrap flex-md-nowrap g-3">
+              <div class="nk-block-text">
+                <h6>Save my Activity Logs</h6>
+                <p>
+                  Save your all
+                  <a href="#" class="link link-primary">activity logs</a>
+                  including unusual activity detected.
+                </p>
+              </div>
+              <div class="nk-block-actions">
+                <ul class="align-center gx-3">
+                  <li class="order-md-last">
+                    <div class="custom-control custom-switch mr-n2">
+                      <input
+                        type="checkbox"
+                        name="activity_log"
+                        class="custom-control-input quick-update-profile"
+                        checked=""
+                        id="activity-log"
+                        data-key="setting"
+                      />
+                      <label
+                        class="custom-control-label"
+                        for="activity-log"
+                      ></label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-inner">
+            <div class="between-center flex-wrap flex-md-nowrap g-3">
+              <div class="nk-block-text">
+                <h6>Email me if encounter unusual activity</h6>
+                <p>
+                  You will get email notification whenever encounter invalid
+                  login activity.
+                </p>
+              </div>
+              <div class="nk-block-actions">
+                <ul class="align-center gx-3">
+                  <li class="order-md-last">
+                    <div class="custom-control custom-switch mr-n2">
+                      <input
+                        type="checkbox"
+                        name="unusual_activity"
+                        class="custom-control-input quick-update-profile"
+                        checked=""
+                        id="unusual-activity"
+                        data-key="setting"
+                      />
+                      <label
+                        class="custom-control-label"
+                        for="unusual-activity"
+                      ></label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-inner">
+            <div class="between-center flex-wrap flex-md-nowrap g-3">
+              <div class="nk-block-text">
+                <h6>Change Password</h6>
+                <p>Set a unique password to protect your account.</p>
+              </div>
+              <div class="nk-block-actions flex-shrink-sm-0">
+                <ul class="align-center flex-wrap flex-sm-nowrap gx-3 gy-2">
+                  <li class="order-md-last">
+                    <a
+                      href="javascript:void(0)"
+                      id="settings-change-password"
+                      data-toggle="modal"
+                      data-target="#change-password"
+                      class="btn btn-sm btn-primary"
+                      >Change Password</a
+                    >
+                  </li>
+                  <li>
+                    <em class="text-soft text-date fs-12px"
+                      >Last changed: <span>N/A</span></em
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-inner">
+            <div class="between-center flex-wrap flex-md-nowrap g-3">
+              <div class="nk-block-text">
+                <h6>
+                  2FA Authentication {% if user.otp_enabled %}
+                  <span class="badge badge-success">Enabled</span>
+                  {% else %}
+                  <span class="badge badge-danger">Disabled</span>
+                  {% endif %}
+                </h6>
+                <p>
+                  Secure your account with 2FA security. When it is activated
+                  you will need to enter not only your password, but also a
+                  special code using your mobile.
+                </p>
+              </div>
+              <div class="nk-block-actions">
+                {% if user.otp_enabled %}
+                <a
+                  href="/twofactor/"
+                  id="settings-enable-2fa"
+                  class="btn btn-sm btn-danger"
+                  >Disable</a
+                >
+                {% else %}
+                <a
+                  href="/twofactor/"
+                  id="settings-enable-2fa"
+                  class="btn btn-sm btn-primary"
+                  >Enable</a
+                >
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

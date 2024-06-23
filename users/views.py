@@ -1,12 +1,13 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import pyotp
 from account.models import Kyc
 from django.db.models import Sum
 from baseapp import utils
 from users.models import Notification, Transactions, Packages, Investments
-from .forms import DepositForm, KycForm, UpdateUserForm
-from django.contrib.auth.forms import PasswordChangeForm
+from .forms import DepositForm, KycForm, UpdateUserForm, ChangePasswordForm
+
 from account.models import PaymenyDetails
 import datetime
 from django.http import JsonResponse
@@ -249,7 +250,6 @@ def settings_page(request):
     user = request.user
     context = {
         "investment_count": Investments.objects.filter(user=user).count(),
-        "form_password": PasswordChangeForm(user),
     }
     if request.POST:
         form = UpdateUserForm(request.POST, instance=user)
@@ -269,7 +269,7 @@ def settings_page(request):
 def settings_password_page(request):
     user = request.user
     if request.POST:
-        form = PasswordChangeForm(user, request.POST)
+        form = ChangePasswordForm(user, request.POST)
         if form.is_valid():
             form.save()
             messages.error(request, "Password Changed")
@@ -314,3 +314,67 @@ def update_wallet_page(request):
 @login_required()
 def packages_view(request):
     return render(request, "useri/packages.html")
+
+
+@login_required()
+def security_view(request):
+
+    return render(
+        request,
+        "useri/security.html",
+    )
+
+
+@login_required()
+def enable_2fa(request):
+    user = request.user
+
+    otp_secret_key = utils.generate_totp_secret()
+    # otp_secret_key = utils.generate_short_totp_secret()
+
+    qr_code = utils.generate_qr_code(otp_secret_key, user)
+
+    if request.POST:
+        secret_key = request.POST.get("key")
+        code = request.POST.get("code")
+
+        totp = pyotp.TOTP(secret_key)
+
+        if totp.verify(code):
+            user.otp_secret_key = secret_key
+            user.otp_enabled = True
+            user.save()
+            messages.info(request, "2FA has been activated")
+            return redirect("enable_2fa")
+        else:
+            messages.info(request, "Code in invalid")
+            return render(
+                request,
+                "useri/2fa.html",
+                {"qr_code": qr_code, "otp_secret_key": secret_key},
+            )
+
+    return render(
+        request,
+        "useri/2fa.html",
+        {"qr_code": qr_code, "otp_secret_key": otp_secret_key},
+    )
+
+
+@login_required()
+def disable_2fa(request):
+    user = request.user
+    if request.POST:
+        code = request.POST.get("code")
+        totp = pyotp.TOTP(user.otp_secret_key)
+        if totp.verify(code):
+            user.otp_secret_key = ""
+            user.otp_enabled = False
+            user.save()
+            messages.info(request, "2FA has been deactivated")
+            return redirect("enable_2fa")
+        else:
+            messages.info(request, "code is invalid")
+            return redirect("enable_2fa")
+    messages.info(request, "SOMETHING WENT WRONG")
+    return redirect("enable_2fa")

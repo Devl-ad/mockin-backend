@@ -1,7 +1,14 @@
 import random
 from django.conf import settings
 from django.utils import timezone
+import qrcode
+from io import BytesIO
+import string
 
+
+import pyotp
+
+from base64 import b64encode
 
 from datetime import timedelta
 from uuid import uuid4
@@ -28,3 +35,25 @@ def gen_random_number():
 def rand_code():
     code = str(uuid4()).replace(" ", "-").upper()[:6]
     return code
+
+
+def generate_short_totp_secret():
+    return "".join(random.choices(string.ascii_uppercase + "234567", k=8))
+
+
+def generate_totp_secret():
+    return pyotp.random_base32()
+
+
+def generate_qr_code(secret, user):
+    totp_uri = pyotp.totp.TOTP(secret).provisioning_uri(
+        user.username, issuer_name="Wealth line"
+    )
+
+    img = qrcode.make(totp_uri)
+    buffer = BytesIO()
+    img.save(buffer)
+    buffer.seek(0)
+    encoded_img = b64encode(buffer.read()).decode()
+    qr_code = f"data:image/png;base64,{encoded_img}"
+    return qr_code
