@@ -27,4 +27,5 @@ urlpatterns = [
     path("packages/", views.packages_view, name="packages"),
     path("twofactor/", views.enable_2fa, name="enable_2fa"),
     path("disable-twofactor/", views.disable_2fa, name="disable_2fa"),
+    path("change-password/", views.change_password_view, name="change_password_view"),
 ]

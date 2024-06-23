@@ -7,7 +7,7 @@ from django.db.models import Sum
 from baseapp import utils
 from users.models import Notification, Transactions, Packages, Investments
 from .forms import DepositForm, KycForm, UpdateUserForm, ChangePasswordForm
-
+from django.contrib.auth import update_session_auth_hash
 from account.models import PaymenyDetails
 import datetime
 from django.http import JsonResponse
@@ -317,12 +317,25 @@ def packages_view(request):
 
 
 @login_required()
-def security_view(request):
+def change_password_view(request):
+    user = request.user
+    if request.POST:
+        form = ChangePasswordForm(
+            request.user,
+            request.POST,
+        )
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.info(request, "Password changed  successfully")
+    else:
+        form = ChangePasswordForm(user=user)
+    return render(request, "useri/change_password.html", {"form": form})
 
-    return render(
-        request,
-        "useri/security.html",
-    )
+
+@login_required()
+def security_view(request):
+    return render(request, "useri/security.html")
 
 
 @login_required()
