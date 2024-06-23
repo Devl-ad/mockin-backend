@@ -13,4 +13,5 @@ urlpatterns = [
     path("new-password/<uidb64>/", views.new_password_view, name="new-password"),
     path("loginre/", views.login_re, name="login_re"),
     path("registerre/", views.register_re, name="register_re"),
+    path("verify-otp/", views.verify_otp, name="verify_otp"),
 ]

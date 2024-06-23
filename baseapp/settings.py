@@ -164,7 +164,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT = "dashboard"
 LOGIN_URL = "login_re"
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

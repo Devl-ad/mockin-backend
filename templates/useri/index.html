@@ -35,7 +35,24 @@
     </div>
 
     <div class="nk-block">
-      {% if paydetail %} {% else %}
+      {% if user.otp_enabled %} {% else %}
+      <div class="alert alert-warning alert-thick alert-plain">
+        <div class="alert-cta flex-wrap flex-md-nowrap g-2">
+          <div class="alert-text has-icon">
+            <em class="icon ni ni-alert-fill text-warning"></em>
+            <p>
+              To keep safe your account, Please enable the two factor
+              authentication
+            </p>
+          </div>
+          <div class="alert-actions my-1 my-md-0">
+            <a href="/settings/security/" class="btn btn-sm btn-primary"
+              >enable</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if paydetail %} {% else %}
       <div class="alert alert-warning alert-thick alert-plain">
         <div class="alert-cta flex-wrap flex-md-nowrap g-2">
           <div class="alert-text has-icon">

@@ -101,6 +101,8 @@ class LoginApiView(APIView):
             cache.set(ke_y, {"email": account.email, "password": password}, timeout=800)
 
             context["token"] = urlsafe_base64_encode(force_bytes(ke_y))
+            context["otp_enabled"] = account.otp_enabled
+            context["userid"] = account.id
 
         else:
             context["error"] = "Invalid username or password"

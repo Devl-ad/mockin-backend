@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
@@ -9,6 +10,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from django.utils.encoding import force_str
+import pyotp
 from .forms import RegisterForm, LoginForm, SetPasswordForm
 from django.contrib.auth.forms import SetPasswordForm
 from baseapp import utils
@@ -40,6 +42,34 @@ def sign_out(request):
 def empty_page(request):
     # return HttpResponseRedirect("localhost:5173/sign-up/")
     return render(request, "account/verif-email.html")
+
+
+@csrf_exempt
+def verify_otp(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            userid = data.get("userid")
+            code = data.get("code")
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"})
+
+        if not userid or not code:
+            return JsonResponse({"error": "User ID and code are required"})
+
+        try:
+            user = Account.objects.get(pk=int(userid))
+        except (Account.DoesNotExist, ValueError, TypeError):
+            return JsonResponse(
+                {"error": "User not found or invalid User ID"}, status=404
+            )
+
+        totp = pyotp.TOTP(user.otp_secret_key)
+        if totp.verify(code):
+            return JsonResponse({"msg": "Success"})
+        else:
+            return JsonResponse({"error": "Code is invalid"})
+    return JsonResponse({"error": "GET request not allowed"}, status=405)
 
 
 def loginUser(request):

@@ -46,9 +46,6 @@ class UserAdmin(BaseUserAdmin):
                     "total_withdraw",
                     "referral_bonus",
                     "referral",
-                    "btc_address",
-                    "eth_address",
-                    "usdt_address",
                 )
             },
         ),
