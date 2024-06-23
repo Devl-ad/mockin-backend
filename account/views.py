@@ -27,16 +27,16 @@ from django.http import HttpResponseRedirect
 
 
 def login_re(request):
-    return HttpResponseRedirect("http://localhost:5173/login/")
+    return HttpResponseRedirect("https://app.wealthlines.org/login/")
 
 
 def register_re(request):
-    return HttpResponseRedirect("http://localhost:5173/register/")
+    return HttpResponseRedirect("https://app.wealthlines.org/register/")
 
 
 def sign_out(request):
     logout(request)
-    return HttpResponseRedirect("http://localhost:5173/login/")
+    return HttpResponseRedirect("https://app.wealthlines.org/login/")
 
 
 def empty_page(request):
