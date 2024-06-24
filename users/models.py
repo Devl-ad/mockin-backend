@@ -34,6 +34,7 @@ class Transactions(models.Model):
     unique_u = models.CharField(max_length=30, blank=True, null=True, unique=True)
     prove_img = models.ImageField(upload_to="prove/", blank=True, null=True)
     amount_in_coin = models.FloatField(default=0)
+    reason = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username} :  {self.trans_type}"

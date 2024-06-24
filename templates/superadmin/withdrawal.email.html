@@ -71,8 +71,7 @@
       <div class="content">
         <p>Dear {{account.fullname}},</p>
         <p>
-          We are pleased to inform you that your transaction has been
-          successfully processed.
+          We are pleased to inform you that your transaction has been processed.
         </p>
         <table class="details">
           <tr>
@@ -87,6 +86,12 @@
             <th>Amount:</th>
             <td>{{amount}}</td>
           </tr>
+          {% if status == 'declined' %}
+          <tr>
+            <th>Reason:</th>
+            <td>{{transaction.reason}}</td>
+          </tr>
+          {% endif %}
         </table>
         <p>Thank you for your business!</p>
       </div>

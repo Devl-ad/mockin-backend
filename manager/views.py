@@ -154,7 +154,9 @@ def withdrawal_detail(request, pk):
     if request.POST:
         submit = request.POST.get("submit")
         if submit == "decline":
+            reason = request.POST.get("reason")
             transaction.status = "declined"
+            transaction.reason = reason
             transaction.save()
 
             current_site = get_current_site(request)
@@ -167,7 +169,7 @@ def withdrawal_detail(request, pk):
             utils.send_mail(
                 subject,
                 context,
-                transaction.user.email,
+                [transaction.user.email],
                 "superadmin/withdrawal.email.html",
             )
 
@@ -190,7 +192,7 @@ def withdrawal_detail(request, pk):
             utils.send_mail(
                 subject,
                 context,
-                transaction.user.email,
+                [transaction.user.email],
                 "superadmin/withdrawal.email.html",
             )
 
@@ -226,6 +228,8 @@ def deposit_details(request, pk):
     if request.POST:
         submit = request.POST.get("submit")
         if submit == "decline":
+            reason = request.POST.get("reason")
+            transaction.reason = reason
             transaction.status = "declined"
             transaction.save()
             current_site = get_current_site(request)
@@ -235,7 +239,12 @@ def deposit_details(request, pk):
                 "domain": current_site.domain,
                 "transaction": transaction,
             }
-            utils.send_mail(subject, context, transaction.user.email)
+            utils.send_mail(
+                subject,
+                context,
+                [transaction.user.email],
+                "superadmin/withdrawal.email.html",
+            )
 
             messages.warning(request, "Deposit declined")
             return redirect("deposit_details", pk=transaction.pk)
@@ -249,12 +258,16 @@ def deposit_details(request, pk):
             current_site = get_current_site(request)
             subject = "Deposited Approved"
             context = {
-                "user": transaction.user,
+                "status": "approved",
                 "domain": current_site.domain,
-                "amount": transaction.amount,
                 "transaction": transaction,
             }
-            utils.send_mail(subject, context, transaction.user.email)
+            utils.send_mail(
+                subject,
+                context,
+                [transaction.user.email],
+                "superadmin/withdrawal.email.html",
+            )
 
             messages.success(request, "Account Deposit Successful")
             return redirect("deposit_details", pk=transaction.id)
@@ -334,12 +347,7 @@ def investments_detail(request, pk):
             investment.status = "completed"
             # investment.user.save()
             investment.save()
-            utils.create_notification(
-                model=Notification,
-                user=investment.user,
-                title="Investment Completed",
-                body=f"Your investment have just been completed",
-            )
+
         messages.success(request, f"Investment completed")
         return redirect("investments_detail", pk=pk)
 

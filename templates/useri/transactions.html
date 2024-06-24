@@ -240,7 +240,11 @@
                 </div>
                 <div class="nk-odr-meta">
                   <span class="date">{{obj.date|date:"d M, Y"}}</span>
-                  <span class="status dot-join"> {{obj.status}} </span>
+                  <span
+                    class="status dot-join {% if obj.status == 'pending' %} text-warning {% elif obj.status == 'approved' %} text-success {% else %} text-danger {% endif %}"
+                  >
+                    {{obj.status}}
+                  </span>
                 </div>
               </div>
             </div>
