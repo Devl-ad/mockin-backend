@@ -1,0 +1,215 @@
+{% extends "layouts/useri.html" %}<!---->
+{% load humanize %} {% load humanize %} {% block title %} Investmants Logs {%
+endblock title %}<!---->
+{% block content %}
+
+<div class="container-xl wide-lg">
+  <div class="nk-content-body">
+    <div class="nk-block-head">
+      <div class="nk-block-head-sub">
+        <a href="/investments/" class="text-soft back-to"
+          ><em class="icon ni ni-arrow-left"> </em><span>Investment</span></a
+        >
+      </div>
+      <div class="nk-block-between-sm g-4">
+        <div class="nk-block-head-content">
+          <h2 class="nk-block-title fw-normal">Investment History</h2>
+          <div class="nk-block-des">
+            <p>List of your investment plan that you have invested.</p>
+          </div>
+        </div>
+        <div class="nk-block-head-content">
+          <ul class="nk-block-tools gx-3">
+            <li class="order-md-last">
+              <a href="/packages/" class="btn btn-primary"
+                ><span>Invest More</span>
+                <em class="icon ni ni-arrow-long-right"></em
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="/investment/logs/">History</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/investment/logs/?status=active"
+          >Active <span class="badge badge-primary"></span
+        ></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/investment/logs/?status=completed"
+          >Completed</a
+        >
+      </li>
+    </ul>
+    <div class="nk-block nk-block-xs">
+      <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between">
+          <div class="nk-block-head-content">
+            <h6 class="nk-block-title">All Plans</h6>
+          </div>
+          <ul class="nk-block-tools gx-3">
+            <li>
+              <a
+                href="#"
+                class="search-toggle toggle-search btn btn-icon btn-trigger"
+                data-target="search"
+                ><em class="icon ni ni-search"></em
+              ></a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle btn btn-icon btn-trigger mx-n1"
+                  data-toggle="dropdown"
+                  data-offset="-8,0"
+                  ><em class="icon ni ni-setting"></em
+                ></a>
+                <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
+                  <ul class="link-check">
+                    <li><span>Show</span></li>
+                    <li class="update-meta active">
+                      <a
+                        href="#"
+                        data-value="10"
+                        data-meta="perpage"
+                        data-type="iv_history"
+                        >10</a
+                      >
+                    </li>
+                    <li class="update-meta">
+                      <a
+                        href="#"
+                        data-value="20"
+                        data-meta="perpage"
+                        data-type="iv_history"
+                        >20</a
+                      >
+                    </li>
+                    <li class="update-meta">
+                      <a
+                        href="#"
+                        data-value="50"
+                        data-meta="perpage"
+                        data-type="iv_history"
+                        >50</a
+                      >
+                    </li>
+                  </ul>
+                  <ul class="link-check">
+                    <li><span>Density</span></li>
+                    <li class="update-meta active">
+                      <a
+                        href="#"
+                        data-value="regular"
+                        data-meta="display"
+                        data-type="iv_history"
+                        >Regular</a
+                      >
+                    </li>
+                    <li class="update-meta">
+                      <a
+                        href="#"
+                        data-value="compact"
+                        data-meta="display"
+                        data-type="iv_history"
+                        >Compact</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <form action="#" method="GET">
+          <div
+            class="search-wrap search-wrap-extend bg-lighter"
+            data-search="search"
+          >
+            <div class="search-content">
+              <a
+                href="#"
+                class="search-back btn btn-icon toggle-search"
+                data-target="search"
+                ><em class="icon ni ni-arrow-left"></em
+              ></a>
+              <input
+                type="text"
+                name="query"
+                value=""
+                class="form-control border-transparent form-focus-none"
+                placeholder="Search by invest id"
+              />
+              <button class="search-submit btn btn-icon mr-1">
+                <em class="icon ni ni-search"></em>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% if investments %} {% for obj in investments %}
+      <div class="nk-odr-list card card-bordered">
+        <div class="nk-odr-item">
+          <div class="nk-odr-col">
+            <div class="nk-odr-info">
+              <div class="nk-odr-badge">
+                <span
+                  class="nk-odr-icon bg-success-dim text-success icon ni ni-arrow-down-left"
+                ></span
+                ><span
+                  class="nk-odr-icon text-secondary icon ni ni-wallet-fill"
+                ></span>
+              </div>
+              <div class="nk-odr-data">
+                <div class="nk-odr-label ellipsis">
+                  Invested on {{obj.package.name.capitalize}} Plan
+                </div>
+                <div class="nk-odr-meta">
+                  <span class="date"> {{obj.date|date:"d M, Y"}}</span>
+                  <span class="status dot-join text-primary">
+                    {{obj.status}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nk-odr-col nk-odr-col-amount">
+            <div class="nk-odr-amount">
+              <div class="number-md text-s text-success">
+                {{obj.amount_invested|intcomma}}
+                <span class="currency">USD</span>
+              </div>
+              <div class="number-sm">
+                500.00 <span class="currency">USD</span>
+              </div>
+            </div>
+          </div>
+          <div class="nk-odr-col nk-odr-col-action">
+            <div class="nk-odr-action">
+              <a class="tnx-detailtt" href="#"
+                ><em class="icon ni ni-forward-ios"></em
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <div class="alert alert-primary">
+        <div class="alert-cta flex-wrap flex-md-nowrap">
+          <div class="alert-text">
+            <p>No investment plan found.</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

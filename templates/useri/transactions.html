@@ -1,5 +1,5 @@
 {% extends "layouts/useri.html" %}<!---->
-{% block title %} Transactions {% endblock title %}<!---->
+{% load humanize %} {% block title %} Transactions {% endblock title %}<!---->
 {% block content %}
 
 <div class="container-xl wide-lg">
@@ -248,7 +248,7 @@
           <div class="nk-odr-col nk-odr-col-amount">
             <div class="nk-odr-amount">
               <div class="number-md text-s text-success">
-                {{obj.amount}}
+                {{obj.amount|intcomma}}
                 <span class="currency">USD</span>
               </div>
             </div>

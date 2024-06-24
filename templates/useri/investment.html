@@ -1,5 +1,5 @@
 {% extends "layouts/useri.html" %}<!---->
-{% block title %} Investmants {% endblock title %}<!---->
+{% load humanize %} {% block title %} Investmants {% endblock title %}<!---->
 {% block content %}
 <div class="nk-content nk-content-fluid">
   <div class="container-xl wide-lg">
@@ -51,7 +51,8 @@
                     <div class="nk-wgacc-sub">
                       <div class="nk-wgacc-amount">
                         <div class="number number-md">
-                          0.00 <small class="currency">USD</small>
+                          {{user.balance|intcomma}}
+                          <small class="currency">USD</small>
                         </div>
                       </div>
                       <div class="nk-wgacc-subtitle">Available Funds</div>
@@ -61,7 +62,9 @@
                         ><em class="icon ni ni-plus"></em
                       ></span>
                       <div class="nk-wgacc-amount">
-                        <div class="number number-sm">0.00</div>
+                        <div class="number number-sm">
+                          {{appr_profit|intcomma}}
+                        </div>
                       </div>
                       <div class="nk-wgacc-subtitle">Locked</div>
                     </div>
@@ -70,12 +73,12 @@
                 <div class="card-action">
                   <ul class="nk-block-tools gx-4">
                     <li>
-                      <a
-                        href="https://fintcapitallimited.com/user/public/investment/payout"
+                      <!-- <a
+                        href="#"
                         class="btn btn-secondary iv-payout"
                         ><span>Transfer Funds</span>
                         <em class="icon ni ni-arrow-long-right"></em
-                      ></a>
+                      ></a> -->
                     </li>
                   </ul>
                 </div>
@@ -103,7 +106,8 @@
                               <div class="nk-wgacc-sub">
                                 <div class="nk-wgacc-amount">
                                   <div class="number number-md">
-                                    0.00 <small class="currency">USD</small>
+                                    {{current_invested|intcomma}}
+                                    <small class="currency">USD</small>
                                   </div>
                                 </div>
                                 <div class="nk-wgacc-subtitle">
@@ -115,7 +119,9 @@
                                   ><em class="icon ni ni-plus"></em
                                 ></span>
                                 <div class="nk-wgacc-amount">
-                                  <div class="number number-sm">0.00</div>
+                                  <div class="number number-sm">
+                                    {{appr_profit|intcomma}}
+                                  </div>
                                 </div>
                                 <div class="nk-wgacc-subtitle">
                                   Approx Profit
@@ -144,15 +150,13 @@
                 <div class="card-inner">
                   <ul class="nk-wgacc-nav">
                     <li>
-                      <a
-                        href="https://fintcapitallimited.com/user/public/investment/transactions"
+                      <a href="/transactions-log/"
                         ><em class="icon ni ni-notes-alt"></em>
                         <span>Transactions</span></a
                       >
                     </li>
                     <li>
-                      <a
-                        href="https://fintcapitallimited.com/user/public/investment/history"
+                      <a href="/investment/logs/"
                         ><em class="icon ni ni-file-check"></em>
                         <span>History</span></a
                       >

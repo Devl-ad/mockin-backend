@@ -203,7 +203,30 @@ def notifications_page(request):
 @login_required()
 def investment_page(request):
     investments = Investments.objects.filter(user=request.user)
-    return render(request, "useri/investment.html", {"investments": investments})
+    active_invetment = Investments.objects.filter(user=request.user, status="active")
+    current_invested = active_invetment.aggregate(total=Sum("amount_invested"))
+    appr_profit = sum(investment.getProfit() for investment in active_invetment)
+    print(appr_profit)
+
+    context = {
+        "investments": investments,
+        "current_invested": current_invested["total"] or 0,
+        "appr_profit": appr_profit,
+    }
+    return render(request, "useri/investment.html", context)
+
+
+@login_required()
+def investment_logs(request):
+    status = request.GET.get("status")
+    user = request.user
+    if status:
+        investments = Investments.objects.filter(user=user, status=status).order_by(
+            "-date"
+        )
+    else:
+        investments = Investments.objects.filter(user=user).order_by("-date")
+    return render(request, "useri/investment-logs.html", {"investments": investments})
 
 
 @csrf_exempt

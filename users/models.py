@@ -78,3 +78,9 @@ class Investments(models.Model):
 
     def __str__(self):
         return f"{self.user.username} :  {self.amount_invested}"
+
+    def getProfit(self):
+        percent = int(self.package.roi - 100)
+        result = (percent / 100) * self.amount_invested
+
+        return result

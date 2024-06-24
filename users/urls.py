@@ -31,4 +31,5 @@ urlpatterns = [
     path(
         "settings/activity/", views.login_activities_view, name="login_activities_view"
     ),
+    path("investment/logs/", views.investment_logs, name="investment_logs"),
 ]
