@@ -40,9 +40,7 @@ class Account(AbstractUser):
         if self.profile_image:
             return f"http://localhost:8000/{self.profile_image.url}"
         else:
-            return (
-                f"https://ui-avatars.com/api/?name={self.first_name} {self.last_name}"
-            )
+            return f"https://ui-avatars.com/api/?name={self.fullname}"
 
     def get_fullname(self):
         return f"{self.first_name} {self.last_name}"
@@ -90,6 +88,17 @@ class PaymenyDetails(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} "
+
+    def get_cryptocurrency_field(self, currency):
+        """
+        Get the field for the specified cryptocurrency.
+        :param currency: Name of the cryptocurrency (e.g., 'eth', 'btc', 'usdt', 'bnb')
+        :return: Field instance or None if not found
+        """
+        try:
+            return getattr(self, currency)
+        except AttributeError:
+            return None
 
 
 class LoginHistory(models.Model):

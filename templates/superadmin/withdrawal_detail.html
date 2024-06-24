@@ -47,9 +47,7 @@
                 <tr>
                   <td>User</td>
                   <td class="text-center">
-                    <span id="with-user"
-                      >{{transaction.user.get_fullname}}</span
-                    >
+                    <span id="with-user">{{transaction.user.fullname}}</span>
                   </td>
                 </tr>
 
@@ -57,13 +55,6 @@
                   <td>Amount(USD)</td>
                   <td class="text-center text-danger">
                     $<span id="with-amount">{{transaction.amount}}</span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Amount(Coin)</td>
-                  <td class="text-center text-danger">
-                    <span id="with-amount">{{transaction.amount_in_coin}}</span>
                   </td>
                 </tr>
 
@@ -77,7 +68,7 @@
                 <tr>
                   <td>{{transaction.method}} Address</td>
                   <td class="text-center text-warning">
-                    <span id="with-method"> <code> {{address}}</code></span>
+                    <span id=" "> <code> {{paydetail}}</code></span>
                   </td>
                 </tr>
 

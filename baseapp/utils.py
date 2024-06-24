@@ -4,7 +4,8 @@ from django.utils import timezone
 import qrcode
 from io import BytesIO
 import string
-
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
 
 import pyotp
 
@@ -70,3 +71,16 @@ def get_client_ip(request):
 
 def get_deadline(days):
     return timezone.now() + timedelta(days=days)
+
+
+def send_mail(subject, context, to_email, template):
+    message = get_template(template).render(context)
+    mail = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=EMAIL_ADMIN,
+        to=to_email,
+        reply_to=[EMAIL_ADMIN],
+    )
+    mail.content_subtype = "html"
+    mail.send(fail_silently=True)

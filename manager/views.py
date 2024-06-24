@@ -6,8 +6,9 @@ from django.template.loader import get_template
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import login, logout
-from account.models import Kyc
+from account.models import Kyc, PaymenyDetails
 from users.models import Transactions, Investments, Notification
+from django.db.models import Sum
 
 # from users.forms import WalletForm
 from baseapp import utils
@@ -24,7 +25,7 @@ def dashboard(request):
         total_earnings += invest.amount_invested
     am_deposit = 0
     am_withdraw = 0
-    for obj in Transactions.objects.all():
+    for obj in Transactions.objects.filter(status="approved"):
         if obj.trans_type == utils.D:
             am_deposit += obj.amount
         elif obj.trans_type == utils.W:
@@ -49,7 +50,7 @@ def dashboard(request):
 
 @manager_required
 def users(request):
-    users = Account.objects.all()
+    users = Account.objects.all().order_by("last_login")
     return render(request, "superadmin/users.html", {"users": users})
 
 
@@ -59,27 +60,27 @@ def user_detail(request, pk):
 
     investment = Investments.objects.filter(user=account)
 
-    tot_amount_invested = utils.get_total_investment_by_user(Investments, account)
+    tot_amount_invested = (
+        Investments.objects.filter(user=account).aggregate(Sum("amount_invested"))[
+            "amount_invested__sum"
+        ]
+        or 0
+    )
 
     if request.POST:
         amount = int(request.POST.get("amount"))
         submit = request.POST.get("submit")
-        if submit == "Submit":
+        if submit == "Top up":
             transaction = Transactions.objects.create(
                 user=account,
                 amount=amount,
                 trans_type=utils.D,
                 status="approved",
-                unique_u=utils.trans_code(),
+                method="admin",
+                unique_u=utils.rand_code(),
             )
-            account.deposit_balance += amount
+            account.balance += amount
             account.save()
-            utils.create_notification(
-                model=Notification,
-                user=account,
-                title="Account Deposited",
-                body=f"Your Account has been deposited with the sum of ${amount}",
-            )
 
             current_site = get_current_site(request)
             subject = "Account Deposited"
@@ -100,18 +101,6 @@ def user_detail(request, pk):
             mail.content_subtype = "html"
             mail.send(fail_silently=True)
 
-            messages.success(request, "Account Deposit Successful")
-            return redirect("user_detail", pk=account.id)
-
-        elif submit == "Top up":
-            account.balance += amount
-            account.save()
-            utils.create_notification(
-                model=Notification,
-                user=account,
-                title="Account Balance Top up",
-                body=f"Your account balance has been credited with the sum of ${amount}",
-            )
             messages.success(request, "Account Top Up Successful")
             return redirect("user_detail", pk=account.id)
         else:
@@ -156,7 +145,9 @@ def withdrawal_detail(request, pk):
     """
     try:
         transaction = Transactions.objects.get(pk=pk)
-        address = utils.get_user_address(transaction.user, transaction.method)
+        paydetail = get_object_or_404(PaymenyDetails, user=transaction.user)
+
+        address = "btc"
     except Transactions.DoesNotExist:
         transaction = None
         return redirect("withdrawal_")
@@ -173,16 +164,12 @@ def withdrawal_detail(request, pk):
                 "domain": current_site.domain,
                 "transaction": transaction,
             }
-            message = get_template("superadmin/withdraw_email.html").render(context)
-            mail = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=utils.EMAIL_ADMIN,
-                to=[transaction.user.email],
-                reply_to=[utils.EMAIL_ADMIN],
+            utils.send_mail(
+                subject,
+                context,
+                transaction.user.email,
+                "superadmin/withdrawal.email.html",
             )
-            mail.content_subtype = "html"
-            mail.send(fail_silently=True)
 
             messages.warning(request, "Withdrawal declined")
             return redirect("withdrawal_detail", pk=transaction.pk)
@@ -200,16 +187,12 @@ def withdrawal_detail(request, pk):
                 "domain": current_site.domain,
                 "transaction": transaction,
             }
-            message = get_template("superadmin/withdraw_email.html").render(context)
-            mail = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=utils.EMAIL_ADMIN,
-                to=[transaction.user.email],
-                reply_to=[utils.EMAIL_ADMIN],
+            utils.send_mail(
+                subject,
+                context,
+                transaction.user.email,
+                "superadmin/withdrawal.email.html",
             )
-            mail.content_subtype = "html"
-            mail.send(fail_silently=True)
 
             messages.success(request, "Withdrawal Approved")
             return redirect("withdrawal_detail", pk=transaction.pk)
@@ -221,7 +204,10 @@ def withdrawal_detail(request, pk):
     return render(
         request,
         "superadmin/withdrawal_detail.html",
-        {"transaction": transaction, "address": address},
+        {
+            "transaction": transaction,
+            "paydetail": paydetail.get_cryptocurrency_field(transaction.method.lower()),
+        },
     )
 
 
@@ -242,7 +228,6 @@ def deposit_details(request, pk):
         if submit == "decline":
             transaction.status = "declined"
             transaction.save()
-
             current_site = get_current_site(request)
             subject = "Deposit Declined"
             context = {
@@ -250,18 +235,7 @@ def deposit_details(request, pk):
                 "domain": current_site.domain,
                 "transaction": transaction,
             }
-            message = get_template("superadmin/deposit-decline.email.html").render(
-                context
-            )
-            mail = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=utils.EMAIL_ADMIN,
-                to=[transaction.user.email],
-                reply_to=[utils.EMAIL_ADMIN],
-            )
-            mail.content_subtype = "html"
-            mail.send(fail_silently=True)
+            utils.send_mail(subject, context, transaction.user.email)
 
             messages.warning(request, "Deposit declined")
             return redirect("deposit_details", pk=transaction.pk)
@@ -280,16 +254,7 @@ def deposit_details(request, pk):
                 "amount": transaction.amount,
                 "transaction": transaction,
             }
-            message = get_template("superadmin/deposit_email.html").render(context)
-            mail = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=utils.EMAIL_ADMIN,
-                to=[transaction.user.email],
-                reply_to=[utils.EMAIL_ADMIN],
-            )
-            mail.content_subtype = "html"
-            mail.send(fail_silently=True)
+            utils.send_mail(subject, context, transaction.user.email)
 
             messages.success(request, "Account Deposit Successful")
             return redirect("deposit_details", pk=transaction.id)

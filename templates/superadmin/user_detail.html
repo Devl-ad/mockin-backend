@@ -84,10 +84,8 @@
                   </p>
                 </li>
                 <li>
-                  <p>Deposit Bal</p>
-                  <p>
-                    $<span id="user_depo_bal">{{account.deposit_balance}}</span>
-                  </p>
+                  <p>Referal</p>
+                  <p>$<span id="user_depo_bal">{{account.referral}}</span></p>
                 </li>
 
                 <li class="">
@@ -96,50 +94,13 @@
                     $<span id="user_with_bal">{{account.total_withdraw}}</span>
                   </p>
                 </li>
-
-                <!-- <li class="">
-                                    <p>Total Referral</p>
-                                    <p><span id="user_ref">{{account.referral}}</span></p>
-                                </li>
-
-                                <li class="">
-                                    <p>Referral Bal</p>
-                                    <p>$<span id="user_ref_bal">{{account.referral_bonus}}</span></p>
-                                </li> -->
               </ul>
             </div>
           </div>
-          <!-- <div class="row">
-                        <div class=" col-md-12 mb-3 ">
-                            <form action="" method="POST" class="creditform">
-                                {% csrf_token %}
-                                <input type="hidden" name="user_pk" value="">
-                                <div class="form-row">
-
-                                    <div class="form-group col-6">
-                                        <label for=""> Deposit Balance</label>
-                                        <input type="number" name="depoamount" class="form-control bg-light border-1 small" placeholder="amount Deposited in USD" aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;" value="{{account.deposite_balance}}">
-
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label for=""> Total Balance</label>
-                                        <input type="number" name="totamount" class="form-control bg-light border-1 small" placeholder="Total Balance" aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;" value="{{account.balance}}">
-
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <button type="submit" class="btn btn-secondary btn-block"> Update</button>
-                                    </div>
-
-                                </div>
-
-
-                            </form>
-                        </div>
-                    </div> -->
         </div>
         <div class="card-footer mb-4">
           <div class="d-flex space-bt">
-            <button
+            <!-- <button
               id="closebtn"
               type="button"
               data-toggle="modal"
@@ -147,7 +108,7 @@
               class="btn btn-danger"
             >
               <i class="fas fa-credit-card"></i> Deposit
-            </button>
+            </button> -->
             <button
               type="button"
               data-toggle="modal"

@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en" class="js">
   <head>
@@ -49,10 +50,10 @@
                 href="https://fintcapitallimited.com/user/public/dashboard"
                 ><img
                   class="logo-img logo-light logo-img-md"
-                  src="/assets/useri/img/logo-light.jpeg"
+                  src="/assets/logo-i.png"
                   alt="FINTCAPITAL LIMITED" /><img
                   class="logo-img logo-dark logo-img-md"
-                  src="/assets/useri/img/logo-dark.jpg"
+                  src="/assets/logo-i.png"
                   alt="FINTCAPITAL LIMITED"
               /></a>
             </div>
@@ -75,7 +76,9 @@
                     <div class="user-account-main">
                       <h6 class="overline-title-alt">Main Account Balance</h6>
                       <div class="user-balance">
-                        {{user.balance}}<small class="currency">USD</small>
+                        {{user.balance|intcomma}}<small class="currency"
+                          >USD</small
+                        >
                       </div>
                       <div class="user-balance-alt">
                         <!-- 0.00 <span class="currency">GBP</span> -->
@@ -89,7 +92,7 @@
                       </div>
                       <div class="user-account-value">
                         <span class="lead-text">
-                          {{user.total_withdraw}}
+                          {{user.total_withdraw|intcomma}}
                           <span class="currency">USD</span></span
                         >
                       </div>
@@ -102,7 +105,7 @@
                       </div>
                       <div class="user-account-value">
                         <span class="sub-text"
-                          >{{user.referral}}
+                          >{{user.referral_bonus|intcomma}}
                           <span class="currency">USD</span></span
                         >
                       </div>
@@ -159,7 +162,8 @@
                       <div class="user-account-main">
                         <h6 class="overline-title-alt">Main Account Balance</h6>
                         <div class="user-balance">
-                          {{user.balance}} <small class="currency">USD</small>
+                          {{user.balance|intcomma}}
+                          <small class="currency">USD</small>
                         </div>
                         <div class="user-balance-alt">
                           <!-- 0.00 <span class="currency">GBP</span> -->
@@ -244,7 +248,7 @@
                     <li class="nk-menu-heading">
                       <h6 class="overline-title">Menu</h6>
                     </li>
-                    <li class="nk-menu-item active">
+                    <li class="nk-menu-item">
                       <a href="/dashboard/" class="nk-menu-link">
                         <span class="nk-menu-icon"
                           ><em class="icon ni ni-dashboard"></em
@@ -316,14 +320,8 @@
 
                 <div class="nk-header-brand d-xl-none">
                   <a class="logo-link" href="/dashboard/">
-                    <img
-                      class="logo-img logo-light"
-                      src="/assets/useri/img/logo-light.jpeg"
-                    />
-                    <img
-                      class="logo-img logo-dark"
-                      src="/assets/useri/img/logo-dark.jpg"
-                    />
+                    <img class="logo-img logo-light" src="/assets/logo-i.png" />
+                    <img class="logo-img logo-dark" src="/assets/logo-i.png" />
                   </a>
                 </div>
 
@@ -372,7 +370,8 @@
                         <div class="dropdown-inner user-account-info">
                           <h6 class="overline-title-alt">Account Balance</h6>
                           <div class="user-balance">
-                            {{user.balance}} <small class="currency">USD</small>
+                            {{user.balance|intcomma}}
+                            <small class="currency">USD</small>
                           </div>
                           <div class="user-balance-alt">
                             <!-- 0.00 <span class="currency">GBP</span> -->
@@ -463,6 +462,19 @@
 
     <!-- Sweet alert init js-->
     <script src="/assets/users/js/sweet-alerts.init.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var currentPath = window.location.pathname;
+        var links = document.querySelectorAll("a");
+
+        links.forEach(function (link) {
+          if (link.getAttribute("href") === currentPath) {
+            var parentElement = link.parentElement;
+            parentElement.classList.add("active");
+          }
+        });
+      });
+    </script>
     {% block script %} {% endblock script %}
 
     <script type="text/javascript">
