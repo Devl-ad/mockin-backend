@@ -54,6 +54,13 @@ class Packages(models.Model):
     min_amount = models.IntegerField(default=0)
     max_amount = models.IntegerField(default=0)
 
+    def getHourlyroi(self):
+        total = self.roi / self.duration
+        return round(total, 2)
+
+    def is_amount_in_range(self, amount):
+        return self.min_amount <= amount <= self.max_amount
+
     def __str__(self):
         return f"{self.name}"
 

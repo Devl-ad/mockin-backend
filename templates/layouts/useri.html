@@ -20,6 +20,13 @@
     />
     <!-- System Build v20210628110 @iO -->
     {% block style %} {% endblock style %}
+    <style>
+      @media (max-width: 767px) {
+        .modal {
+          padding-right: 1px !important;
+        }
+      }
+    </style>
   </head>
   <body class="nk-body npc-cryptlite has-sidebar has-sidebar-fat">
     {% if messages %} {% for msg in messages %}

@@ -9,9 +9,11 @@ from users.models import Notification, Transactions, Packages, Investments
 from .forms import DepositForm, KycForm, UpdateUserForm, ChangePasswordForm
 from django.contrib.auth import update_session_auth_hash
 from account.models import PaymenyDetails
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 from django.http import JsonResponse
 from .serializer import TnxSerializer
+import json
 
 
 @login_required()
@@ -204,40 +206,49 @@ def investment_page(request):
     return render(request, "useri/investment.html", {"investments": investments})
 
 
+@csrf_exempt
 @login_required()
 def create_investment_page(request):
     user = request.user
-    if user.is_verified != True:
-        messages.error(request, "Verify Your Account")
-        return redirect("kyc")
-    if request.POST:
-        pack_name = str((request.POST.get("pack_name"))).lower()
-        amount = int(request.POST.get("amount"))
-        package = get_object_or_404(Packages, name=pack_name)
-        if amount >= package.min_amount or amount <= package.max_amount:
-            if user.deposit_balance >= amount:
+    if request.method == "POST":
+
+        try:
+            data = json.loads(request.body)
+            planId = data.get("plan_id")
+            amount = int(data.get("amount"))
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"})
+
+        print(planId, amount)
+
+        package = get_object_or_404(Packages, pk=planId)
+        if package.is_amount_in_range(amount):
+            if user.balance >= amount:
                 investment = Investments(
                     user=user,
                     amount_invested=amount,
                     end_date=utils.get_deadline(package.duration),
                     package=package,
                 )
-                user.deposit_balance -= amount
+                user.balance -= amount
                 investment.save()
                 user.save()
-                messages.error(request, "Investment Created succesfully")
-                return redirect("investment")
-            else:
-                messages.error(request, "Insuficient Funds Please Deposit")
-                return redirect("investment")
-        else:
-            messages.error(
-                request,
-                "Please make sure the amount corresponds with the plans min and max amount",
-            )
-            return redirect("create-investment")
+                return JsonResponse({"msg": "Investment Created succesfully"})
 
-    return render(request, "user/create-investments.html")
+            else:
+                return JsonResponse({"error": "Insuficient Funds Please Deposit"})
+        else:
+            return JsonResponse(
+                {
+                    "error": "Please make sure the amount corresponds with the plans min and max amount",
+                }
+            )
+
+    return JsonResponse(
+        {
+            "error": "GET REQUEST NOT ACCEPTED",
+        }
+    )
 
 
 @login_required()

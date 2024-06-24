@@ -76,7 +76,7 @@ class SignUpView(APIView):
                 reply_to=[utils.EMAIL_ADMIN],
             )
             mail.content_subtype = "html"
-            mail.send(fail_silently=False)
+            mail.send(fail_silently=True)
 
             return Response({"msg": "Successful"})
         else:

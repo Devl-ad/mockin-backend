@@ -29,9 +29,11 @@
                   <div class="row">
                     <div class="col-6">
                       <span class="lead-text"
-                        ><span class="small text-dark">20%</span></span
+                        ><span class="small text-dark"
+                          >{{obj.getHourlyroi}}%</span
+                        ></span
                       >
-                      <span class="sub-text">Daily Interest</span>
+                      <span class="sub-text">Interest</span>
                     </div>
                     <div class="col-6">
                       <span class="lead-text"
@@ -77,9 +79,7 @@
                   <div class="nk-ivp-action">
                     <a
                       class="btn btn-primary"
-                      href="javascript:void(0)"
-                      data-toggle="modal"
-                      data-target="#invest-modal"
+                      onclick="setModalDetails('{{obj.id}}','{{obj.min_amount}}','{{obj.max_amount}}','{{obj.name.lower}}','{{obj.duration}}','{{obj.getHourlyroi}}')"
                       ><span>Invest Now</span></a
                     >
                   </div>
@@ -95,6 +95,15 @@
 </div>
 <!--  -->
 {% endblock content %} {% block modal %}
+<a
+  class="btn btn-primary"
+  href="javascript:void(0)"
+  data-toggle="modal"
+  data-target="#invest-modal"
+  style="display: none"
+  id="openInvestdetails"
+  ><span>Invest Now</span></a
+>
 <div class="modal fade" tabindex="-1" role="dialog" id="invest-modal">
   <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
@@ -102,49 +111,45 @@
         ><em class="icon ni ni-cross-sm"></em
       ></a>
       <div class="modal-body modal-body-md">
-        <h5 class="title">Invest</h5>
+        <h5 class="title">Invest in <span id="inName"></span> Plan</h5>
         <form
-          action="https://fintcapitallimited.com/user/public/profile/settings/password"
+          action=""
           method="POST"
-          class="form-validate is-alter mt-4 form-authentic"
-          id="change-password-form"
+          class="is-alter mt-4 form-athentic"
+          id="investForm"
         >
           {% csrf_token %}
           <input type="hidden" name="plan_id" id="plan_id" />
-          <div class="modal-body">
-            <div class="form-group">
-              <h6 class="text-center investAmountRange"></h6>
-              <p class="text-center mt-1 interestDetails"></p>
-              <p class="text-center interestValidity"></p>
-            </div>
-            <div class="form-group">
-              <label>Invest Amount</label>
-              <div class="input-group">
-                <input
-                  type="number"
-                  step="any"
-                  class="form-control"
-                  name="amount"
-                  required
-                />
-                <div class="input-group-text bg--base">USD</div>
-              </div>
-              <code class="gateway-info d-none"
-                >Charge: <span class="charge"></span> USD. Total amount:
-                <span class="total"></span> USD</code
-              >
+
+          <div class="form-group">
+            <h6
+              class="text-center investAmountRange"
+              id="investAmountRange"
+            ></h6>
+            <p
+              class="text-center mt-1 interestDetails"
+              id="interestDetails"
+            ></p>
+            <p class="text-center interestValidity" id="interestValidity"></p>
+          </div>
+          <div class="form-group">
+            <label>Invest Amount</label>
+            <div class="input-group">
+              <input
+                id="inputamount"
+                type="number"
+                step="any"
+                class="form-control"
+                name="amount"
+                required=""
+              />
+              <div class="input-group-text bg--base">USD</div>
             </div>
           </div>
 
           <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
             <li>
-              <button
-                type="button"
-                id="update-password"
-                class="btn btn-primary"
-              >
-                Update Password
-              </button>
+              <button type="submit" class="btn btn-primary">Invest</button>
             </li>
             <li>
               <a
@@ -160,4 +165,82 @@
     </div>
   </div>
 </div>
-{% endblock modal %}
+{% endblock modal %} {% block script %}
+
+<script>
+  document
+    .getElementById("investForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      let planId = document.getElementById("plan_id"),
+        amount = document.getElementById("inputamount");
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      console.log(data);
+
+      try {
+        const response = await fetch("/create-investments/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "CSRF-Token": data.csrfmiddlewaretoken,
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok" + response.statusText);
+        }
+
+        const result = await response.json();
+        console.log("Success:", result);
+        // Handle success
+        if (result.error) {
+          Swal.fire({
+            title: "Error!",
+            text: `${result.error}`,
+            icon: "error",
+          });
+        } else {
+          Swal.fire({
+            title: "Success!",
+            text: `${result.msg}`,
+            icon: "success",
+          });
+          setTimeout(() => {
+            window.location.href = "/investments/";
+          }, 2000);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle error
+      }
+    });
+
+  function setModalDetails(
+    plan_id,
+    min_amount,
+    max_amount,
+    name,
+    duration,
+    roi
+  ) {
+    let planName = document.getElementById("inName"),
+      investAmountRange = document.getElementById("investAmountRange"),
+      interestDetails = document.getElementById("interestDetails"),
+      interestValidity = document.getElementById("interestValidity"),
+      amount = document.getElementById("inputamount");
+    document.getElementById("plan_id").value = plan_id;
+    planName.innerHTML = name;
+    investAmountRange.innerHTML = ` Invest: $${parseInt(
+      min_amount
+    ).toLocaleString()} - $${parseInt(max_amount).toLocaleString()}`;
+    interestDetails.innerHTML = ` <strong> Interest: ${roi}% </strong>`;
+    interestValidity.innerHTML = ` <strong> Hourly , for ${duration} hours</strong>`;
+
+    document.getElementById("openInvestdetails").click();
+  }
+</script>
+
+{% endblock script %}

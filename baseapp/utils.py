@@ -66,3 +66,7 @@ def get_client_ip(request):
     else:
         ip = request.META.get("REMOTE_ADDR")
     return ip
+
+
+def get_deadline(days):
+    return timezone.now() + timedelta(days=days)
