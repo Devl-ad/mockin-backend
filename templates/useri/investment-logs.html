@@ -1,6 +1,5 @@
 {% extends "layouts/useri.html" %}<!---->
-{% load humanize %} {% load humanize %} {% block title %} Investmants Logs {%
-endblock title %}<!---->
+{% load humanize %} {% block title %} Investmants Logs {% endblock title %}<!---->
 {% block content %}
 
 <div class="container-xl wide-lg">
@@ -172,7 +171,9 @@ endblock title %}<!---->
                 </div>
                 <div class="nk-odr-meta">
                   <span class="date"> {{obj.date|date:"d M, Y"}}</span>
-                  <span class="status dot-join text-primary">
+                  <span
+                    class="status dot-join {% if obj.status == 'active' %} text-primary {% else %} text-success {% endif %}"
+                  >
                     {{obj.status}}
                   </span>
                 </div>
@@ -186,15 +187,15 @@ endblock title %}<!---->
                 <span class="currency">USD</span>
               </div>
               <div class="number-sm">
-                500.00 <span class="currency">USD</span>
+                {{obj.getProfit|intcomma}} <span class="currency">USD</span>
               </div>
             </div>
           </div>
           <div class="nk-odr-col nk-odr-col-action">
             <div class="nk-odr-action">
-              <a class="tnx-detailtt" href="#"
+              <!-- <a class="tnx-detailtt" href="#"
                 ><em class="icon ni ni-forward-ios"></em
-              ></a>
+              ></a> -->
             </div>
           </div>
         </div>
