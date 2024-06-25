@@ -117,10 +117,11 @@ def account_activate_view(request):
         messages.info(request, "The confirmation link is invalid")
         return redirect("empty_page")
     else:
-        email = force_str(urlsafe_base64_decode(token))
-        user = cache.get(email)
+        ke_Y = force_str(urlsafe_base64_decode(token))
+        user = cache.get(ke_Y)
+
         if user:
-            cache.delete(email)
+            cache.delete(ke_Y)
             account = Account(
                 email=user["email"],
                 fullname=user["fullname"],
