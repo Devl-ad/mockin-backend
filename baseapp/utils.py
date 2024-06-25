@@ -83,4 +83,4 @@ def send_mail(subject, context, to_email, template):
         reply_to=[EMAIL_ADMIN],
     )
     mail.content_subtype = "html"
-    mail.send(fail_silently=False)
+    mail.send(fail_silently=True)

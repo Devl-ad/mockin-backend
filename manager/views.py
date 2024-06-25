@@ -90,16 +90,13 @@ def user_detail(request, pk):
                 "amount": amount,
                 "transaction": transaction,
             }
-            message = get_template("superadmin/deposit_email.html").render(context)
-            mail = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=utils.EMAIL_ADMIN,
-                to=[account.email],
-                reply_to=[utils.EMAIL_ADMIN],
+
+            utils.send_mail(
+                subject,
+                context,
+                [transaction.user.email],
+                "superadmin/withdrawal.email.html",
             )
-            mail.content_subtype = "html"
-            mail.send(fail_silently=True)
 
             messages.success(request, "Account Top Up Successful")
             return redirect("user_detail", pk=account.id)

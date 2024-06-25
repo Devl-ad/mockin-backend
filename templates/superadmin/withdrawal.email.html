@@ -69,7 +69,7 @@
         <h1>Transaction {{transaction.status.capitalize}}</h1>
       </div>
       <div class="content">
-        <p>Dear {{account.fullname}},</p>
+        <p>Dear {{transaction.user.fullname}},</p>
         <p>
           We are pleased to inform you that your transaction has been processed.
         </p>
@@ -84,7 +84,7 @@
           </tr>
           <tr>
             <th>Amount:</th>
-            <td>{{amount}}</td>
+            <td>{{transaction.amount}}</td>
           </tr>
           {% if status == 'declined' %}
           <tr>
@@ -93,7 +93,7 @@
           </tr>
           {% endif %}
         </table>
-        <p>Thank you for your business!</p>
+        <p>Thanks for joining us!</p>
       </div>
       <div class="footer">
         <p>
