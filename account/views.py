@@ -120,7 +120,7 @@ def account_activate_view(request):
         email = force_str(urlsafe_base64_decode(token))
         user = cache.get(email)
         if user:
-            cache.delete(user["email"])
+            cache.delete(email)
             account = Account(
                 email=user["email"],
                 fullname=user["fullname"],
