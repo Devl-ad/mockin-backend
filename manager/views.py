@@ -95,7 +95,7 @@ def user_detail(request, pk):
                 subject,
                 context,
                 [transaction.user.email],
-                "superadmin/withdrawal.email.html",
+                "superadmin/transaction.email.html",
             )
 
             messages.success(request, "Account Top Up Successful")
@@ -167,7 +167,7 @@ def withdrawal_detail(request, pk):
                 subject,
                 context,
                 [transaction.user.email],
-                "superadmin/withdrawal.email.html",
+                "superadmin/transaction.email.html",
             )
 
             messages.warning(request, "Withdrawal declined")
@@ -190,7 +190,7 @@ def withdrawal_detail(request, pk):
                 subject,
                 context,
                 [transaction.user.email],
-                "superadmin/withdrawal.email.html",
+                "superadmin/transaction.email.html",
             )
 
             messages.success(request, "Withdrawal Approved")
@@ -240,7 +240,7 @@ def deposit_details(request, pk):
                 subject,
                 context,
                 [transaction.user.email],
-                "superadmin/withdrawal.email.html",
+                "superadmin/transaction.email.html",
             )
 
             messages.warning(request, "Deposit declined")
@@ -263,7 +263,7 @@ def deposit_details(request, pk):
                 subject,
                 context,
                 [transaction.user.email],
-                "superadmin/withdrawal.email.html",
+                "superadmin/transaction.email.html",
             )
 
             messages.success(request, "Account Deposit Successful")
