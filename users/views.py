@@ -89,7 +89,7 @@ def deposit_confrim(request, amount, mode):
                     f"a deposit of ${amount} has been created it now under review",
                 )
 
-                return redirect("deposit_page")
+                return redirect("transactions")
         else:
             context = {
                 "amount": amount,
