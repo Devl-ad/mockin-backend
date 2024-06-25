@@ -116,24 +116,21 @@ def account_activate_view(request):
     if not token:
         messages.info(request, "The confirmation link is invalid")
         return redirect("empty_page")
-    else:
+
+    try:
         ke_Y = force_str(urlsafe_base64_decode(token))
         user = cache.get(ke_Y)
+    except (TypeError, ValueError, OverflowError, KeyError):
+        messages.info(request, "The confirmation link is invalid")
+        return redirect("empty_page")
 
-        if user:
-            cache.delete(ke_Y)
-            try:
-                account_exist = Account.objects.get(email__exact=user["email"])
-            except Account.DoesNotExist:
-                account_exist = None
-
-            if account_exist:
-                messages.info(
-                    request,
-                    "A user with this details already exist",
-                )
-                return redirect("empty_page")
-
+    if user:
+        cache.delete(ke_Y)
+        try:
+            account_exist = Account.objects.get(email=user["email"])
+            messages.info(request, "A user with these details already exists")
+            return redirect("empty_page")
+        except Account.DoesNotExist:
             account = Account(
                 email=user["email"],
                 fullname=user["fullname"],
@@ -143,14 +140,14 @@ def account_activate_view(request):
             account.set_password(user["password"])
             account.save()
             login(request, account)
-            messages.info(request, "Account created SuccessFully")
+            messages.success(request, "Account created successfully")
             return redirect("dashboard")
-        else:
-            messages.info(
-                request,
-                "The confirmation link is invalid, possibly because it has already expired",
-            )
-            return redirect("empty_page")
+    else:
+        messages.info(
+            request,
+            "The confirmation link is invalid, possibly because it has already expired",
+        )
+        return redirect("empty_page")
 
 
 def reset_password(request):
