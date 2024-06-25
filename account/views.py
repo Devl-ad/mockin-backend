@@ -122,6 +122,18 @@ def account_activate_view(request):
 
         if user:
             cache.delete(ke_Y)
+            try:
+                account_exist = Account.objects.get(email__exact=user["email"])
+            except Account.DoesNotExist:
+                account_exist = None
+
+            if account_exist:
+                messages.info(
+                    request,
+                    "A user with this details already exist",
+                )
+                return redirect("empty_page")
+
             account = Account(
                 email=user["email"],
                 fullname=user["fullname"],
