@@ -154,6 +154,8 @@ def withdrawal_detail(request, pk):
             reason = request.POST.get("reason")
             transaction.status = "declined"
             transaction.reason = reason
+            transaction.user.balance += transaction.amount
+            transaction.user.save()
             transaction.save()
 
             current_site = get_current_site(request)
