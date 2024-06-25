@@ -61,7 +61,7 @@ class SignUpView(APIView):
             item = cache.get(ke_y)
             if item:
                 cache.delete(ke_y)
-            cache.set(ke_y, user, timeout=600)
+            cache.set(ke_y, user, timeout=1800)
             context = {
                 "user": user,
                 "domain": current_site.domain,
