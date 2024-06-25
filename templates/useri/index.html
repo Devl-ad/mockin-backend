@@ -1,4 +1,6 @@
-{% extends "layouts/useri.html" %} {% block content %}
+{% extends "layouts/useri.html" %}
+<!--  -->
+{% load humanize %} {% block content %}
 
 <div class="container-xl wide-lg">
   <div class="nk-content-body">
@@ -109,7 +111,8 @@
               </div>
               <div class="card-amount mt-2 mb-1">
                 <span class="amount"
-                  >{{user.balance}} <span class="currency">USD</span></span
+                  >{{user.balance|intcomma}}
+                  <span class="currency">USD</span></span
                 >
               </div>
               <div class="card-stats">
@@ -123,7 +126,7 @@
                       ></em>
                     </div>
                     <div class="amount fw-bold">
-                      {{user.total_earnings}}
+                      {{user.total_earnings|intcomma}}
                       <span class="currency fw-normal">USD</span>
                     </div>
                   </div>
@@ -149,7 +152,8 @@
               </div>
               <div class="card-amount mt-2 mb-1">
                 <span class="amount"
-                  >{{total_deposit}} <span class="currency">USD</span></span
+                  >{{total_deposit|intcomma}}
+                  <span class="currency">USD</span></span
                 >
               </div>
               <div class="card-stats">
@@ -157,7 +161,8 @@
                   <div class="card-stats-data">
                     <div class="title fw-bold">This Month</div>
                     <div class="amount fw-bold">
-                      {{total_deposit_month}}<span class="currency fw-normal"
+                      {{total_deposit_month|intcomma}}<span
+                        class="currency fw-normal"
                         >USD</span
                       >
                     </div>
@@ -186,7 +191,7 @@
               </div>
               <div class="card-amount mt-2 mb-1">
                 <span class="amount"
-                  >{{user.total_withdraw}}
+                  >{{user.total_withdraw|intcomma}}
                   <span class="currency">USD</span></span
                 >
               </div>
@@ -195,7 +200,7 @@
                   <div class="card-stats-data">
                     <div class="title fw-bold">This Month</div>
                     <div class="amount fw-bold">
-                      {{total_with_month}}
+                      {{total_with_month|intcomma}}
                       <span class="currency fw-normal">USD</span>
                     </div>
                   </div>

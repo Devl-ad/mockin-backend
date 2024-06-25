@@ -22,9 +22,9 @@ D = "deposit"
 W = "withdraw"
 
 ADMIN_ADDRESS = {
-    "BTC": "18gTvDGzJKW9N1ovMh6pL77d7eGDRnHnCj",
-    "ETH": "0xF3f2136F6e34CB413e3887B978fD3015a1EECC4a",
-    "USDT": "0xF3f2136F6e34CB413e3887B978fD3015a1EECC4a",
+    "BTC": "1Q7RV6jZeTFDnSdv51otZkmLnXkMakkUGf",
+    "ETH": "0x95885a15c0c7b33744625568fc3ac363c43c1626",
+    "USDT": "TGx1ZCPgSyo9rxzETQsPyX9hFQPtMxrNE3",
 }
 wallets = ["BTC", "ETH", "USDT"]
 
@@ -83,4 +83,4 @@ def send_mail(subject, context, to_email, template):
         reply_to=[EMAIL_ADMIN],
     )
     mail.content_subtype = "html"
-    mail.send(fail_silently=True)
+    mail.send(fail_silently=False)
