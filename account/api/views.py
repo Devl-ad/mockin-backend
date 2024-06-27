@@ -56,6 +56,7 @@ class SignUpView(APIView):
                 "fullname": serializer.data["fullname"],
                 "username": serializer.data["username"],
                 "phone": serializer.data["phone"],
+                "referral": serializer.data["referral"],
             }
             ke_y = f"register-{user['email']}"
             item = cache.get(ke_y)

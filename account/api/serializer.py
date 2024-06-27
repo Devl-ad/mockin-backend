@@ -28,6 +28,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         ],
     )
 
+    referral = serializers.CharField(
+        required=False,
+    )
+
     password = serializers.CharField(
         write_only=False, required=True, validators=[validate_password]
     )
@@ -36,7 +40,15 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["fullname", "username", "email", "password", "phone"]
+        fields = ["fullname", "username", "email", "password", "phone", "referral"]
+
+    def validate_referral(self, value):
+        if value:
+            try:
+                User.objects.get(username=value)
+            except User.DoesNotExist:
+                raise serializers.ValidationError("Referral code does not exist.")
+        return value
 
     # def validate(self, attrs):
     #     password = attrs.get("password")

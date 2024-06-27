@@ -131,6 +131,7 @@ def account_activate_view(request):
             messages.info(request, "A user with these details already exists")
             return redirect("empty_page")
         except Account.DoesNotExist:
+            ref = user["referral"]
             account = Account(
                 email=user["email"],
                 fullname=user["fullname"],
@@ -138,6 +139,9 @@ def account_activate_view(request):
                 phone=user["phone"],
             )
             account.set_password(user["password"])
+            if ref:
+                account.referral += 1
+                account.referral_bonus += 100
             account.save()
             login(request, account)
             messages.success(request, "Account created successfully")
