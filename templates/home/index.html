@@ -1,4 +1,38 @@
-{% extends "layouts/home.html" %} {% block content %}
+{% extends "layouts/home.html" %}
+<!--  -->
+{% block style %}
+<style>
+  .d-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .pro-box {
+    width: 400px;
+    border: 1px dotted #701faa;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+  .pro-box .content {
+    padding: 10px;
+  }
+  .projects-item-two {
+    text-align: center;
+  }
+  .projects-item-two img {
+    width: 350px;
+  }
+  .pro-box .content p {
+    font-size: 15px;
+  }
+  .pro-box .content h3 {
+    color: #701faa;
+  }
+</style>
+
+{% endblock style %} {% block content %}
 <div class="about-page-bg">
   <section class="about-comp">
     <img
@@ -498,115 +532,89 @@
   </section>
   <section class="about-earn about-section">
     <div class="container">
-      <h2 class="about-earn__title about-section__title">
-        How we<br />
-        earn?
-      </h2>
-      <div class="about-earn-list">
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/1-min(2).png"
-              width="62"
-              height="70"
-              alt=""
-            />
+      <div class="section-title two">
+        <span class="sub-title">Our Assets</span>
+        <h2 style="font-size: 25px; margin-bottom: 15px">
+          Our Profitable Investments
+        </h2>
+      </div>
+      <div class="d-flex">
+        <div class="pro-box">
+          <div class="projects-item-two">
+            <img src="/assets/12.jpg" alt="thumb" style="border-radius: 10px" />
           </div>
-          <p class="about-earn-list__item-title">Crypto-currency trading</p>
+
+          <div class="content">
+            <h3>
+              <a href="#">Gold Mining</a>
+            </h3>
+            <p>
+              Gold mining is a global business with operations on every
+              continent, except Antarctica, and gold is extracted from mines of
+              widely varying types and scale. Mines and gold mining operations
+              have become increasingly geographically diverse, far removed from
+              the concentrated supply of four decades or so ago when the vast
+              majority of the world’s gold came from South Africa.
+            </p>
+          </div>
         </div>
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/2-min(1).png"
-              width="36"
-              height="76"
-              alt=""
-            />
+        <div class="pro-box">
+          <div class="projects-item-two">
+            <img src="/assets/14.jpg" alt="thumb" style="border-radius: 10px" />
           </div>
-          <p class="about-earn-list__item-title">
-            Investing<br />
-            in disruptive technologies
-          </p>
-        </div>
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/3-min(1).png"
-              width="47"
-              height="61"
-              alt=""
-            />
+
+          <div class="content">
+            <h3>
+              <a href="#">Oil and Gas</a>
+            </h3>
+            <p>
+              Investors looking for portfolio diversification through
+              sector-specific funds can find multiple opportunities within the
+              energy industry – and more specifically, companies operating in
+              the oil and gas drilling sector. It is necessary to analyze
+              certain metrics to understand a company’s level of profitability
+              and make informed investment decisions.
+            </p>
           </div>
-          <p class="about-earn-list__item-title">Forex trading</p>
-        </div>
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/3-min(1).png"
-              width="47"
-              height="61"
-              alt=""
-            />
-          </div>
-          <p class="about-earn-list__item-title">Oil and gas</p>
-        </div>
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/3-min(1).png"
-              width="47"
-              height="61"
-              alt=""
-            />
-          </div>
-          <p class="about-earn-list__item-title">Gold mining</p>
-        </div>
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/3-min(1).png"
-              width="47"
-              height="61"
-              alt=""
-            />
-          </div>
-          <p class="about-earn-list__item-title">Real Estate</p>
         </div>
 
-        <div class="about-earn-list__item">
-          <div class="about-earn-list__item-img">
-            <span class="earn-list__item-elipse1"></span
-            ><span class="earn-list__item-elipse2"></span
-            ><span class="earn-list__item-elipse3"></span
-            ><img
-              src="/assets/base/neurobit/4-min(1).png"
-              width="45"
-              height="65"
-              alt=""
-            />
+        <div class="pro-box">
+          <div class="projects-item-two">
+            <img src="/assets/13.jpg" alt="thumb" style="border-radius: 10px" />
           </div>
-          <p class="about-earn-list__item-title">
-            Venture investing<br />
-            in start-ups
-          </p>
+
+          <div class="content">
+            <h3>
+              <a href="#">Real Estate</a>
+            </h3>
+            <p>
+              Gold mining is a global business with operations on every
+              continent, except Antarctica, and gold is extracted from mines of
+              widely varying types and scale. Mines and gold mining operations
+              have become increasingly geographically diverse, far removed from
+              the concentrated supply of four decades or so ago when the vast
+              majority of the world’s gold came from South Africa.
+            </p>
+          </div>
+        </div>
+        <div class="pro-box">
+          <div class="projects-item-two">
+            <img src="/assets/15.jpg" alt="thumb" style="border-radius: 10px" />
+          </div>
+
+          <div class="content">
+            <h3>
+              <a href="#">Loan</a>
+            </h3>
+            <p>
+              Getting a loan doesn’t have to be intimidating, with the right
+              lender it can be a simple process. You only need a lender
+              committed to taking the mystery out of the mortgage loan process!
+              At Charter Communications Operating Trading Capital, AI we
+              understand! Our investors want simple facts, honest answers and
+              competitive products.
+            </p>
+          </div>
         </div>
       </div>
     </div>
