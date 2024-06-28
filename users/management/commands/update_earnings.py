@@ -38,8 +38,8 @@ class Command(BaseCommand):
                     investment.user.save()
 
                 investment.save()
-        print("Successfully")
+        # print("Successfully")
 
-        self.stdout.write(
-            self.style.SUCCESS("Successfully updated earnings for investments")
-        )
+        # self.stdout.write(
+        #     self.style.SUCCESS("Successfully updated earnings for investments")
+        # )

@@ -206,12 +206,14 @@ def investment_page(request):
     active_invetment = Investments.objects.filter(user=request.user, status="active")
     current_invested = active_invetment.aggregate(total=Sum("amount_invested"))
     appr_profit = sum(investment.getProfit() for investment in active_invetment)
+    amount_earn = sum(investment.amount_earn for investment in active_invetment)
     print(appr_profit)
 
     context = {
         "investments": investments,
         "current_invested": current_invested["total"] or 0,
         "appr_profit": appr_profit,
+        "amount_earn": amount_earn,
     }
     return render(request, "useri/investment.html", context)
 
