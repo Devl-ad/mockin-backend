@@ -73,6 +73,8 @@ class Investments(models.Model):
     end_date = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=40, choices=STATUS, default="active")
     amount_earn = models.IntegerField(default=0)
+    hours_credited = models.IntegerField(default=0)
+
     package = models.ForeignKey(
         Packages, on_delete=models.CASCADE, related_name="pack", blank=True, null=True
     )

@@ -252,6 +252,7 @@ def create_investment_page(request):
                     amount_invested=amount,
                     end_date=utils.get_deadline(package.duration),
                     package=package,
+                    hours_credited=package.duration,
                 )
                 user.balance -= amount
                 investment.save()
