@@ -105,6 +105,13 @@
                 </li>
                 <li class="alert-note is-plain">
                   <em class="icon ni ni-info"></em>
+                  <p>
+                    Add your payment details here
+                    <a href="/setting/accounts/">Here</a>
+                  </p>
+                </li>
+                <li class="alert-note is-plain">
+                  <em class="icon ni ni-info"></em>
                   <p>Your current account balance is ${{user.balance}}.</p>
                 </li>
               </ul>
@@ -133,7 +140,12 @@
       const amount = parseFloat(amountInput.value);
 
       if (amount < 50) {
-        alert("The amount must be at least $50.");
+        Swal.fire({
+          title: "Error!",
+          text: `The amount must be at least $50.`,
+          icon: "error",
+        });
+
         e.preventDefault();
       }
     });
