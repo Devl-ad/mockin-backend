@@ -1,8 +1,11 @@
 from django.shortcuts import render
 
+from users.models import Packages
+
 
 def home(request):
-    return render(request, "home/index.html")
+    packages = Packages.objects.all()
+    return render(request, "home/index.html", {"packages": packages})
 
 
 def about(request):
