@@ -1,7 +1,6 @@
 import json
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import login, authenticate, logout
 
@@ -11,7 +10,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from django.utils.encoding import force_str
 import pyotp
-from .forms import RegisterForm, LoginForm, SetPasswordForm
+from .forms import SetPasswordForm
 from django.contrib.auth.forms import SetPasswordForm
 from baseapp import utils
 from .models import Account, LoginHistory
@@ -27,16 +26,16 @@ from django.http import HttpResponseRedirect
 
 
 def login_re(request):
-    return HttpResponseRedirect("https://app.wealthlines.org/")
+    return HttpResponseRedirect("https://auth.wealthlines.org/")
 
 
 def register_re(request):
-    return HttpResponseRedirect("https://app.wealthlines.org/register/")
+    return HttpResponseRedirect("https://auth.wealthlines.org/register/")
 
 
 def sign_out(request):
     logout(request)
-    return HttpResponseRedirect("https://app.wealthlines.org/")
+    return HttpResponseRedirect("https://auth.wealthlines.org/")
 
 
 def empty_page(request):
