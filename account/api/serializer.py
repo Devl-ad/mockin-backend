@@ -28,9 +28,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         ],
     )
 
-    referral = serializers.CharField(
-        required=False,
-    )
+    referral = serializers.CharField(required=False, allow_blank=True)
 
     password = serializers.CharField(
         write_only=False, required=True, validators=[validate_password]
