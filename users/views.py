@@ -207,7 +207,6 @@ def investment_page(request):
     current_invested = active_invetment.aggregate(total=Sum("amount_invested"))
     appr_profit = sum(investment.getProfit() for investment in active_invetment)
     amount_earn = sum(investment.amount_earn for investment in active_invetment)
-    print(appr_profit)
 
     context = {
         "investments": investments,

@@ -48,36 +48,42 @@ class SignUpView(APIView):
     def post(self, request, format=None):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            current_site = get_current_site(request)
-            subject = f"welcome , confirm your email address"
-            user = {
-                "email": serializer.data["email"],
-                "password": serializer.data["password"],
-                "fullname": serializer.data["fullname"],
-                "username": serializer.data["username"],
-                "phone": serializer.data["phone"],
-                "referral": serializer.data["referral"],
-            }
-            ke_y = f"register-{user['email']}"
-            item = cache.get(ke_y)
-            if item:
-                cache.delete(ke_y)
-            cache.set(ke_y, user, timeout=1800)
-            context = {
-                "user": user,
-                "domain": current_site.domain,
-                "token": urlsafe_base64_encode(force_bytes(ke_y)),
-            }
-            message = get_template("account/confirmation.email.html").render(context)
-            mail = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=utils.EMAIL_ADMIN,
-                to=[user["email"]],
-                reply_to=[utils.EMAIL_ADMIN],
-            )
-            mail.content_subtype = "html"
-            mail.send(fail_silently=True)
+            instance = serializer.save()
+            # current_site = get_current_site(request)
+            # subject = f"welcome , confirm your email address"
+            # user = {
+            #     "email": serializer.data["email"],
+            #     "password": serializer.data["password"],
+            #     "fullname": serializer.data["fullname"],
+            #     "username": serializer.data["username"],
+            #     "phone": serializer.data["phone"],
+            #     "referral": serializer.data["referral"],
+            # }
+            # ke_y = f"register-{user['email']}"
+            # item = cache.get(ke_y)
+            # if item:
+            #     cache.delete(ke_y)
+            # cache.set(ke_y, user, timeout=1800)
+            # context = {
+            #     "user": user,
+            #     "domain": current_site.domain,
+            #     "token": urlsafe_base64_encode(force_bytes(ke_y)),
+            # }
+            # message = get_template("account/confirmation.email.html").render(context)
+            # mail = EmailMessage(
+            #     subject=subject,
+            #     body=message,
+            #     from_email=utils.EMAIL_ADMIN,
+            #     to=[user["email"]],
+            #     reply_to=[utils.EMAIL_ADMIN],
+            # )
+            # mail.content_subtype = "html"
+            # mail.send(fail_silently=True)
+            ref = serializer.validated_data["referral_code"]
+            if ref:
+                instance.referral += 1
+                instance.referral_bonus += 100
+                instance.save()
 
             return Response({"msg": "Successful"})
         else:
