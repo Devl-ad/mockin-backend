@@ -52,6 +52,11 @@ def index(request):
         date__month=month,
     ).aggregate(total_amount_received=Sum("amount"))
 
+    active_invetment = Investments.objects.filter(user=user, status="active")
+    current_invested = active_invetment.aggregate(total=Sum("amount_invested"))
+
+    amount_earn = sum(investment.amount_earn for investment in active_invetment)
+
     context = {
         "investment_count": Investments.objects.filter(user=user).count(),
         "total_deposit": total_deposit_result,
@@ -59,6 +64,8 @@ def index(request):
         "total_with_month": total_with_month["total_amount_received"] or 0,
         "recent_trasaction": recent_trasaction,
         "paydetail": paydetail,
+        "current_invested": current_invested["total"] or 0,
+        "amount_earn": amount_earn,
     }
     return render(request, "useri/index.html", context)
 

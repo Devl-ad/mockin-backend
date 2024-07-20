@@ -63,7 +63,7 @@
                       ></span>
                       <div class="nk-wgacc-amount">
                         <div class="number number-sm">
-                          {{amount_earn|intcomma}}
+                          {{amount_earn|floatformat:2|intcomma}}
                         </div>
                       </div>
                       <div class="nk-wgacc-subtitle">Locked</div>
@@ -95,7 +95,7 @@
                         <div class="nk-wgacc-group flex-md-nowrap gx-4">
                           <div class="flex-shrink-0">
                             <div class="nk-wgacc-title text-base">
-                              Amount in Invested
+                              Amount Invested
                               <em
                                 class="icon ni ni-info fs-13px text-soft nk-tooltip"
                                 title=""
@@ -106,7 +106,7 @@
                               <div class="nk-wgacc-sub">
                                 <div class="nk-wgacc-amount">
                                   <div class="number number-md">
-                                    {{current_invested|intcomma}}
+                                    {{current_invested|floatformat:2|intcomma}}
                                     <small class="currency">USD</small>
                                   </div>
                                 </div>
