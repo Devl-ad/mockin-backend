@@ -217,6 +217,31 @@
             <div class="card-inner">
               <div class="card-title-group">
                 <div class="card-title">
+                  <h5 class="nk-wgacc-title">Amount Invested</h5>
+                </div>
+                <div class="card-tools">
+                  <em
+                    class="icon ni ni-info fs-13px text-soft nk-tooltip"
+                    title="Current amount in investment  "
+                  ></em>
+                </div>
+              </div>
+              <div class="card-amount mt-2 mb-1">
+                <span class="amount">
+                  {{current_invested|intcomma}}
+                  <span class="currency">USD</span></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div
+            class="card card-full card-bordered card-wg on-bottom is-warning"
+          >
+            <div class="card-inner">
+              <div class="card-title-group">
+                <div class="card-title">
                   <h5 class="nk-wgacc-title">
                     Interest Bal(<code>locked</code>)
                   </h5>
@@ -231,31 +256,6 @@
               <div class="card-amount mt-2 mb-1">
                 <span class="amount"
                   >{{amount_earn|floatformat:2|intcomma}}
-                  <span class="currency">USD</span></span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div
-            class="card card-full card-bordered card-wg on-bottom is-warning"
-          >
-            <div class="card-inner">
-              <div class="card-title-group">
-                <div class="card-title">
-                  <h5 class="nk-wgacc-title">Amount Invested</h5>
-                </div>
-                <div class="card-tools">
-                  <em
-                    class="icon ni ni-info fs-13px text-soft nk-tooltip"
-                    title="Current amount in investment  "
-                  ></em>
-                </div>
-              </div>
-              <div class="card-amount mt-2 mb-1">
-                <span class="amount">
-                  {{current_invested|intcomma}}
                   <span class="currency">USD</span></span
                 >
               </div>
