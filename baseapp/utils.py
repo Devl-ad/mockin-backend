@@ -70,7 +70,7 @@ def get_client_ip(request):
 
 
 def get_deadline(days):
-    return timezone.now() + timedelta(days=days)
+    return timezone.now() + timedelta(hours=days)
 
 
 def send_mail(subject, context, to_email, template):
