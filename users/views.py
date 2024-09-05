@@ -295,7 +295,7 @@ def settings_page(request):
         "investment_count": Investments.objects.filter(user=user).count(),
     }
     if request.POST:
-        form = UpdateUserForm(request.POST, instance=user)
+        form = UpdateUserForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             user.is_updated = True

@@ -163,9 +163,11 @@
                         <div class="user-avatar">
                           <span
                             ><div class="user-avatar bg-danger">
-                              <span>VA</span>
-                            </div></span
-                          >
+                              <img
+                                src="{{user.image_url}}"
+                                alt="{{user.username}}"
+                              /></div
+                          ></span>
                         </div>
                         <div class="user-info">
                           <span class="lead-text">{{user.fullname}}</span>
@@ -243,13 +245,13 @@
                         >
                       </li>
                       <li>
-                        <a href="/settings/account/"
+                        <a href="/setting/accounts/"
                           ><em class="icon ni ni-setting-alt"></em
                           ><span>Account Setting</span></a
                         >
                       </li>
                       <li>
-                        <a href="/setting/activity"
+                        <a href="/settings/activity/"
                           ><em class="icon ni ni-activity-alt"></em
                           ><span>Login Activity</span></a
                         >
@@ -358,7 +360,11 @@
                       >
                         <div class="user-toggle">
                           <div class="user-avatar sm">
-                            <em class="icon ni ni-user-alt"></em>
+                            <!-- <em class="icon ni ni-user-alt"></em> -->
+                            <img
+                              src="{{user.image_url}}"
+                              alt="{{user.username}}"
+                            />
                           </div>
                           <div class="user-info d-none d-md-block">
                             <div class="user-status user-status-verified">

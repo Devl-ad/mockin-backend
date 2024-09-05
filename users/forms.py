@@ -75,4 +75,5 @@ class UpdateUserForm(forms.ModelForm):
             "city",
             "address",
             "zipcode",
+            "profile_image",
         ]
