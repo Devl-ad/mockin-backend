@@ -38,7 +38,7 @@ class Account(AbstractUser):
 
     def image_url(self):
         if self.profile_image:
-            return f"https://wealthlines.org/{self.profile_image.url}"
+            return f"https://wealthlines.org{self.profile_image.url}"
         else:
             return f"https://ui-avatars.com/api/?name={self.fullname}"
 
